@@ -33,6 +33,8 @@ public class frmTransformacoes extends javax.swing.JFrame {
         painelRotacionar = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Transformações");
+        setResizable(false);
 
         guia1.setName("Translatar"); // NOI18N
 

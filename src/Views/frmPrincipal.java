@@ -5,6 +5,8 @@
  */
 package Views;
 
+import Primitivas2D.Reta;
+import java.awt.Color;
 import javax.swing.UIManager;
 
 /**
@@ -30,7 +32,6 @@ public class frmPrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        painelViewPort = new javax.swing.JPanel();
         painelOpcoes = new javax.swing.JPanel();
         listaObjetosDesenhados = new javax.swing.JScrollPane();
         jList1 = new javax.swing.JList<>();
@@ -41,28 +42,16 @@ public class frmPrincipal extends javax.swing.JFrame {
         btnZoomOut = new javax.swing.JButton();
         btnZoomIn = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
+        jButton1 = new javax.swing.JButton();
         painelAcessoTransformacoes = new javax.swing.JPanel();
         btnTransformacoes = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        painelViewPort = new javax.swing.JScrollPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Sismeta gráfico");
         setBackground(new java.awt.Color(240, 238, 238));
-
-        painelViewPort.setBackground(new java.awt.Color(255, 255, 255));
-        painelViewPort.setMaximumSize(new java.awt.Dimension(250, 250));
-        painelViewPort.setPreferredSize(new java.awt.Dimension(250, 250));
-
-        javax.swing.GroupLayout painelViewPortLayout = new javax.swing.GroupLayout(painelViewPort);
-        painelViewPort.setLayout(painelViewPortLayout);
-        painelViewPortLayout.setHorizontalGroup(
-            painelViewPortLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 250, Short.MAX_VALUE)
-        );
-        painelViewPortLayout.setVerticalGroup(
-            painelViewPortLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 250, Short.MAX_VALUE)
-        );
+        setResizable(false);
 
         painelOpcoes.setBackground(new java.awt.Color(240, 238, 238));
         painelOpcoes.setBorder(javax.swing.BorderFactory.createTitledBorder("teste"));
@@ -127,15 +116,28 @@ public class frmPrincipal extends javax.swing.JFrame {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Opções"));
 
+        jButton1.setText("Reta teste");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 118, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jButton1)
+                .addContainerGap(84, Short.MAX_VALUE))
         );
 
         painelAcessoTransformacoes.setBorder(javax.swing.BorderFactory.createTitledBorder("Opções"));
@@ -222,6 +224,8 @@ public class frmPrincipal extends javax.swing.JFrame {
 
         jLabel1.setText("Viewport");
 
+        painelViewPort.setBackground(new java.awt.Color(255, 255, 255));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -229,21 +233,20 @@ public class frmPrincipal extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(25, 25, 25)
                 .addComponent(painelOpcoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 143, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(painelViewPort, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(146, 146, 146))
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(painelViewPort, javax.swing.GroupLayout.PREFERRED_SIZE, 515, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(190, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(painelOpcoes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(painelViewPort, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(116, 116, 116))
-            .addComponent(painelOpcoes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(painelViewPort, javax.swing.GroupLayout.PREFERRED_SIZE, 408, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -279,6 +282,11 @@ public class frmPrincipal extends javax.swing.JFrame {
         frmT.setVisible(true); // abre a tela de transformações
         
     }//GEN-LAST:event_btnTransformacoesActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        desenhaReta();
+    }//GEN-LAST:event_jButton1ActionPerformed
     public void setLookAndFeel() {
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -321,6 +329,23 @@ public class frmPrincipal extends javax.swing.JFrame {
             }
         });
     }
+    
+        public void desenhaReta() {
+        Reta lp = new Reta(Color.black, 1.0f);
+
+        lp.setBackground(Color.white);
+        lp.setBounds(1, 1, 760, 500);  // tamanbo do jpanel
+        lp.setxI(10);
+        lp.setyI(10);
+        lp.setxF(120);
+        lp.setyF(70);
+        painelViewPort.add(lp);
+        painelViewPort.setComponentZOrder(lp, 0);
+        repaint();
+       // xInicio = x;
+       // yInicio = y;
+
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSetaBaixo;
@@ -330,12 +355,13 @@ public class frmPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btnTransformacoes;
     private javax.swing.JButton btnZoomIn;
     private javax.swing.JButton btnZoomOut;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JList<String> jList1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane listaObjetosDesenhados;
     private javax.swing.JPanel painelAcessoTransformacoes;
     private javax.swing.JPanel painelOpcoes;
-    private javax.swing.JPanel painelViewPort;
+    private javax.swing.JScrollPane painelViewPort;
     // End of variables declaration//GEN-END:variables
 }
