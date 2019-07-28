@@ -34,6 +34,7 @@ public class frmTransformacoes extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Transformações");
+        setPreferredSize(new java.awt.Dimension(550, 300));
         setResizable(false);
 
         guia1.setName("Translatar"); // NOI18N
