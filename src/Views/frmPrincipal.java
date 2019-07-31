@@ -25,6 +25,7 @@ public class frmPrincipal extends javax.swing.JFrame {
     public frmPrincipal() {
         setLookAndFeel();
         initComponents();
+        desenhaPlanoCartesiano();
     }
 
     /**
@@ -255,19 +256,20 @@ public class frmPrincipal extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(25, 25, 25)
                 .addComponent(painelOpcoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(174, 174, 174)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(painelViewPort, javax.swing.GroupLayout.PREFERRED_SIZE, 515, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(208, Short.MAX_VALUE))
+                    .addComponent(painelViewPort, javax.swing.GroupLayout.PREFERRED_SIZE, 347, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(212, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(painelOpcoes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
+                .addGap(77, 77, 77)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(painelViewPort, javax.swing.GroupLayout.PREFERRED_SIZE, 408, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(painelViewPort, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -316,6 +318,7 @@ public class frmPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
         painelViewPort.removeAll();
         painelViewPort.repaint();
+        desenhaPlanoCartesiano();
     }//GEN-LAST:event_btnLimparViewPortActionPerformed
     public void setLookAndFeel() {
         try {
@@ -392,4 +395,10 @@ public class frmPrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel painelOpcoes;
     private javax.swing.JScrollPane painelViewPort;
     // End of variables declaration//GEN-END:variables
+
+    private void desenhaPlanoCartesiano() {
+        // desenha duas retas 
+        desenhaReta(0, painelViewPort.getHeight()/2, painelViewPort.getWidth(), painelViewPort.getHeight()/2);
+        desenhaReta(painelViewPort.getWidth()/2, 0, painelViewPort.getWidth()/2, painelViewPort.getHeight());
+    }
 }
