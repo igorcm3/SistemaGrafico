@@ -16,6 +16,7 @@ public class frmTransformacoes extends javax.swing.JFrame {
      */
     public frmTransformacoes() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**

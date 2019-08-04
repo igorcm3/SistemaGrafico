@@ -18,6 +18,7 @@ public class frmPrimitivas extends javax.swing.JFrame {
     public frmPrimitivas(frmPrincipal framePrincipal) {
         this.framePrincipal = framePrincipal;
         initComponents();
+        setLocationRelativeTo(null);
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -192,8 +193,8 @@ public class frmPrimitivas extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnDesenhaRetaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDesenhaRetaActionPerformed
-            // TODO add your handling code here:
-    framePrincipal.desenhaReta(Integer.parseInt(txtXinicio.getText()), Integer.parseInt(txtYinicio.getText()), Integer.parseInt(txtXfim.getText()), Integer.parseInt(txtYfim.getText()));
+     // CONSIDERAA O MEIO DO PAINELMUNDO COMO SENDO O INICIO (PONTO 0,0) DEVIDO A VARIAVEL X0 e Y0 serem metade desse painel.
+    framePrincipal.desenhaReta((framePrincipal.X0 +(Integer.parseInt(txtXinicio.getText()))),(framePrincipal.Y0 -( Integer.parseInt(txtYinicio.getText()))), (framePrincipal.X0 +(Integer.parseInt(txtXfim.getText()))), (framePrincipal.Y0 -(Integer.parseInt(txtYfim.getText()))));
     dispose();
         
     }//GEN-LAST:event_btnDesenhaRetaActionPerformed
@@ -206,41 +207,6 @@ public class frmPrimitivas extends javax.swing.JFrame {
     private void txtXinicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtXinicioActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtXinicioActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(frmPrimitivas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(frmPrimitivas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(frmPrimitivas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(frmPrimitivas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new frmPrimitivas().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
