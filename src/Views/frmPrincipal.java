@@ -7,8 +7,12 @@ package Views;
 
 import Primitivas2D.Reta;
 import java.awt.Color;
+import java.awt.List;
 import java.awt.Point;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+import javax.swing.DefaultListModel;
+import javax.swing.JPanel;
 import javax.swing.JViewport;
 import static javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER;
 import static javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER;
@@ -19,10 +23,12 @@ import javax.swing.UIManager;
  * @author coron
  */
 public class frmPrincipal extends javax.swing.JFrame {
-
+    
     public javax.swing.JFrame frameAtivo;
     public int X0; //metade X e y do painel mundo, serao pontos iniciais de deseneho no viewport 
     public int Y0;
+    DefaultListModel listaModel;   // model para adicionar a Jlist
+    List listaPropriedades;
 
     public void setFrame(javax.swing.JFrame frame) {
         this.frameAtivo = frame;
@@ -39,11 +45,14 @@ public class frmPrincipal extends javax.swing.JFrame {
         // desenhos vao ter o ponto (0,0) de origem a partir desses valores 
         X0 = Math.round(painelMundo.getWidth() / 2);
         Y0 = Math.round(painelMundo.getHeight() / 2);
-
+        
         desenhaPlanoCartesiano();
         centralizaViewPort();
+        
+        listaModel = new DefaultListModel();
+        listaPropriedades = new List();
     }
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -54,7 +63,7 @@ public class frmPrincipal extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         painelOpcoes = new javax.swing.JPanel();
         listaObjetosDesenhados = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
+        listaObjetos = new javax.swing.JList<>();
         btnSetaEsquerda = new javax.swing.JButton();
         btnSetaCima = new javax.swing.JButton();
         btnSetaDireita = new javax.swing.JButton();
@@ -62,10 +71,12 @@ public class frmPrincipal extends javax.swing.JFrame {
         btnZoomOut = new javax.swing.JButton();
         btnZoomIn = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
-        btnPrimitivas = new javax.swing.JToggleButton();
+        btnPrimitivas = new javax.swing.JButton();
         painelAcessoTransformacoes = new javax.swing.JPanel();
         btnTransformacoes = new javax.swing.JButton();
         btnLimparViewPort = new javax.swing.JButton();
+        btnCentralizaViewport = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Sismeta gráfico");
@@ -103,12 +114,7 @@ public class frmPrincipal extends javax.swing.JFrame {
 
         painelOpcoes.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "teste", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 14))); // NOI18N
 
-        jList1.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
-        listaObjetosDesenhados.setViewportView(jList1);
+        listaObjetosDesenhados.setViewportView(listaObjetos);
 
         btnSetaEsquerda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/seta_esquerda.png"))); // NOI18N
         btnSetaEsquerda.addActionListener(new java.awt.event.ActionListener() {
@@ -220,49 +226,52 @@ public class frmPrincipal extends javax.swing.JFrame {
             }
         });
 
+        btnCentralizaViewport.setText("Centralizar");
+        btnCentralizaViewport.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCentralizaViewportActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout painelOpcoesLayout = new javax.swing.GroupLayout(painelOpcoes);
         painelOpcoes.setLayout(painelOpcoesLayout);
         painelOpcoesLayout.setHorizontalGroup(
             painelOpcoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelOpcoesLayout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(painelOpcoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(painelOpcoesLayout.createSequentialGroup()
+                        .addComponent(btnSetaEsquerda, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(painelOpcoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(painelOpcoesLayout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addComponent(listaObjetosDesenhados, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(painelOpcoesLayout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(btnSetaEsquerda, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(painelOpcoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(btnSetaCima, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(btnSetaBaixo, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(btnSetaCima, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnSetaDireita, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(29, 29, 29)
-                                .addGroup(painelOpcoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(painelOpcoesLayout.createSequentialGroup()
-                                        .addComponent(btnZoomIn, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(btnZoomOut, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(painelOpcoesLayout.createSequentialGroup()
-                                        .addGap(43, 43, 43)
-                                        .addComponent(btnLimparViewPort, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(btnZoomIn, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnZoomOut, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(painelOpcoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(btnCentralizaViewport)
+                                .addGroup(painelOpcoesLayout.createSequentialGroup()
+                                    .addComponent(btnSetaBaixo, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(93, 93, 93)
+                                    .addComponent(btnLimparViewPort, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(14, 14, 14))
-                    .addGroup(painelOpcoesLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(painelOpcoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(painelAcessoTransformacoes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(painelAcessoTransformacoes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(painelOpcoesLayout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(listaObjetosDesenhados, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         painelOpcoesLayout.setVerticalGroup(
             painelOpcoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelOpcoesLayout.createSequentialGroup()
-                .addContainerGap()
                 .addComponent(listaObjetosDesenhados, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(29, 29, 29)
                 .addGroup(painelOpcoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelOpcoesLayout.createSequentialGroup()
                         .addGroup(painelOpcoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
@@ -273,8 +282,10 @@ public class frmPrincipal extends javax.swing.JFrame {
                                     .addComponent(btnZoomIn, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(btnZoomOut, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnLimparViewPort, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(32, 32, 32))
+                                .addComponent(btnLimparViewPort)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnCentralizaViewport)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelOpcoesLayout.createSequentialGroup()
                         .addComponent(btnSetaCima, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -286,6 +297,13 @@ public class frmPrincipal extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        jButton1.setText("Acidionar a lista");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout painelFundoLayout = new javax.swing.GroupLayout(painelFundo);
         painelFundo.setLayout(painelFundoLayout);
         painelFundoLayout.setHorizontalGroup(
@@ -296,7 +314,8 @@ public class frmPrincipal extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 102, Short.MAX_VALUE)
                 .addGroup(painelFundoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(spViewport, javax.swing.GroupLayout.PREFERRED_SIZE, 417, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1))
                 .addGap(97, 97, 97))
         );
         painelFundoLayout.setVerticalGroup(
@@ -304,7 +323,9 @@ public class frmPrincipal extends javax.swing.JFrame {
             .addGroup(painelFundoLayout.createSequentialGroup()
                 .addGroup(painelFundoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(painelFundoLayout.createSequentialGroup()
-                        .addGap(151, 151, 151)
+                        .addGap(73, 73, 73)
+                        .addComponent(jButton1)
+                        .addGap(55, 55, 55)
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(spViewport, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -331,7 +352,7 @@ public class frmPrincipal extends javax.swing.JFrame {
     private void btnSetaEsquerdaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSetaEsquerdaActionPerformed
         moveEsquerda();
     }//GEN-LAST:event_btnSetaEsquerdaActionPerformed
-
+    
     private void moveEsquerda() {
         spViewport.getHorizontalScrollBar().setValue(spViewport.getHorizontalScrollBar().getValue() - 10);
         desenhaPlanoCartesiano();
@@ -340,7 +361,7 @@ public class frmPrincipal extends javax.swing.JFrame {
     private void btnSetaCimaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSetaCimaActionPerformed
         moveCima();
     }//GEN-LAST:event_btnSetaCimaActionPerformed
-
+    
     private void moveCima() {
         // TODO add your handling code here:
         spViewport.getVerticalScrollBar().setValue(spViewport.getVerticalScrollBar().getValue() - 10);
@@ -348,10 +369,10 @@ public class frmPrincipal extends javax.swing.JFrame {
     }
 
     private void btnSetaDireitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSetaDireitaActionPerformed
-
+        
         moveDireita();
     }//GEN-LAST:event_btnSetaDireitaActionPerformed
-
+    
     private void moveDireita() {
         spViewport.getHorizontalScrollBar().setValue(spViewport.getHorizontalScrollBar().getValue() + 10);
         desenhaPlanoCartesiano();
@@ -360,7 +381,7 @@ public class frmPrincipal extends javax.swing.JFrame {
     private void btnSetaBaixoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSetaBaixoActionPerformed
         moveBaixo();
     }//GEN-LAST:event_btnSetaBaixoActionPerformed
-
+    
     private void moveBaixo() {
         spViewport.getVerticalScrollBar().setValue(spViewport.getVerticalScrollBar().getValue() + 10);
         desenhaPlanoCartesiano();
@@ -374,19 +395,6 @@ public class frmPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnZoomInActionPerformed
 
-    private void btnTransformacoesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTransformacoesActionPerformed
-        // TODO add your handling code here:
-        frmTransformacoes frmT = new frmTransformacoes();
-        frmT.setVisible(true); // abre a tela de transformações
-    }//GEN-LAST:event_btnTransformacoesActionPerformed
-
-    private void btnPrimitivasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrimitivasActionPerformed
-        // TODO add your handling code here:
-        frmPrimitivas reta = new frmPrimitivas(this);
-        setFrame(reta);
-        reta.setVisible(true);
-    }//GEN-LAST:event_btnPrimitivasActionPerformed
-
     private void btnLimparViewPortActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparViewPortActionPerformed
         // TODO add your handling code here:
         painelMundo.removeAll();
@@ -397,16 +405,45 @@ public class frmPrincipal extends javax.swing.JFrame {
     private void formKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyTyped
         // evento para se as setas forem acionadas movimetnar a tela.
         switch (evt.getKeyCode()) {
-            case KeyEvent.VK_UP: moveCima();
+            case KeyEvent.VK_UP:
+                moveCima();
                 break;
-            case KeyEvent.VK_DOWN: moveBaixo();
+            case KeyEvent.VK_DOWN:
+                moveBaixo();
                 break;
-            case KeyEvent.VK_LEFT: moveEsquerda();
+            case KeyEvent.VK_LEFT:
+                moveEsquerda();
                 break;
-            case KeyEvent.VK_RIGHT: moveDireita();
+            case KeyEvent.VK_RIGHT:
+                moveDireita();
                 break;
         }
     }//GEN-LAST:event_formKeyTyped
+
+    private void btnPrimitivasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrimitivasActionPerformed
+        frmPrimitivas reta = new frmPrimitivas(this);
+        setFrame(reta);
+        reta.setVisible(true);
+
+    }//GEN-LAST:event_btnPrimitivasActionPerformed
+
+    private void btnTransformacoesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTransformacoesActionPerformed
+        // TODO add your handling code here:
+        frmTransformacoes frmT = new frmTransformacoes();
+        frmT.setVisible(true); // abre a tela de transformações
+    }//GEN-LAST:event_btnTransformacoesActionPerformed
+
+    private void btnCentralizaViewportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCentralizaViewportActionPerformed
+        // TODO add your handling code here:
+        centralizaViewPort();
+        repaint();
+    }//GEN-LAST:event_btnCentralizaViewportActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        adicionaDesenhoALista("Reta", painelMundo);
+
+    }//GEN-LAST:event_jButton1ActionPerformed
     public void setLookAndFeel() {
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -449,7 +486,7 @@ public class frmPrincipal extends javax.swing.JFrame {
             }
         });
     }
-
+    
     public void desenhaReta(int xi, int yi, int xf, int yf) {
         Reta lp = new Reta(Color.black, 1.0f);
         lp.setBackground(Color.white);
@@ -464,8 +501,9 @@ public class frmPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCentralizaViewport;
     private javax.swing.JButton btnLimparViewPort;
-    private javax.swing.JToggleButton btnPrimitivas;
+    private javax.swing.JButton btnPrimitivas;
     private javax.swing.JButton btnSetaBaixo;
     private javax.swing.JButton btnSetaCima;
     private javax.swing.JButton btnSetaDireita;
@@ -473,9 +511,10 @@ public class frmPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btnTransformacoes;
     private javax.swing.JButton btnZoomIn;
     private javax.swing.JButton btnZoomOut;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JList<String> jList1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JList<String> listaObjetos;
     private javax.swing.JScrollPane listaObjetosDesenhados;
     private javax.swing.JPanel painelAcessoTransformacoes;
     private javax.swing.JPanel painelFundo;
@@ -491,7 +530,7 @@ public class frmPrincipal extends javax.swing.JFrame {
 
         desenhaReta(0, Math.round(painelMundo.getHeight() / 2), Math.round(painelMundo.getWidth()), Math.round(painelMundo.getHeight() / 2));
         desenhaReta(Math.round(painelMundo.getWidth() / 2), 0, Math.round(painelMundo.getWidth() / 2), Math.round(painelMundo.getHeight()));
-
+        
         painelMundo.repaint();
         painelMundo.setBackground(Color.white);
         spViewport.repaint();
@@ -528,7 +567,6 @@ public class frmPrincipal extends javax.swing.JFrame {
     }
 
      */
-
     public void centralizaViewPort() {
 
         // ENQUADRAR VIEWPORT NO CENTRO DO PAINEL COM O PLANO CARTESIANO
@@ -538,15 +576,22 @@ public class frmPrincipal extends javax.swing.JFrame {
         // usa a diferença do tamamnho dos componentes para posicionar o maior no centro do menor.
         int difX = painelMundo.getWidth() - spViewport.getWidth();
         int difY = painelMundo.getHeight() - spViewport.getHeight();
-
+        
         Point p = new Point(Math.round(spViewport.getViewport().getX() + (difX / 2)), Math.round(spViewport.getViewport().getY() + (difY / 2)));
         spViewport.getViewport().setViewPosition(p);
 
         // esconde as barras de rolagem
-        spViewport.setVerticalScrollBarPolicy(VERTICAL_SCROLLBAR_NEVER);
-        //spViewport.getHorizontalScrollBar().setVisible(false);
-        spViewport.setHorizontalScrollBarPolicy(HORIZONTAL_SCROLLBAR_NEVER);
+        //  spViewport.setVerticalScrollBarPolicy(VERTICAL_SCROLLBAR_NEVER);
+        //  spViewport.getHorizontalScrollBar().setVisible(false);
+        //   spViewport.setHorizontalScrollBarPolicy(HORIZONTAL_SCROLLBAR_NEVER);
         //  spViewport.getVerticalScrollBar().setVisible(false);
-        spViewport.setBackground(Color.white);
+    }
+    
+    public void adicionaDesenhoALista(String nome, JPanel    tamanho) {
+        // a ieia é receber o painel desenhado e guardar ele na lista
+        // armazenar seus dados em uma matriz.
+        String elemento = nome+" (largura- "+tamanho.getWidth() + "/altura -"+tamanho.getHeight()+")";
+        listaModel.addElement(elemento);
+        listaObjetos.setModel(listaModel);
     }
 }
