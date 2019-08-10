@@ -43,8 +43,8 @@ public class frmPrincipal extends javax.swing.JFrame {
         setLocationRelativeTo(null); // faz o frame iniciar centralizado na tela
 
         // desenhos vao ter o ponto (0,0) de origem a partir desses valores 
-        X0 = Math.round(painelMundo.getWidth() / 2);
-        Y0 = Math.round(painelMundo.getHeight() / 2);
+        X0 = Math.round(painelWindow.getWidth() / 2);
+        Y0 = Math.round(painelWindow.getHeight() / 2);
         
         desenhaPlanoCartesiano();
         centralizaViewPort();
@@ -59,7 +59,7 @@ public class frmPrincipal extends javax.swing.JFrame {
 
         painelFundo = new javax.swing.JPanel();
         spViewport = new javax.swing.JScrollPane();
-        painelMundo = new javax.swing.JPanel();
+        painelWindow = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         painelOpcoes = new javax.swing.JPanel();
         listaObjetosDesenhados = new javax.swing.JScrollPane();
@@ -76,6 +76,15 @@ public class frmPrincipal extends javax.swing.JFrame {
         btnTransformacoes = new javax.swing.JButton();
         btnLimparViewPort = new javax.swing.JButton();
         btnCentralizaViewport = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jSeparator1 = new javax.swing.JSeparator();
+        jSeparator2 = new javax.swing.JSeparator();
+        sldPasso = new javax.swing.JSlider();
+        jLabel5 = new javax.swing.JLabel();
+        btnExcluirObjeto = new javax.swing.JButton();
+        lblPasso = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -90,29 +99,33 @@ public class frmPrincipal extends javax.swing.JFrame {
 
         spViewport.setBackground(new java.awt.Color(255, 255, 255));
         spViewport.setBorder(null);
+        spViewport.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        spViewport.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
+        spViewport.setViewportBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         spViewport.setMaximumSize(new java.awt.Dimension(250, 250));
         spViewport.setMinimumSize(new java.awt.Dimension(250, 250));
         spViewport.setPreferredSize(new java.awt.Dimension(250, 250));
 
-        painelMundo.setBackground(new java.awt.Color(255, 255, 255));
-        painelMundo.setPreferredSize(new java.awt.Dimension(1000, 1000));
+        painelWindow.setBackground(new java.awt.Color(255, 255, 255));
+        painelWindow.setPreferredSize(new java.awt.Dimension(1000, 1000));
 
-        javax.swing.GroupLayout painelMundoLayout = new javax.swing.GroupLayout(painelMundo);
-        painelMundo.setLayout(painelMundoLayout);
-        painelMundoLayout.setHorizontalGroup(
-            painelMundoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout painelWindowLayout = new javax.swing.GroupLayout(painelWindow);
+        painelWindow.setLayout(painelWindowLayout);
+        painelWindowLayout.setHorizontalGroup(
+            painelWindowLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 1000, Short.MAX_VALUE)
         );
-        painelMundoLayout.setVerticalGroup(
-            painelMundoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        painelWindowLayout.setVerticalGroup(
+            painelWindowLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 1000, Short.MAX_VALUE)
         );
 
-        spViewport.setViewportView(painelMundo);
+        spViewport.setViewportView(painelWindow);
 
+        jLabel1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel1.setText("Viewport");
 
-        painelOpcoes.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "teste", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 14))); // NOI18N
+        painelOpcoes.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Menu de opções", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 18))); // NOI18N
 
         listaObjetosDesenhados.setViewportView(listaObjetos);
 
@@ -167,9 +180,9 @@ public class frmPrincipal extends javax.swing.JFrame {
             }
         });
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Opções"));
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Primitivas"));
 
-        btnPrimitivas.setText("Primitivas");
+        btnPrimitivas.setText("Novo objeto");
         btnPrimitivas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnPrimitivasActionPerformed(evt);
@@ -181,21 +194,21 @@ public class frmPrincipal extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btnPrimitivas)
+                .addGap(55, 55, 55)
+                .addComponent(btnPrimitivas, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(15, Short.MAX_VALUE)
                 .addComponent(btnPrimitivas)
-                .addContainerGap(84, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
-        painelAcessoTransformacoes.setBorder(javax.swing.BorderFactory.createTitledBorder("Opções"));
+        painelAcessoTransformacoes.setBorder(javax.swing.BorderFactory.createTitledBorder("Transformaões"));
 
-        btnTransformacoes.setText("Transformações");
+        btnTransformacoes.setText("Transformar objeto");
         btnTransformacoes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnTransformacoesActionPerformed(evt);
@@ -207,7 +220,7 @@ public class frmPrincipal extends javax.swing.JFrame {
         painelAcessoTransformacoesLayout.setHorizontalGroup(
             painelAcessoTransformacoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelAcessoTransformacoesLayout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(57, 57, 57)
                 .addComponent(btnTransformacoes)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -216,10 +229,10 @@ public class frmPrincipal extends javax.swing.JFrame {
             .addGroup(painelAcessoTransformacoesLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(btnTransformacoes)
-                .addContainerGap(39, Short.MAX_VALUE))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
 
-        btnLimparViewPort.setText("Limp");
+        btnLimparViewPort.setText("Limpar");
         btnLimparViewPort.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLimparViewPortActionPerformed(evt);
@@ -233,6 +246,36 @@ public class frmPrincipal extends javax.swing.JFrame {
             }
         });
 
+        jLabel2.setText("Zoom");
+
+        jLabel3.setText("Movimentar viewport");
+
+        jLabel4.setText("Passo");
+
+        jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
+
+        sldPasso.setMaximum(50);
+        sldPasso.setMinimum(1);
+        sldPasso.setValue(1);
+        sldPasso.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                sldPassoStateChanged(evt);
+            }
+        });
+
+        jLabel5.setText("Lista de objetos");
+
+        btnExcluirObjeto.setText("Excluir");
+        btnExcluirObjeto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcluirObjetoActionPerformed(evt);
+            }
+        });
+
+        lblPasso.setFont(new java.awt.Font("Arial", 1, 10)); // NOI18N
+        lblPasso.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblPasso.setText("1");
+
         javax.swing.GroupLayout painelOpcoesLayout = new javax.swing.GroupLayout(painelOpcoes);
         painelOpcoes.setLayout(painelOpcoesLayout);
         painelOpcoesLayout.setHorizontalGroup(
@@ -240,59 +283,97 @@ public class frmPrincipal extends javax.swing.JFrame {
             .addGroup(painelOpcoesLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(painelOpcoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(listaObjetosDesenhados, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(painelAcessoTransformacoes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(painelOpcoesLayout.createSequentialGroup()
-                        .addComponent(btnSetaEsquerda, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(painelOpcoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addGroup(painelOpcoesLayout.createSequentialGroup()
+                                .addComponent(btnSetaEsquerda, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnSetaBaixo, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnSetaDireita, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(painelOpcoesLayout.createSequentialGroup()
+                                .addGap(43, 43, 43)
+                                .addComponent(btnSetaCima, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(painelOpcoesLayout.createSequentialGroup()
+                                .addComponent(jLabel4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(sldPasso, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblPasso, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(18, 18, Short.MAX_VALUE)
+                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(painelOpcoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(painelOpcoesLayout.createSequentialGroup()
-                                .addComponent(btnSetaCima, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnSetaDireita, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(29, 29, 29)
-                                .addComponent(btnZoomIn, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnZoomOut, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(painelOpcoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(btnCentralizaViewport)
-                                .addGroup(painelOpcoesLayout.createSequentialGroup()
-                                    .addComponent(btnSetaBaixo, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(93, 93, 93)
-                                    .addComponent(btnLimparViewPort, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(14, 14, 14))
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(painelAcessoTransformacoes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(painelOpcoesLayout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(listaObjetosDesenhados, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(btnCentralizaViewport, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelOpcoesLayout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addGroup(painelOpcoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel2)
+                                    .addGroup(painelOpcoesLayout.createSequentialGroup()
+                                        .addComponent(btnZoomIn, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(btnZoomOut, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jSeparator2)
+                            .addComponent(btnExcluirObjeto, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnLimparViewPort, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(painelOpcoesLayout.createSequentialGroup()
+                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         painelOpcoesLayout.setVerticalGroup(
             painelOpcoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelOpcoesLayout.createSequentialGroup()
-                .addComponent(listaObjetosDesenhados, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29)
-                .addGroup(painelOpcoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelOpcoesLayout.createSequentialGroup()
-                        .addGroup(painelOpcoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                            .addComponent(btnSetaEsquerda, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnSetaDireita, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap()
+                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(listaObjetosDesenhados, javax.swing.GroupLayout.DEFAULT_SIZE, 201, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(painelOpcoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(painelOpcoesLayout.createSequentialGroup()
+                        .addGroup(painelOpcoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3))
+                        .addGroup(painelOpcoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(painelOpcoesLayout.createSequentialGroup()
-                                .addGroup(painelOpcoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGap(8, 8, 8)
+                                .addGroup(painelOpcoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(btnZoomIn, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(btnZoomOut, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(btnZoomOut, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(painelOpcoesLayout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addGroup(painelOpcoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(sldPasso, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(lblPasso, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGap(20, 20, 20)
+                        .addGroup(painelOpcoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(painelOpcoesLayout.createSequentialGroup()
+                                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnLimparViewPort)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnCentralizaViewport)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelOpcoesLayout.createSequentialGroup()
-                        .addComponent(btnSetaCima, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnSetaBaixo, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(37, 37, 37)))
+                                .addComponent(btnCentralizaViewport)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnLimparViewPort)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnExcluirObjeto))
+                            .addGroup(painelOpcoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(painelOpcoesLayout.createSequentialGroup()
+                                    .addGap(37, 37, 37)
+                                    .addGroup(painelOpcoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(btnSetaDireita, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(btnSetaEsquerda, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGroup(painelOpcoesLayout.createSequentialGroup()
+                                    .addComponent(btnSetaCima, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(btnSetaBaixo, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                    .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(painelAcessoTransformacoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -311,28 +392,33 @@ public class frmPrincipal extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelFundoLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(painelOpcoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 102, Short.MAX_VALUE)
+                .addGap(99, 99, 99)
                 .addGroup(painelFundoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(spViewport, javax.swing.GroupLayout.PREFERRED_SIZE, 417, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
-                .addGap(97, 97, 97))
+                    .addGroup(painelFundoLayout.createSequentialGroup()
+                        .addComponent(spViewport, javax.swing.GroupLayout.PREFERRED_SIZE, 563, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton1)))
+                .addContainerGap(33, Short.MAX_VALUE))
         );
         painelFundoLayout.setVerticalGroup(
             painelFundoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelFundoLayout.createSequentialGroup()
+                .addGap(23, 23, 23)
+                .addComponent(jLabel1)
                 .addGroup(painelFundoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(painelFundoLayout.createSequentialGroup()
-                        .addGap(73, 73, 73)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(spViewport, javax.swing.GroupLayout.PREFERRED_SIZE, 475, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelFundoLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton1)
-                        .addGap(55, 55, 55)
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(spViewport, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(painelFundoLayout.createSequentialGroup()
-                        .addGap(59, 59, 59)
-                        .addComponent(painelOpcoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(72, Short.MAX_VALUE))
+                        .addGap(155, 155, 155))))
+            .addGroup(painelFundoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(painelOpcoes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -351,39 +437,43 @@ public class frmPrincipal extends javax.swing.JFrame {
 
     private void btnSetaEsquerdaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSetaEsquerdaActionPerformed
         moveEsquerda();
+        alteraLabelPasso();
     }//GEN-LAST:event_btnSetaEsquerdaActionPerformed
     
     private void moveEsquerda() {
-        spViewport.getHorizontalScrollBar().setValue(spViewport.getHorizontalScrollBar().getValue() - 10);
+        spViewport.getHorizontalScrollBar().setValue(spViewport.getHorizontalScrollBar().getValue() - sldPasso.getValue());
         desenhaPlanoCartesiano();
     }
 
     private void btnSetaCimaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSetaCimaActionPerformed
         moveCima();
+        alteraLabelPasso();
     }//GEN-LAST:event_btnSetaCimaActionPerformed
     
     private void moveCima() {
         // TODO add your handling code here:
-        spViewport.getVerticalScrollBar().setValue(spViewport.getVerticalScrollBar().getValue() - 10);
+        spViewport.getVerticalScrollBar().setValue(spViewport.getVerticalScrollBar().getValue() - sldPasso.getValue());
         desenhaPlanoCartesiano();
     }
 
     private void btnSetaDireitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSetaDireitaActionPerformed
-        
+
         moveDireita();
+        alteraLabelPasso();
     }//GEN-LAST:event_btnSetaDireitaActionPerformed
     
     private void moveDireita() {
-        spViewport.getHorizontalScrollBar().setValue(spViewport.getHorizontalScrollBar().getValue() + 10);
+        spViewport.getHorizontalScrollBar().setValue(spViewport.getHorizontalScrollBar().getValue() + sldPasso.getValue());
         desenhaPlanoCartesiano();
     }
 
     private void btnSetaBaixoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSetaBaixoActionPerformed
         moveBaixo();
+        alteraLabelPasso();
     }//GEN-LAST:event_btnSetaBaixoActionPerformed
     
     private void moveBaixo() {
-        spViewport.getVerticalScrollBar().setValue(spViewport.getVerticalScrollBar().getValue() + 10);
+        spViewport.getVerticalScrollBar().setValue(spViewport.getVerticalScrollBar().getValue() + sldPasso.getValue());
         desenhaPlanoCartesiano();
     }
 
@@ -397,8 +487,8 @@ public class frmPrincipal extends javax.swing.JFrame {
 
     private void btnLimparViewPortActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparViewPortActionPerformed
         // TODO add your handling code here:
-        painelMundo.removeAll();
-        painelMundo.repaint();
+        painelWindow.removeAll();
+        painelWindow.repaint();
         desenhaPlanoCartesiano();
     }//GEN-LAST:event_btnLimparViewPortActionPerformed
 
@@ -441,9 +531,18 @@ public class frmPrincipal extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        adicionaDesenhoALista("Reta", painelMundo);
+        adicionaDesenhoALista("Reta", painelWindow);
 
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void btnExcluirObjetoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirObjetoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnExcluirObjetoActionPerformed
+
+    private void sldPassoStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_sldPassoStateChanged
+        // TODO add your handling code here:
+        alteraLabelPasso();
+    }//GEN-LAST:event_sldPassoStateChanged
     public void setLookAndFeel() {
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -487,21 +586,23 @@ public class frmPrincipal extends javax.swing.JFrame {
         });
     }
     
-    public void desenhaReta(int xi, int yi, int xf, int yf) {
+    public void desenhaReta(int xi, int yi, int xf, int yf, float espessura) {
         Reta lp = new Reta(Color.black, 1.0f);
         lp.setBackground(Color.white);
-        lp.setBounds(1, 1, painelMundo.getWidth(), painelMundo.getHeight());  // tamanbo do jpanel
+        lp.setBounds(1, 1, painelWindow.getWidth(), painelWindow.getHeight());  // tamanbo do jpanel
+        lp.setEspessura(espessura);
         lp.setxI(xi);
         lp.setyI(yi);
         lp.setxF(xf);
         lp.setyF(yf);
-        painelMundo.add(lp);
-        painelMundo.setComponentZOrder(lp, 0);
+        painelWindow.add(lp);
+        painelWindow.setComponentZOrder(lp, 0);
         repaint();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCentralizaViewport;
+    private javax.swing.JButton btnExcluirObjeto;
     private javax.swing.JButton btnLimparViewPort;
     private javax.swing.JButton btnPrimitivas;
     private javax.swing.JButton btnSetaBaixo;
@@ -513,31 +614,33 @@ public class frmPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btnZoomOut;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JLabel lblPasso;
     private javax.swing.JList<String> listaObjetos;
     private javax.swing.JScrollPane listaObjetosDesenhados;
     private javax.swing.JPanel painelAcessoTransformacoes;
     private javax.swing.JPanel painelFundo;
-    private javax.swing.JPanel painelMundo;
     private javax.swing.JPanel painelOpcoes;
+    private javax.swing.JPanel painelWindow;
+    private javax.swing.JSlider sldPasso;
     private javax.swing.JScrollPane spViewport;
     // End of variables declaration//GEN-END:variables
 
     public void desenhaPlanoCartesiano() {
         // desenha duas retas que se cruzam para o plano cartesiano.  
-        //  desenhaReta(0, Math.round(painelMundo.getHeight() / 2), Math.round(painelMundo.getWidth()), Math.round(painelMundo.getHeight() / 2));
-        // desenhaReta(Math.round(painelMundo.getWidth() / 2), 0, Math.round(painelMundo.getWidth() / 2), Math.round(painelMundo.getHeight()));
-
-        desenhaReta(0, Math.round(painelMundo.getHeight() / 2), Math.round(painelMundo.getWidth()), Math.round(painelMundo.getHeight() / 2));
-        desenhaReta(Math.round(painelMundo.getWidth() / 2), 0, Math.round(painelMundo.getWidth() / 2), Math.round(painelMundo.getHeight()));
-        
-        painelMundo.repaint();
-        painelMundo.setBackground(Color.white);
-        spViewport.repaint();
+        desenhaReta(0, Math.round(painelWindow.getHeight() / 2), Math.round(painelWindow.getWidth()), Math.round(painelWindow.getHeight() / 2), 0.5f);
+        desenhaReta(Math.round(painelWindow.getWidth() / 2), 0, Math.round(painelWindow.getWidth() / 2), Math.round(painelWindow.getHeight()), 0.5f);
+        painelWindow.repaint();
     }
 
     /*
-     CASO O PLAANO CARTESIANO TENHA QUE FiCAR FIXO E MOVER SOMENTE OS DESENHOS NO PAINEL MUNDO 
+     CASO O PLAANO CARTESIANO TENHA QUE FiCAR FIXO E MOVER SOMENTE OS DESENHOS NO PAINEL VIEW, USAR ESSE METODO
     public void desenhaPlanoCartesiano() {
 
         // primeiraa reta
@@ -568,30 +671,23 @@ public class frmPrincipal extends javax.swing.JFrame {
 
      */
     public void centralizaViewPort() {
-
-        // ENQUADRAR VIEWPORT NO CENTRO DO PAINEL COM O PLANO CARTESIANO
-        //(forma usada andes, n deu certo)
-        // spViewport.getVerticalScrollBar().setValue((painelMundo.getWidth()/2)-125);
-        // spViewport.getHorizontalScrollBar().setValue((painelMundo.getHeight()/2)-125);
         // usa a diferença do tamamnho dos componentes para posicionar o maior no centro do menor.
-        int difX = painelMundo.getWidth() - spViewport.getWidth();
-        int difY = painelMundo.getHeight() - spViewport.getHeight();
+        int difX = painelWindow.getWidth() - spViewport.getWidth();
+        int difY = painelWindow.getHeight() - spViewport.getHeight();
         
         Point p = new Point(Math.round(spViewport.getViewport().getX() + (difX / 2)), Math.round(spViewport.getViewport().getY() + (difY / 2)));
         spViewport.getViewport().setViewPosition(p);
-
-        // esconde as barras de rolagem
-        //  spViewport.setVerticalScrollBarPolicy(VERTICAL_SCROLLBAR_NEVER);
-        //  spViewport.getHorizontalScrollBar().setVisible(false);
-        //   spViewport.setHorizontalScrollBarPolicy(HORIZONTAL_SCROLLBAR_NEVER);
-        //  spViewport.getVerticalScrollBar().setVisible(false);
     }
     
     public void adicionaDesenhoALista(String nome, JPanel    tamanho) {
-        // a ieia é receber o painel desenhado e guardar ele na lista
+        // a ideia é receber o painel desenhado e guardar ele na lista
         // armazenar seus dados em uma matriz.
         String elemento = nome+" (largura- "+tamanho.getWidth() + "/altura -"+tamanho.getHeight()+")";
         listaModel.addElement(elemento);
         listaObjetos.setModel(listaModel);
+    }
+    
+    public void alteraLabelPasso(){
+        lblPasso.setText(String.valueOf(sldPasso.getValue()));
     }
 }

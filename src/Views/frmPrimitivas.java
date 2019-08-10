@@ -194,7 +194,7 @@ public class frmPrimitivas extends javax.swing.JFrame {
 
     private void btnDesenhaRetaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDesenhaRetaActionPerformed
      // CONSIDERAA O MEIO DO PAINELMUNDO COMO SENDO O INICIO (PONTO 0,0) DEVIDO A VARIAVEL X0 e Y0 serem metade desse painel.
-    framePrincipal.desenhaReta((framePrincipal.X0 +(Integer.parseInt(txtXinicio.getText()))),(framePrincipal.Y0 -( Integer.parseInt(txtYinicio.getText()))), (framePrincipal.X0 +(Integer.parseInt(txtXfim.getText()))), (framePrincipal.Y0 -(Integer.parseInt(txtYfim.getText()))));
+    framePrincipal.desenhaReta((framePrincipal.X0 +(Integer.parseInt(txtXinicio.getText()))),(framePrincipal.Y0 -( Integer.parseInt(txtYinicio.getText()))), (framePrincipal.X0 +(Integer.parseInt(txtXfim.getText()))), (framePrincipal.Y0 -(Integer.parseInt(txtYfim.getText()))), 1.0f);
     
     dispose();   
     }//GEN-LAST:event_btnDesenhaRetaActionPerformed

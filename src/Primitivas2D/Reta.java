@@ -22,7 +22,7 @@ public class Reta extends JPanel {
     protected int xF;
     protected int yF;
     Color cor;
-    float grossura;
+    float espessura;
 
     public Reta(int xI, int yI, int xF, int yF) {
         this.xI = xI;
@@ -33,27 +33,24 @@ public class Reta extends JPanel {
     
     public void paintComponent(Graphics g){
         Graphics2D g2d = (Graphics2D)g;
-     
-        //g2d.setColor(cor); // passar por parametro
-         g2d.setColor(Color.black);
-        g2d.setStroke(new BasicStroke(grossura)); // muda largura em pixel, passar por parametro para aumentar grossura do circulo
+        g2d.setColor(cor); // passar por parametro
+        g2d.setStroke(new BasicStroke(espessura)); // muda largura em pixel, passar por parametro para aumentar grossura.
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-
         g2d.drawLine(xI, yI, xF,yF); 
         g2d.dispose();  
     }
 
-    public float getGrossura() {
-        return grossura;
+    public float getEspessura() {
+        return espessura;
     }
 
-    public void setGrossura(float grossura) {
-        this.grossura = grossura;
+    public void setEspessura(float espessura) {
+        this.espessura = espessura;
     }
 
-    public Reta(Color c, float grossura) {
+    public Reta(Color c, float espessura) {
         this.cor = c;
-        this.grossura = grossura;
+        this.espessura = espessura;
     }
 
     public int getxI() {
