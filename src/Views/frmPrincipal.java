@@ -256,7 +256,7 @@ public class frmPrincipal extends javax.swing.JFrame {
 
         sldPasso.setMaximum(50);
         sldPasso.setMinimum(1);
-        sldPasso.setValue(1);
+        sldPasso.setValue(5);
         sldPasso.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 sldPassoStateChanged(evt);
@@ -274,7 +274,7 @@ public class frmPrincipal extends javax.swing.JFrame {
 
         lblPasso.setFont(new java.awt.Font("Arial", 1, 10)); // NOI18N
         lblPasso.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblPasso.setText("1");
+        lblPasso.setText("5");
 
         javax.swing.GroupLayout painelOpcoesLayout = new javax.swing.GroupLayout(painelOpcoes);
         painelOpcoes.setLayout(painelOpcoesLayout);
@@ -586,9 +586,8 @@ public class frmPrincipal extends javax.swing.JFrame {
         });
     }
     
-    public void desenhaReta(int xi, int yi, int xf, int yf, float espessura) {
-        Reta lp = new Reta(Color.black, 1.0f);
-        lp.setBackground(Color.white);
+    public void desenhaReta(int xi, int yi, int xf, int yf, float espessura, Color cor) {
+        Reta lp = new Reta(cor, 1.0f);
         lp.setBounds(1, 1, painelWindow.getWidth(), painelWindow.getHeight());  // tamanbo do jpanel
         lp.setEspessura(espessura);
         lp.setxI(xi);
@@ -634,8 +633,8 @@ public class frmPrincipal extends javax.swing.JFrame {
 
     public void desenhaPlanoCartesiano() {
         // desenha duas retas que se cruzam para o plano cartesiano.  
-        desenhaReta(0, Math.round(painelWindow.getHeight() / 2), Math.round(painelWindow.getWidth()), Math.round(painelWindow.getHeight() / 2), 0.5f);
-        desenhaReta(Math.round(painelWindow.getWidth() / 2), 0, Math.round(painelWindow.getWidth() / 2), Math.round(painelWindow.getHeight()), 0.5f);
+        desenhaReta(0, Math.round(painelWindow.getHeight() / 2), Math.round(painelWindow.getWidth()), Math.round(painelWindow.getHeight() / 2), 0.5f, Color.BLACK);
+        desenhaReta(Math.round(painelWindow.getWidth() / 2), 0, Math.round(painelWindow.getWidth() / 2), Math.round(painelWindow.getHeight()), 0.5f, Color.BLACK);
         painelWindow.repaint();
     }
 
@@ -682,6 +681,7 @@ public class frmPrincipal extends javax.swing.JFrame {
     public void adicionaDesenhoALista(String nome, JPanel    tamanho) {
         // a ideia é receber o painel desenhado e guardar ele na lista
         // armazenar seus dados em uma matriz.
+        //painelWindow.getComponent(painelWindow.getComponentZOrder(this)).get;
         String elemento = nome+" (largura- "+tamanho.getWidth() + "/altura -"+tamanho.getHeight()+")";
         listaModel.addElement(elemento);
         listaObjetos.setModel(listaModel);

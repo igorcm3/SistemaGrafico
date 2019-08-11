@@ -21,8 +21,8 @@ public class Reta extends JPanel {
     protected int yI;
     protected int xF;
     protected int yF;
-    Color cor;
-    float espessura;
+    protected Color cor;
+    protected float espessura;
 
     public Reta(int xI, int yI, int xF, int yF) {
         this.xI = xI;
