@@ -587,9 +587,9 @@ public class frmPrincipal extends javax.swing.JFrame {
     }
     
     public void desenhaReta(int xi, int yi, int xf, int yf, float espessura, Color cor) {
-        Reta lp = new Reta(cor, 1.0f);
+        Reta lp = new Reta(cor, espessura);
         lp.setBounds(1, 1, painelWindow.getWidth(), painelWindow.getHeight());  // tamanbo do jpanel
-        lp.setEspessura(espessura);
+        //lp.setEspessura(espessura);
         lp.setxI(xi);
         lp.setyI(yi);
         lp.setxF(xf);
@@ -633,8 +633,8 @@ public class frmPrincipal extends javax.swing.JFrame {
 
     public void desenhaPlanoCartesiano() {
         // desenha duas retas que se cruzam para o plano cartesiano.  
-        desenhaReta(0, Math.round(painelWindow.getHeight() / 2), Math.round(painelWindow.getWidth()), Math.round(painelWindow.getHeight() / 2), 0.5f, Color.BLACK);
-        desenhaReta(Math.round(painelWindow.getWidth() / 2), 0, Math.round(painelWindow.getWidth() / 2), Math.round(painelWindow.getHeight()), 0.5f, Color.BLACK);
+        desenhaReta(0, Math.round(painelWindow.getHeight() / 2), Math.round(painelWindow.getWidth()), Math.round(painelWindow.getHeight() / 2), 1.0f, Color.BLACK);
+        desenhaReta(Math.round(painelWindow.getWidth() / 2), 0, Math.round(painelWindow.getWidth() / 2), Math.round(painelWindow.getHeight()), 1.0f, Color.BLACK);
         painelWindow.repaint();
     }
 
