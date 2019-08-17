@@ -23,6 +23,7 @@ public class Reta extends JPanel {
     protected int yF;
     protected Color cor;
     protected float espessura;
+    protected int posicaoPainelWondow;
 
     public Reta(int xI, int yI, int xF, int yF) {
         this.xI = xI;
@@ -31,6 +32,7 @@ public class Reta extends JPanel {
         this.yF = yF;
     }
     
+    @Override
     public void paintComponent(Graphics g){
         Graphics2D g2d = (Graphics2D)g;
         g2d.setColor(cor); // passar por parametro
@@ -39,7 +41,11 @@ public class Reta extends JPanel {
         g2d.drawLine(xI, yI, xF,yF); 
         g2d.dispose();  
     }
-
+    
+    @Override
+    public String toString(){
+        return this.getName()+" xi:"+xI+" yi"+yI;
+    }
     public float getEspessura() {
         return espessura;
     }

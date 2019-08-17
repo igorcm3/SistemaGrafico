@@ -7,15 +7,12 @@ package Views;
 
 import Primitivas2D.Reta;
 import java.awt.Color;
-import java.awt.List;
+import java.awt.Component;
 import java.awt.Point;
 import java.awt.event.KeyEvent;
-import java.util.ArrayList;
+import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
-import javax.swing.JPanel;
-import javax.swing.JViewport;
-import static javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER;
-import static javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER;
+import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 
 /**
@@ -23,20 +20,15 @@ import javax.swing.UIManager;
  * @author coron
  */
 public class frmPrincipal extends javax.swing.JFrame {
-    
+
+    // Atributos de controle para o projeto.
     public javax.swing.JFrame frameAtivo;
     public int X0; //metade X e y do painel mundo, serao pontos iniciais de deseneho no viewport 
     public int Y0;
-    DefaultListModel listaModel;   // model para adicionar a Jlist
-    List listaPropriedades;
+    public DefaultListModel listaModel;   // model para adicionar a Jlist
+    public int countCartesianos;   // usado apra saber qtos planos cartesianos desenhou para descontar do total de objetos e sincronziar com a Jlist.
 
-    public void setFrame(javax.swing.JFrame frame) {
-        this.frameAtivo = frame;
-    }
-
-    /**
-     * Creates new form frmPrincipal
-     */
+    //  Construtor, iniciar as variaveis que náo sáo atualziadas em tempo de execu;áo aqui.
     public frmPrincipal() {
         setLookAndFeel();
         initComponents();
@@ -45,14 +37,12 @@ public class frmPrincipal extends javax.swing.JFrame {
         // desenhos vao ter o ponto (0,0) de origem a partir desses valores 
         X0 = Math.round(painelWindow.getWidth() / 2);
         Y0 = Math.round(painelWindow.getHeight() / 2);
-        
+        countCartesianos = 0;
         desenhaPlanoCartesiano();
         centralizaViewPort();
-        
         listaModel = new DefaultListModel();
-        listaPropriedades = new List();
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -85,17 +75,23 @@ public class frmPrincipal extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         btnExcluirObjeto = new javax.swing.JButton();
         lblPasso = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        lblObjSelect = new javax.swing.JLabel();
+        lblObjSel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Sismeta gráfico");
         setBackground(new java.awt.Color(240, 238, 238));
+        setMaximumSize(new java.awt.Dimension(1028, 650));
+        setMinimumSize(new java.awt.Dimension(1028, 650));
         setResizable(false);
         addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 formKeyTyped(evt);
             }
         });
+
+        painelFundo.setMaximumSize(null);
+        painelFundo.setMinimumSize(null);
 
         spViewport.setBackground(new java.awt.Color(255, 255, 255));
         spViewport.setBorder(null);
@@ -107,26 +103,31 @@ public class frmPrincipal extends javax.swing.JFrame {
         spViewport.setPreferredSize(new java.awt.Dimension(250, 250));
 
         painelWindow.setBackground(new java.awt.Color(255, 255, 255));
+        painelWindow.setMaximumSize(new java.awt.Dimension(1000, 1000));
+        painelWindow.setMinimumSize(new java.awt.Dimension(1000, 1000));
+        painelWindow.setName("Window"); // NOI18N
         painelWindow.setPreferredSize(new java.awt.Dimension(1000, 1000));
-
-        javax.swing.GroupLayout painelWindowLayout = new javax.swing.GroupLayout(painelWindow);
-        painelWindow.setLayout(painelWindowLayout);
-        painelWindowLayout.setHorizontalGroup(
-            painelWindowLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1000, Short.MAX_VALUE)
-        );
-        painelWindowLayout.setVerticalGroup(
-            painelWindowLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1000, Short.MAX_VALUE)
-        );
-
+        painelWindow.setLayout(null);
         spViewport.setViewportView(painelWindow);
 
         jLabel1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel1.setText("Viewport");
 
         painelOpcoes.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Menu de opções", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 18))); // NOI18N
+        painelOpcoes.setMaximumSize(null);
+        painelOpcoes.setMinimumSize(null);
 
+        listaObjetosDesenhados.setMaximumSize(new java.awt.Dimension(258, 130));
+        listaObjetosDesenhados.setMinimumSize(new java.awt.Dimension(258, 130));
+        listaObjetosDesenhados.setVerifyInputWhenFocusTarget(false);
+
+        listaObjetos.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        listaObjetos.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        listaObjetos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                listaObjetosMouseClicked(evt);
+            }
+        });
         listaObjetosDesenhados.setViewportView(listaObjetos);
 
         btnSetaEsquerda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/seta_esquerda.png"))); // NOI18N
@@ -283,7 +284,7 @@ public class frmPrincipal extends javax.swing.JFrame {
             .addGroup(painelOpcoesLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(painelOpcoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(listaObjetosDesenhados, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(listaObjetosDesenhados, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(painelAcessoTransformacoes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(painelOpcoesLayout.createSequentialGroup()
@@ -328,10 +329,10 @@ public class frmPrincipal extends javax.swing.JFrame {
         painelOpcoesLayout.setVerticalGroup(
             painelOpcoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelOpcoesLayout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(listaObjetosDesenhados, javax.swing.GroupLayout.DEFAULT_SIZE, 201, Short.MAX_VALUE)
+                .addComponent(listaObjetosDesenhados, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(painelOpcoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(painelOpcoesLayout.createSequentialGroup()
@@ -347,7 +348,7 @@ public class frmPrincipal extends javax.swing.JFrame {
                             .addGroup(painelOpcoesLayout.createSequentialGroup()
                                 .addGap(18, 18, 18)
                                 .addGroup(painelOpcoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(sldPasso, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(sldPasso, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(lblPasso, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                         .addGap(20, 20, 20)
@@ -378,58 +379,53 @@ public class frmPrincipal extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jButton1.setText("Acidionar a lista");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
+        lblObjSelect.setText("objeto sel: ");
+
+        lblObjSel.setText("Obj sel info: ");
 
         javax.swing.GroupLayout painelFundoLayout = new javax.swing.GroupLayout(painelFundo);
         painelFundo.setLayout(painelFundoLayout);
         painelFundoLayout.setHorizontalGroup(
             painelFundoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelFundoLayout.createSequentialGroup()
-                .addContainerGap()
+            .addGroup(painelFundoLayout.createSequentialGroup()
+                .addGap(10, 10, 10)
                 .addComponent(painelOpcoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(99, 99, 99)
+                .addGap(101, 101, 101)
                 .addGroup(painelFundoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(painelFundoLayout.createSequentialGroup()
-                        .addComponent(spViewport, javax.swing.GroupLayout.PREFERRED_SIZE, 563, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton1)))
-                .addContainerGap(33, Short.MAX_VALUE))
+                    .addGroup(painelFundoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(spViewport, javax.swing.GroupLayout.DEFAULT_SIZE, 563, Short.MAX_VALUE)
+                        .addComponent(lblObjSelect, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(lblObjSel, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(66, Short.MAX_VALUE))
         );
         painelFundoLayout.setVerticalGroup(
             painelFundoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelFundoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(painelOpcoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(painelFundoLayout.createSequentialGroup()
                 .addGap(23, 23, 23)
                 .addComponent(jLabel1)
-                .addGroup(painelFundoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(painelFundoLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(spViewport, javax.swing.GroupLayout.PREFERRED_SIZE, 475, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelFundoLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1)
-                        .addGap(155, 155, 155))))
-            .addGroup(painelFundoLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(painelOpcoes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGap(6, 6, 6)
+                .addComponent(spViewport, javax.swing.GroupLayout.PREFERRED_SIZE, 475, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(lblObjSelect)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lblObjSel))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(painelFundo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(painelFundo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(painelFundo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(painelFundo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -439,7 +435,7 @@ public class frmPrincipal extends javax.swing.JFrame {
         moveEsquerda();
         alteraLabelPasso();
     }//GEN-LAST:event_btnSetaEsquerdaActionPerformed
-    
+
     private void moveEsquerda() {
         spViewport.getHorizontalScrollBar().setValue(spViewport.getHorizontalScrollBar().getValue() - sldPasso.getValue());
         desenhaPlanoCartesiano();
@@ -449,7 +445,7 @@ public class frmPrincipal extends javax.swing.JFrame {
         moveCima();
         alteraLabelPasso();
     }//GEN-LAST:event_btnSetaCimaActionPerformed
-    
+
     private void moveCima() {
         // TODO add your handling code here:
         spViewport.getVerticalScrollBar().setValue(spViewport.getVerticalScrollBar().getValue() - sldPasso.getValue());
@@ -461,7 +457,7 @@ public class frmPrincipal extends javax.swing.JFrame {
         moveDireita();
         alteraLabelPasso();
     }//GEN-LAST:event_btnSetaDireitaActionPerformed
-    
+
     private void moveDireita() {
         spViewport.getHorizontalScrollBar().setValue(spViewport.getHorizontalScrollBar().getValue() + sldPasso.getValue());
         desenhaPlanoCartesiano();
@@ -471,7 +467,7 @@ public class frmPrincipal extends javax.swing.JFrame {
         moveBaixo();
         alteraLabelPasso();
     }//GEN-LAST:event_btnSetaBaixoActionPerformed
-    
+
     private void moveBaixo() {
         spViewport.getVerticalScrollBar().setValue(spViewport.getVerticalScrollBar().getValue() + sldPasso.getValue());
         desenhaPlanoCartesiano();
@@ -529,20 +525,53 @@ public class frmPrincipal extends javax.swing.JFrame {
         repaint();
     }//GEN-LAST:event_btnCentralizaViewportActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        adicionaDesenhoALista("Reta", painelWindow);
-
-    }//GEN-LAST:event_jButton1ActionPerformed
-
     private void btnExcluirObjetoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirObjetoActionPerformed
         // TODO add your handling code here:
+        if (listaObjetos.getSelectedIndex() > -1) {
+
+            Object[] options = {"Confirmar", "Cancelar"};  // 0 = confirmar
+            int resp = JOptionPane.showOptionDialog(null, "Deseja excluir o objeto - " + painelWindow.getComponent(getObjSelecionadoNaListaDoPainelWindow()).toString() + " ?", "Exclusão de objetos", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, options, options[0]);
+
+            // caso seja 0 (escolheu confirmar) entao exclui o objeto da lista e do painelWindow
+            if (resp == 0) {
+                System.out.println("obj excluido: " + painelWindow.getComponent(getObjSelecionadoNaListaDoPainelWindow()).toString());
+                painelWindow.remove(painelWindow.getComponent(getObjSelecionadoNaListaDoPainelWindow()));
+                listaModel.remove(listaObjetos.getSelectedIndex());
+                desenhaPlanoCartesiano();
+            }
+        }
     }//GEN-LAST:event_btnExcluirObjetoActionPerformed
 
     private void sldPassoStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_sldPassoStateChanged
         // TODO add your handling code here:
         alteraLabelPasso();
     }//GEN-LAST:event_sldPassoStateChanged
+
+    public int getObjSelecionadoNaListaDoPainelWindow() {
+        int countObjsValidos, indexDoComponent;
+        countObjsValidos = 0;
+        indexDoComponent = 0;
+        for (Component c : painelWindow.getComponents()) {
+            indexDoComponent++;
+            if (!c.getName().equals("PC")) {
+                countObjsValidos++;
+                if (countObjsValidos == (listaObjetos.getModel().getSize() - (listaObjetos.getSelectedIndex() + 1))) {
+                    return indexDoComponent;
+                }
+            }
+        }
+        return 0;
+    }
+    private void listaObjetosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listaObjetosMouseClicked
+        // TODO add your handling code here:
+        lblObjSelect.setText("Obj sel: " + (listaObjetos.getSelectedIndex() + 1) + "           Total objts desenhados (n inclui cartesianos): " + getTotalObjetosDesenhadosWindow() + "              Indice window: " + painelWindow.getComponentCount());
+        lblObjSel.setText("Obj sel info: " + painelWindow.getComponent(getObjSelecionadoNaListaDoPainelWindow()));
+    }//GEN-LAST:event_listaObjetosMouseClicked
+
+    public void setFrame(javax.swing.JFrame frame) {
+        this.frameAtivo = frame;
+    }
+
     public void setLookAndFeel() {
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -551,9 +580,114 @@ public class frmPrincipal extends javax.swing.JFrame {
         }
     }
 
-    /**
-     * @param args the command line arguments
+    public void desenhaReta(int xi, int yi, int xf, int yf, float espessura, Color cor, boolean ehPlanoCartesiano, String nomeObjeto) {
+        //int tamanhoX, tamanhoY;
+        Reta lp = new Reta(cor, espessura);
+
+//        if (!ehPlanoCartesiano) {
+//
+//            if (xf > xi) {
+//                tamanhoX = xf - xi;
+//            } else {
+//                tamanhoX = xi - xf;
+//            }
+//
+//            if (yf > yi) {
+//                tamanhoY = yf - yi;
+//            } else {
+//                tamanhoY = yi - yf;
+//            }
+//
+//            lp.setBounds(xi, yi, tamanhoX, tamanhoY); // dimensóes do desenho, desenha errado dai.
+//        } else {
+//            lp.setBounds(1, 1, painelWindow.getWidth(), painelWindow.getHeight());  // tamanbo do jpanel
+//        }
+        //lp.setEspessura(espessura);
+        lp.setBounds(1, 1, painelWindow.getWidth(), painelWindow.getHeight());
+        lp.setBackground(Color.red);
+        lp.setxI(xi);
+        lp.setyI(yi);
+        lp.setxF(xf);
+        lp.setyF(yf);
+        lp.setName(nomeObjeto);
+        painelWindow.add(lp);
+        painelWindow.setComponentZOrder(lp, 0);
+        if (!ehPlanoCartesiano) {
+            adicionaDesenhoALista(painelWindow.getComponent(0));
+        }
+        repaint();
+        System.out.println("desenhou reta");
+    }
+
+    public void desenhaPlanoCartesiano() {
+        // desenha duas retas que se cruzam para o plano cartesiano.  
+        desenhaReta(0, Math.round(painelWindow.getHeight() / 2), Math.round(painelWindow.getWidth()), Math.round(painelWindow.getHeight() / 2), 1.0f, Color.BLACK, true, "PC");
+        countCartesianos++;
+        desenhaReta(Math.round(painelWindow.getWidth() / 2), 0, Math.round(painelWindow.getWidth() / 2), Math.round(painelWindow.getHeight()), 1.0f, Color.BLACK, true, "PC");
+        countCartesianos++;
+        painelWindow.repaint();
+    }
+
+    public int getTotalObjetosDesenhadosWindow() {
+        //retorna o total de objetos menos os planos cartesianos, que n podeem ser removidos, apenas redesenhados...
+        return painelWindow.getComponentCount() - countCartesianos;
+    }
+
+
+    /*
+     CASO O PLAANO CARTESIANO TENHA QUE FiCAR FIXO E MOVER SOMENTE OS DESENHOS NO PAINEL VIEW, USAR ESSE METODO
+    public void desenhaPlanoCartesiano() {
+
+        // primeiraa reta
+        Reta lp = new Reta(Color.black, 1.0f);
+        lp.setBackground(Color.white);
+        lp.setBounds(1, 1, spViewport.getWidth(), spViewport.getHeight());  // tamanbo do jpanel
+        lp.setxI(0);
+        lp.setyI(Math.round(spViewport.getHeight() / 2));
+        lp.setxF(Math.round(spViewport.getWidth()));
+        lp.setyF(Math.round(spViewport.getHeight() / 2));
+        spViewport.add(lp);
+        spViewport.setComponentZOrder(lp, 0);
+        repaint();
+
+        // segunda reta
+        Reta lp2 = new Reta(Color.black, 1.0f);
+        lp2.setBackground(Color.white);
+        lp2.setBounds(1, 1, spViewport.getWidth(), spViewport.getHeight());  // tamanbo do jpanel
+        lp2.setxI(Math.round(spViewport.getWidth() / 2));
+        lp2.setyI(0);
+        lp2.setxF(Math.round(spViewport.getWidth() / 2));
+        lp2.setyF(Math.round(spViewport.getHeight()));
+        spViewport.add(lp2);
+        spViewport.setComponentZOrder(lp2, 0);
+        repaint();
+    }
+
      */
+    public void centralizaViewPort() {
+        // usa a diferença do tamamnho dos componentes para posicionar o maior no centro do menor.
+        int difX = painelWindow.getWidth() - spViewport.getWidth();
+        int difY = painelWindow.getHeight() - spViewport.getHeight();
+
+        Point p = new Point(Math.round(spViewport.getViewport().getX() + (difX / 2)), Math.round(spViewport.getViewport().getY() + (difY / 2)));
+        spViewport.getViewport().setViewPosition(p);
+    }
+
+    public void adicionaDesenhoALista(Component desenho) {
+        listaModel.addElement(desenho);
+        listaObjetos.setModel(listaModel);
+    }
+
+    public void alteraLabelPasso() {
+        lblPasso.setText(String.valueOf(sldPasso.getValue()));
+    }
+
+    public void imprimeIndicesPainelWindow() {
+        //função somente para conferencia e teste da manipulação dos itens adicionados ao painel.
+
+    }
+
+    //------------------------------------------MAIN----------------------------//
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -585,19 +719,6 @@ public class frmPrincipal extends javax.swing.JFrame {
             }
         });
     }
-    
-    public void desenhaReta(int xi, int yi, int xf, int yf, float espessura, Color cor) {
-        Reta lp = new Reta(cor, espessura);
-        lp.setBounds(1, 1, painelWindow.getWidth(), painelWindow.getHeight());  // tamanbo do jpanel
-        //lp.setEspessura(espessura);
-        lp.setxI(xi);
-        lp.setyI(yi);
-        lp.setxF(xf);
-        lp.setyF(yf);
-        painelWindow.add(lp);
-        painelWindow.setComponentZOrder(lp, 0);
-        repaint();
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCentralizaViewport;
@@ -611,7 +732,6 @@ public class frmPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btnTransformacoes;
     private javax.swing.JButton btnZoomIn;
     private javax.swing.JButton btnZoomOut;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -620,6 +740,8 @@ public class frmPrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JLabel lblObjSel;
+    private javax.swing.JLabel lblObjSelect;
     private javax.swing.JLabel lblPasso;
     private javax.swing.JList<String> listaObjetos;
     private javax.swing.JScrollPane listaObjetosDesenhados;
@@ -631,63 +753,4 @@ public class frmPrincipal extends javax.swing.JFrame {
     private javax.swing.JScrollPane spViewport;
     // End of variables declaration//GEN-END:variables
 
-    public void desenhaPlanoCartesiano() {
-        // desenha duas retas que se cruzam para o plano cartesiano.  
-        desenhaReta(0, Math.round(painelWindow.getHeight() / 2), Math.round(painelWindow.getWidth()), Math.round(painelWindow.getHeight() / 2), 1.0f, Color.BLACK);
-        desenhaReta(Math.round(painelWindow.getWidth() / 2), 0, Math.round(painelWindow.getWidth() / 2), Math.round(painelWindow.getHeight()), 1.0f, Color.BLACK);
-        painelWindow.repaint();
-    }
-
-    /*
-     CASO O PLAANO CARTESIANO TENHA QUE FiCAR FIXO E MOVER SOMENTE OS DESENHOS NO PAINEL VIEW, USAR ESSE METODO
-    public void desenhaPlanoCartesiano() {
-
-        // primeiraa reta
-        Reta lp = new Reta(Color.black, 1.0f);
-        lp.setBackground(Color.white);
-        lp.setBounds(1, 1, spViewport.getWidth(), spViewport.getHeight());  // tamanbo do jpanel
-        lp.setxI(0);
-        lp.setyI(Math.round(spViewport.getHeight() / 2));
-        lp.setxF(Math.round(spViewport.getWidth()));
-        lp.setyF(Math.round(spViewport.getHeight() / 2));
-        spViewport.add(lp);
-        spViewport.setComponentZOrder(lp, 0);
-        repaint();
-
-        // segunda reta
-        Reta lp2 = new Reta(Color.black, 1.0f);
-        lp2.setBackground(Color.white);
-        lp2.setBounds(1, 1, spViewport.getWidth(), spViewport.getHeight());  // tamanbo do jpanel
-        lp2.setxI(Math.round(spViewport.getWidth() / 2));
-        lp2.setyI(0);
-        lp2.setxF(Math.round(spViewport.getWidth() / 2));
-        lp2.setyF(Math.round(spViewport.getHeight()));
-        spViewport.add(lp2);
-        spViewport.setComponentZOrder(lp2, 0);
-        repaint();
-
-    }
-
-     */
-    public void centralizaViewPort() {
-        // usa a diferença do tamamnho dos componentes para posicionar o maior no centro do menor.
-        int difX = painelWindow.getWidth() - spViewport.getWidth();
-        int difY = painelWindow.getHeight() - spViewport.getHeight();
-        
-        Point p = new Point(Math.round(spViewport.getViewport().getX() + (difX / 2)), Math.round(spViewport.getViewport().getY() + (difY / 2)));
-        spViewport.getViewport().setViewPosition(p);
-    }
-    
-    public void adicionaDesenhoALista(String nome, JPanel    tamanho) {
-        // a ideia é receber o painel desenhado e guardar ele na lista
-        // armazenar seus dados em uma matriz.
-        //painelWindow.getComponent(painelWindow.getComponentZOrder(this)).get;
-        String elemento = nome+" (largura- "+tamanho.getWidth() + "/altura -"+tamanho.getHeight()+")";
-        listaModel.addElement(elemento);
-        listaObjetos.setModel(listaModel);
-    }
-    
-    public void alteraLabelPasso(){
-        lblPasso.setText(String.valueOf(sldPasso.getValue()));
-    }
 }

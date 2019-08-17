@@ -12,19 +12,20 @@ import java.awt.Color;
  * @author coron
  */
 public class frmPrimitivas extends javax.swing.JFrame {
+
     private frmPrincipal framePrincipal;
     private Color cor;
-    
+
     // essa variavel frmPrincipal é o frame principal passado por parametro, ai consegue acessar
     // os metodos dele e desenhar nele, esssa tela serve somente para passar as informações para la...
     // essa é a forma mais facil de passar informações entre frames, passa tudo...
-    
     public frmPrimitivas(frmPrincipal framePrincipal) {
         this.framePrincipal = framePrincipal;
         initComponents();
         setLocationRelativeTo(null);
         cor = Color.black; // inicia com cor preta, fica a criterio de quem faz o desenho mudar.
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -55,6 +56,8 @@ public class frmPrimitivas extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         painelCor = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
+        jLabel7 = new javax.swing.JLabel();
+        nomeObjeto = new javax.swing.JTextField();
         painelRetangulo = new javax.swing.JPanel();
         painelCirculo = new javax.swing.JPanel();
 
@@ -161,6 +164,8 @@ public class frmPrimitivas extends javax.swing.JFrame {
             }
         });
 
+        jLabel7.setText("Nome");
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -168,30 +173,33 @@ public class frmPrimitivas extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(nomeObjeto)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(45, 45, 45)
-                        .addComponent(jSlider1, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 104, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(painelCor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(34, 34, 34))))
+                        .addComponent(painelCor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jSlider1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addGap(34, 34, 34))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addGap(22, 22, 22)
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(nomeObjeto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(painelCor, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel6)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jSlider1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -272,9 +280,9 @@ public class frmPrimitivas extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnDesenhaRetaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDesenhaRetaActionPerformed
-     // CONSIDERAA O MEIO DO PAINELMUNDO COMO SENDO O INICIO (PONTO 0,0) DEVIDO A VARIAVEL X0 e Y0 serem metade desse painel.
-        framePrincipal.desenhaReta((framePrincipal.X0 +(Integer.parseInt(txtXinicio.getText()))),(framePrincipal.Y0 -( Integer.parseInt(txtYinicio.getText()))), (framePrincipal.X0 +(Integer.parseInt(txtXfim.getText()))), (framePrincipal.Y0 -(Integer.parseInt(txtYfim.getText()))), 1.0f, this.cor);
-        dispose();   
+        // CONSIDERAA O MEIO DO PAINELMUNDO COMO SENDO O INICIO (PONTO 0,0) DEVIDO A VARIAVEL X0 e Y0 serem metade desse painel.
+        framePrincipal.desenhaReta((framePrincipal.X0 + (Integer.parseInt(txtXinicio.getText()))), (framePrincipal.Y0 - (Integer.parseInt(txtYinicio.getText()))), (framePrincipal.X0 + (Integer.parseInt(txtXfim.getText()))), (framePrincipal.Y0 - (Integer.parseInt(txtYfim.getText()))), 1.0f, this.cor, false, nomeObjeto.getText());
+        dispose();
     }//GEN-LAST:event_btnDesenhaRetaActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
@@ -291,11 +299,12 @@ public class frmPrimitivas extends javax.swing.JFrame {
         frmColorPicker c = new frmColorPicker(this);
         c.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
- 
-    public void mudaCorPainelCores(Color corParam){
+
+    public void mudaCorPainelCores(Color corParam) {
         this.cor = corParam;
         painelCor.setBackground(cor);
     }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
@@ -309,10 +318,12 @@ public class frmPrimitivas extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JSlider jSlider1;
+    private javax.swing.JTextField nomeObjeto;
     private javax.swing.JPanel painelCirculo;
     private javax.swing.JPanel painelCor;
     private javax.swing.JPanel painelRetangulo;
