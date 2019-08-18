@@ -6,6 +6,7 @@
 package Views;
 
 import Primitivas2D.Reta;
+import Primitivas2D.Retangulo;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Image;
@@ -29,7 +30,7 @@ public class frmPrincipal extends javax.swing.JFrame {
     public int X0; //metade X e y do painel mundo, serao pontos iniciais de deseneho no viewport 
     public int Y0;
     public DefaultListModel listaModel;   // model para adicionar a Jlist
-    public int countCartesianos, countRetas;   // usado apra saber qtos planos cartesianos desenhou para descontar do total de objetos e sincronziar com a Jlist.
+    public int countCartesianos, countRetas, countRecs;   // usado apra saber qtos planos cartesianos desenhou para descontar do total de objetos e sincronziar com a Jlist.
 
     //  Construtor, iniciar as variaveis que náo sáo atualziadas em tempo de execu;áo aqui.
     public frmPrincipal() {
@@ -43,6 +44,7 @@ public class frmPrincipal extends javax.swing.JFrame {
         Y0 = Math.round(painelWindow.getHeight() / 2);
         countCartesianos = 0;
         countRetas = 0;
+        countRecs = 0;
         desenhaPlanoCartesiano();
         centralizaViewPort();
         listaModel = new DefaultListModel();
@@ -151,10 +153,7 @@ public class frmPrincipal extends javax.swing.JFrame {
         });
 
         btnSetaCima.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/up_30px.png"))); // NOI18N
-        btnSetaCima.setMaximumSize(new java.awt.Dimension(63, 39));
-        btnSetaCima.setMinimumSize(new java.awt.Dimension(63, 39));
         btnSetaCima.setOpaque(false);
-        btnSetaCima.setPreferredSize(new java.awt.Dimension(63, 39));
         btnSetaCima.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSetaCimaActionPerformed(evt);
@@ -177,9 +176,6 @@ public class frmPrincipal extends javax.swing.JFrame {
         });
 
         btnZoomOut.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/zoom_out_30px.png"))); // NOI18N
-        btnZoomOut.setMaximumSize(new java.awt.Dimension(63, 39));
-        btnZoomOut.setMinimumSize(new java.awt.Dimension(63, 39));
-        btnZoomOut.setPreferredSize(new java.awt.Dimension(63, 39));
         btnZoomOut.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnZoomOutActionPerformed(evt);
@@ -187,9 +183,6 @@ public class frmPrincipal extends javax.swing.JFrame {
         });
 
         btnZoomIn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/zoom_in_30px.png"))); // NOI18N
-        btnZoomIn.setMaximumSize(new java.awt.Dimension(63, 39));
-        btnZoomIn.setMinimumSize(new java.awt.Dimension(63, 39));
-        btnZoomIn.setPreferredSize(new java.awt.Dimension(63, 39));
         btnZoomIn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnZoomInActionPerformed(evt);
@@ -373,10 +366,10 @@ public class frmPrincipal extends javax.swing.JFrame {
                             .addGroup(painelOpcoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelOpcoesLayout.createSequentialGroup()
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(btnZoomIn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(btnZoomIn))
                                 .addGroup(painelOpcoesLayout.createSequentialGroup()
                                     .addGap(16, 16, 16)
-                                    .addComponent(btnZoomOut, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addComponent(btnZoomOut))))
                         .addGroup(painelOpcoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(painelOpcoesLayout.createSequentialGroup()
                                 .addGap(18, 18, 18)
@@ -520,7 +513,7 @@ public class frmPrincipal extends javax.swing.JFrame {
                 .addGap(23, 23, 23)
                 .addGroup(painelFundoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(painelFundoLayout.createSequentialGroup()
-                        .addComponent(painelOpcoes, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addComponent(painelOpcoes, javax.swing.GroupLayout.PREFERRED_SIZE, 660, Short.MAX_VALUE)
                         .addContainerGap())
                     .addGroup(painelFundoLayout.createSequentialGroup()
                         .addComponent(jLabel1)
@@ -535,11 +528,11 @@ public class frmPrincipal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(painelFundo, javax.swing.GroupLayout.DEFAULT_SIZE, 1054, Short.MAX_VALUE)
+            .addComponent(painelFundo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(painelFundo, javax.swing.GroupLayout.DEFAULT_SIZE, 694, Short.MAX_VALUE)
+            .addComponent(painelFundo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -606,10 +599,11 @@ public class frmPrincipal extends javax.swing.JFrame {
     private void btnLimparViewPortActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparViewPortActionPerformed
         // TODO add your handling code her
 
-        painelWindow.removeAll();desenhaPlanoCartesiano();
+        painelWindow.removeAll();
+        desenhaPlanoCartesiano();
         listaModel.removeAllElements();
         painelWindow.repaint();
-       // desenhaPlanoCartesiano();
+        // desenhaPlanoCartesiano();
         imprimeIndicesPainelWindow();
 
     }//GEN-LAST:event_btnLimparViewPortActionPerformed
@@ -731,7 +725,6 @@ public class frmPrincipal extends javax.swing.JFrame {
             lp.setName(nomeObjeto);
         }
         lp.setBounds(1, 1, painelWindow.getWidth(), painelWindow.getHeight());
-        lp.setBackground(Color.red);
         //lp.setEspessura(espessura);
         lp.setxI(xi);
         lp.setyI(yi);
@@ -744,6 +737,21 @@ public class frmPrincipal extends javax.swing.JFrame {
         }
         repaint();
         System.out.println("desenhou reta");
+    }
+
+    public void desenhaRec(int xi, int yi, int xf, int yf, float espessura, Color cor, boolean ehPlanoCartesiano, String nomeObjeto) {
+        Retangulo rec = new Retangulo();
+        countRecs++;
+        rec.setName("Rec" + String.valueOf(countRecs) + " - " + nomeObjeto);
+        rec.setBounds(1, 1, painelWindow.getWidth(), painelWindow.getHeight());
+        rec.setxI(xi);
+        rec.setyI(yi);
+        rec.setxF(xf);
+        rec.setyF(yf);
+        painelWindow.add(rec);
+        painelWindow.setComponentZOrder(rec, 0);
+        repaint();
+        adicionaDesenhoALista(painelWindow.getComponent(0));
     }
 
     public void desenhaPlanoCartesiano() {
