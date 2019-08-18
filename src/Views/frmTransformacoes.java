@@ -30,6 +30,7 @@ public class frmTransformacoes extends javax.swing.JFrame {
 
         guia1 = new javax.swing.JTabbedPane();
         painelTranslatar = new javax.swing.JPanel();
+        jButton1 = new javax.swing.JButton();
         painelEscalonar = new javax.swing.JPanel();
         painelRotacionar = new javax.swing.JPanel();
 
@@ -40,15 +41,23 @@ public class frmTransformacoes extends javax.swing.JFrame {
 
         guia1.setName("Translatar"); // NOI18N
 
+        jButton1.setText("jButton1");
+
         javax.swing.GroupLayout painelTranslatarLayout = new javax.swing.GroupLayout(painelTranslatar);
         painelTranslatar.setLayout(painelTranslatarLayout);
         painelTranslatarLayout.setHorizontalGroup(
             painelTranslatarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 549, Short.MAX_VALUE)
+            .addGroup(painelTranslatarLayout.createSequentialGroup()
+                .addGap(221, 221, 221)
+                .addComponent(jButton1)
+                .addContainerGap(255, Short.MAX_VALUE))
         );
         painelTranslatarLayout.setVerticalGroup(
             painelTranslatarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 272, Short.MAX_VALUE)
+            .addGroup(painelTranslatarLayout.createSequentialGroup()
+                .addGap(94, 94, 94)
+                .addComponent(jButton1)
+                .addContainerGap(155, Short.MAX_VALUE))
         );
 
         guia1.addTab("Translatar", painelTranslatar);
@@ -132,6 +141,7 @@ public class frmTransformacoes extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTabbedPane guia1;
+    private javax.swing.JButton jButton1;
     private javax.swing.JPanel painelEscalonar;
     private javax.swing.JPanel painelRotacionar;
     private javax.swing.JPanel painelTranslatar;
