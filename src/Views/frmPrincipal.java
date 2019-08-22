@@ -6,6 +6,8 @@
 package Views;
 
 import Primitivas2D.Reta;
+import Primitivas2D.TransladaReta;
+
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Image;
@@ -30,7 +32,8 @@ public class frmPrincipal extends javax.swing.JFrame {
     public int Y0;
     public DefaultListModel listaModel;   // model para adicionar a Jlist
     public int countCartesianos, countRetas;   // usado apra saber qtos planos cartesianos desenhou para descontar do total de objetos e sincronziar com a Jlist.
-
+    public TransladaReta treta=new TransladaReta();
+    public int pontosTransladados[]= new int[4];
     //  Construtor, iniciar as variaveis que náo sáo atualziadas em tempo de execu;áo aqui.
     public frmPrincipal() {
         setLookAndFeel();
@@ -520,7 +523,7 @@ public class frmPrincipal extends javax.swing.JFrame {
                 .addGap(23, 23, 23)
                 .addGroup(painelFundoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(painelFundoLayout.createSequentialGroup()
-                        .addComponent(painelOpcoes, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addComponent(painelOpcoes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addContainerGap())
                     .addGroup(painelFundoLayout.createSequentialGroup()
                         .addComponent(jLabel1)
@@ -535,11 +538,11 @@ public class frmPrincipal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(painelFundo, javax.swing.GroupLayout.DEFAULT_SIZE, 1054, Short.MAX_VALUE)
+            .addComponent(painelFundo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(painelFundo, javax.swing.GroupLayout.DEFAULT_SIZE, 694, Short.MAX_VALUE)
+            .addComponent(painelFundo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -623,8 +626,9 @@ public class frmPrincipal extends javax.swing.JFrame {
 
     private void btnTransformacoesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTransformacoesActionPerformed
         // TODO add your handling code here:
-        frmTransformacoes frmT = new frmTransformacoes();
+        frmTransformacoes frmT = new frmTransformacoes(this);
         frmT.setVisible(true); // abre a tela de transformações
+        
     }//GEN-LAST:event_btnTransformacoesActionPerformed
 
     private void btnCentralizaViewportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCentralizaViewportActionPerformed
@@ -792,6 +796,27 @@ public class frmPrincipal extends javax.swing.JFrame {
         System.out.println("");
 
     }
+    
+    public void translada(int tx, int ty){
+       
+        if (listaObjetos.getSelectedIndex() > -1) {
+            Reta retaTranslada=(Reta) listaModel.getElementAt(listaObjetos.getSelectedIndex());
+            painelWindow.remove(painelWindow.getComponent(getObjSelecionadoNaListaDoPainelWindow()));
+            pontosTransladados=treta.translada((Reta) listaModel.getElementAt(listaObjetos.getSelectedIndex()),tx,ty);
+            listaModel.remove(listaObjetos.getSelectedIndex());
+            painelWindow.repaint();
+            spViewport.repaint();
+            desenhaReta(pontosTransladados[0],pontosTransladados[1],
+                    pontosTransladados[2],pontosTransladados[3],
+                    retaTranslada.getEspessura(),retaTranslada.getCor(),false,"teste");
+           
+            System.out.println(pontosTransladados[0]);
+            System.out.println(pontosTransladados[1]);
+            System.out.println(pontosTransladados[2]);
+            System.out.println(pontosTransladados[3]);
+        }
+    
+    }
 
     //------------------------------------------MAIN----------------------------//
     public static void main(String args[]) {
@@ -868,5 +893,7 @@ public class frmPrincipal extends javax.swing.JFrame {
     private javax.swing.JSlider sldPasso;
     private javax.swing.JScrollPane spViewport;
     // End of variables declaration//GEN-END:variables
+
+    
 
 }

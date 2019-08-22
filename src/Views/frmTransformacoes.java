@@ -5,16 +5,19 @@
  */
 package Views;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author coron
  */
 public class frmTransformacoes extends javax.swing.JFrame {
-
+    private frmPrincipal framePrincipal;
     /**
      * Creates new form frmTransformacoes
      */
-    public frmTransformacoes() {
+    public frmTransformacoes(frmPrincipal framePrincipal) {
+        this.framePrincipal=framePrincipal;
         initComponents();
         setLocationRelativeTo(null);
     }
@@ -30,7 +33,13 @@ public class frmTransformacoes extends javax.swing.JFrame {
 
         guia1 = new javax.swing.JTabbedPane();
         painelTranslatar = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
+        btconfirmatranslação = new javax.swing.JButton();
+        btcancelar = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        tx = new javax.swing.JTextField();
+        ty = new javax.swing.JTextField();
         painelEscalonar = new javax.swing.JPanel();
         painelRotacionar = new javax.swing.JPanel();
 
@@ -41,23 +50,87 @@ public class frmTransformacoes extends javax.swing.JFrame {
 
         guia1.setName("Translatar"); // NOI18N
 
-        jButton1.setText("jButton1");
+        btconfirmatranslação.setText("Confirmar");
+        btconfirmatranslação.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btconfirmatranslaçãoActionPerformed(evt);
+            }
+        });
+
+        btcancelar.setText("Cancelar");
+        btcancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btcancelarActionPerformed(evt);
+            }
+        });
+
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Coordenadas"));
+
+        jLabel2.setText("Ty");
+
+        jLabel1.setText("Tx");
+
+        tx.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(53, 53, 53)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel1))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(ty, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tx, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(66, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap(44, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(tx, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(ty, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(58, 58, 58))
+        );
 
         javax.swing.GroupLayout painelTranslatarLayout = new javax.swing.GroupLayout(painelTranslatar);
         painelTranslatar.setLayout(painelTranslatarLayout);
         painelTranslatarLayout.setHorizontalGroup(
             painelTranslatarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelTranslatarLayout.createSequentialGroup()
-                .addGap(221, 221, 221)
-                .addComponent(jButton1)
-                .addContainerGap(255, Short.MAX_VALUE))
+                .addComponent(btconfirmatranslação)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 385, Short.MAX_VALUE)
+                .addComponent(btcancelar))
+            .addGroup(painelTranslatarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(painelTranslatarLayout.createSequentialGroup()
+                    .addGap(151, 151, 151)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(182, Short.MAX_VALUE)))
         );
         painelTranslatarLayout.setVerticalGroup(
             painelTranslatarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(painelTranslatarLayout.createSequentialGroup()
-                .addGap(94, 94, 94)
-                .addComponent(jButton1)
-                .addContainerGap(155, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelTranslatarLayout.createSequentialGroup()
+                .addGap(0, 249, Short.MAX_VALUE)
+                .addGroup(painelTranslatarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btconfirmatranslação)
+                    .addComponent(btcancelar)))
+            .addGroup(painelTranslatarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(painelTranslatarLayout.createSequentialGroup()
+                    .addGap(51, 51, 51)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGap(51, 51, 51)))
         );
 
         guia1.addTab("Translatar", painelTranslatar);
@@ -104,6 +177,19 @@ public class frmTransformacoes extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void txActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txActionPerformed
+
+    private void btconfirmatranslaçãoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btconfirmatranslaçãoActionPerformed
+       framePrincipal.translada(Integer.parseInt(tx.getText()),Integer.parseInt(ty.getText()));
+       dispose();
+    }//GEN-LAST:event_btconfirmatranslaçãoActionPerformed
+
+    private void btcancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btcancelarActionPerformed
+        dispose();
+    }//GEN-LAST:event_btcancelarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -134,16 +220,22 @@ public class frmTransformacoes extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new frmTransformacoes().setVisible(true);
+               // new frmTransformacoes().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btcancelar;
+    private javax.swing.JButton btconfirmatranslação;
     private javax.swing.JTabbedPane guia1;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel painelEscalonar;
     private javax.swing.JPanel painelRotacionar;
     private javax.swing.JPanel painelTranslatar;
+    private javax.swing.JTextField tx;
+    private javax.swing.JTextField ty;
     // End of variables declaration//GEN-END:variables
 }

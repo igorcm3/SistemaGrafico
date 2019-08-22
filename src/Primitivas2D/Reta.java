@@ -46,6 +46,17 @@ public class Reta extends JPanel {
     public String toString(){
         return this.getName()+" xi:"+xI+" yi"+yI;
     }
+
+    public Color getCor() {
+        return cor;
+    }
+
+    public void setCor(Color cor) {
+        this.cor = cor;
+    }
+    
+    
+    
     public float getEspessura() {
         return espessura;
     }
