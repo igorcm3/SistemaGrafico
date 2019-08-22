@@ -6,6 +6,7 @@
 package Views;
 
 import Primitivas2D.Reta;
+
 import Primitivas2D.TransladaReta;
 
 import java.awt.Color;
@@ -46,6 +47,7 @@ public class frmPrincipal extends javax.swing.JFrame {
         Y0 = Math.round(painelWindow.getHeight() / 2);
         countCartesianos = 0;
         countRetas = 0;
+        
         desenhaPlanoCartesiano();
         centralizaViewPort();
         listaModel = new DefaultListModel();
@@ -154,10 +156,7 @@ public class frmPrincipal extends javax.swing.JFrame {
         });
 
         btnSetaCima.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/up_30px.png"))); // NOI18N
-        btnSetaCima.setMaximumSize(new java.awt.Dimension(63, 39));
-        btnSetaCima.setMinimumSize(new java.awt.Dimension(63, 39));
         btnSetaCima.setOpaque(false);
-        btnSetaCima.setPreferredSize(new java.awt.Dimension(63, 39));
         btnSetaCima.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSetaCimaActionPerformed(evt);
@@ -180,9 +179,6 @@ public class frmPrincipal extends javax.swing.JFrame {
         });
 
         btnZoomOut.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/zoom_out_30px.png"))); // NOI18N
-        btnZoomOut.setMaximumSize(new java.awt.Dimension(63, 39));
-        btnZoomOut.setMinimumSize(new java.awt.Dimension(63, 39));
-        btnZoomOut.setPreferredSize(new java.awt.Dimension(63, 39));
         btnZoomOut.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnZoomOutActionPerformed(evt);
@@ -190,9 +186,6 @@ public class frmPrincipal extends javax.swing.JFrame {
         });
 
         btnZoomIn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/zoom_in_30px.png"))); // NOI18N
-        btnZoomIn.setMaximumSize(new java.awt.Dimension(63, 39));
-        btnZoomIn.setMinimumSize(new java.awt.Dimension(63, 39));
-        btnZoomIn.setPreferredSize(new java.awt.Dimension(63, 39));
         btnZoomIn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnZoomInActionPerformed(evt);
@@ -376,10 +369,10 @@ public class frmPrincipal extends javax.swing.JFrame {
                             .addGroup(painelOpcoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelOpcoesLayout.createSequentialGroup()
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(btnZoomIn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(btnZoomIn))
                                 .addGroup(painelOpcoesLayout.createSequentialGroup()
                                     .addGap(16, 16, 16)
-                                    .addComponent(btnZoomOut, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addComponent(btnZoomOut))))
                         .addGroup(painelOpcoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(painelOpcoesLayout.createSequentialGroup()
                                 .addGap(18, 18, 18)
@@ -609,10 +602,11 @@ public class frmPrincipal extends javax.swing.JFrame {
     private void btnLimparViewPortActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparViewPortActionPerformed
         // TODO add your handling code her
 
-        painelWindow.removeAll();desenhaPlanoCartesiano();
+        painelWindow.removeAll();
+        desenhaPlanoCartesiano();
         listaModel.removeAllElements();
         painelWindow.repaint();
-       // desenhaPlanoCartesiano();
+        // desenhaPlanoCartesiano();
         imprimeIndicesPainelWindow();
 
     }//GEN-LAST:event_btnLimparViewPortActionPerformed
@@ -735,7 +729,6 @@ public class frmPrincipal extends javax.swing.JFrame {
             lp.setName(nomeObjeto);
         }
         lp.setBounds(1, 1, painelWindow.getWidth(), painelWindow.getHeight());
-        lp.setBackground(Color.red);
         //lp.setEspessura(espessura);
         lp.setxI(xi);
         lp.setyI(yi);
@@ -749,6 +742,8 @@ public class frmPrincipal extends javax.swing.JFrame {
         repaint();
         System.out.println("desenhou reta");
     }
+
+   
 
     public void desenhaPlanoCartesiano() {
         // desenha duas retas que se cruzam para o plano cartesiano.  
