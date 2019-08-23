@@ -33,8 +33,9 @@ public class frmPrincipal extends javax.swing.JFrame {
     public int Y0;
     public DefaultListModel listaModel;   // model para adicionar a Jlist
     public int countCartesianos, countRetas;   // usado apra saber qtos planos cartesianos desenhou para descontar do total de objetos e sincronziar com a Jlist.
-    public TransladaReta treta=new TransladaReta();
-    public int pontosTransladados[]= new int[4];
+    public TransladaReta treta = new TransladaReta();
+    public int pontosTransladados[] = new int[4];
+
     //  Construtor, iniciar as variaveis que náo sáo atualziadas em tempo de execu;áo aqui.
     public frmPrincipal() {
         setLookAndFeel();
@@ -47,7 +48,7 @@ public class frmPrincipal extends javax.swing.JFrame {
         Y0 = Math.round(painelWindow.getHeight() / 2);
         countCartesianos = 0;
         countRetas = 0;
-        
+
         desenhaPlanoCartesiano();
         centralizaViewPort();
         listaModel = new DefaultListModel();
@@ -620,9 +621,12 @@ public class frmPrincipal extends javax.swing.JFrame {
 
     private void btnTransformacoesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTransformacoesActionPerformed
         // TODO add your handling code here:
-        frmTransformacoes frmT = new frmTransformacoes(this);
-        frmT.setVisible(true); // abre a tela de transformações
-        
+        if (listaObjetos.getSelectedIndex() > -1) {
+            frmTransformacoes frmT = new frmTransformacoes(this);
+            frmT.setVisible(true); // abre a tela de transformações    
+        } else {
+            JOptionPane.showMessageDialog(null,"Selecione um objeto na lista para fazer a transformação!", "Transformação de objetos", 0);
+        }
     }//GEN-LAST:event_btnTransformacoesActionPerformed
 
     private void btnCentralizaViewportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCentralizaViewportActionPerformed
@@ -743,8 +747,6 @@ public class frmPrincipal extends javax.swing.JFrame {
         System.out.println("desenhou reta");
     }
 
-   
-
     public void desenhaPlanoCartesiano() {
         // desenha duas retas que se cruzam para o plano cartesiano.  
         desenhaReta(0, Math.round(painelWindow.getHeight() / 2), Math.round(painelWindow.getWidth()), Math.round(painelWindow.getHeight() / 2), 1.0f, Color.BLACK, true, "PC");
@@ -791,26 +793,26 @@ public class frmPrincipal extends javax.swing.JFrame {
         System.out.println("");
 
     }
-    
-    public void translada(int tx, int ty){
-       
+
+    public void translada(int tx, int ty) {
+
         if (listaObjetos.getSelectedIndex() > -1) {
-            Reta retaTranslada=(Reta) listaModel.getElementAt(listaObjetos.getSelectedIndex());
+            Reta retaTranslada = (Reta) listaModel.getElementAt(listaObjetos.getSelectedIndex());
             painelWindow.remove(painelWindow.getComponent(getObjSelecionadoNaListaDoPainelWindow()));
-            pontosTransladados=treta.translada((Reta) listaModel.getElementAt(listaObjetos.getSelectedIndex()),tx,ty);
+            pontosTransladados = treta.translada((Reta) listaModel.getElementAt(listaObjetos.getSelectedIndex()), tx, ty);
             listaModel.remove(listaObjetos.getSelectedIndex());
             painelWindow.repaint();
             spViewport.repaint();
-            desenhaReta(pontosTransladados[0],pontosTransladados[1],
-                    pontosTransladados[2],pontosTransladados[3],
-                    retaTranslada.getEspessura(),retaTranslada.getCor(),false,"teste");
-           
+            desenhaReta(pontosTransladados[0], pontosTransladados[1],
+                    pontosTransladados[2], pontosTransladados[3],
+                    retaTranslada.getEspessura(), retaTranslada.getCor(), false, "teste");
+
             System.out.println(pontosTransladados[0]);
             System.out.println(pontosTransladados[1]);
             System.out.println(pontosTransladados[2]);
             System.out.println(pontosTransladados[3]);
         }
-    
+
     }
 
     //------------------------------------------MAIN----------------------------//
@@ -888,7 +890,5 @@ public class frmPrincipal extends javax.swing.JFrame {
     private javax.swing.JSlider sldPasso;
     private javax.swing.JScrollPane spViewport;
     // End of variables declaration//GEN-END:variables
-
-    
 
 }
