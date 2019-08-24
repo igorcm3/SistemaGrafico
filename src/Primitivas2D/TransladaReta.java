@@ -10,7 +10,7 @@ package Primitivas2D;
  * @author wilsi
  */
 public class TransladaReta {
-    
+    protected final int PONTO = 0, RETA = 1, POLILINHA = 2, POLIGONO = 3;
     private int mt[][]=new int[3][3];
     private int p1[][]=new int[1][3];
     private int p2[][]=new int[1][3];

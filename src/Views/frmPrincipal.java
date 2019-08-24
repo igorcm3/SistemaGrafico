@@ -34,7 +34,7 @@ public class frmPrincipal extends javax.swing.JFrame {
     public TransladaReta treta = new TransladaReta();
     public int pontosTransladados[] = new int[4];
     //constantes 
-    protected final int PONTO=0, RETA=1;
+    protected final int PONTO = 0, RETA = 1, POLILINHA = 2, POLIGONO = 3;
 
     //  Construtor, iniciar as variaveis que náo sáo atualziadas em tempo de execu;áo aqui.
     public frmPrincipal() {
@@ -93,7 +93,7 @@ public class frmPrincipal extends javax.swing.JFrame {
         lblInfo4 = new javax.swing.JLabel();
         lblObjInfo = new javax.swing.JLabel();
         lblObjSelLista = new javax.swing.JLabel();
-        lblObjSelWind = new javax.swing.JLabel();
+        lblObjSelPontos = new javax.swing.JLabel();
         lblTotalObj = new javax.swing.JLabel();
         lblInfo5 = new javax.swing.JLabel();
         lblObjSelTipo = new javax.swing.JLabel();
@@ -410,7 +410,7 @@ public class frmPrincipal extends javax.swing.JFrame {
 
         lblInfo1.setText("Objeto selecionado index lista: ");
 
-        lblInfo2.setText("Objeto selecionado index window: ");
+        lblInfo2.setText("Número de pontos do objeto");
 
         lblInfo3.setText("Total objetos: ");
 
@@ -422,8 +422,8 @@ public class frmPrincipal extends javax.swing.JFrame {
         lblObjSelLista.setForeground(new java.awt.Color(0, 0, 160));
         lblObjSelLista.setText("0");
 
-        lblObjSelWind.setForeground(new java.awt.Color(0, 0, 160));
-        lblObjSelWind.setText("0");
+        lblObjSelPontos.setForeground(new java.awt.Color(0, 0, 160));
+        lblObjSelPontos.setText("0");
 
         lblTotalObj.setForeground(new java.awt.Color(0, 0, 160));
         lblTotalObj.setText("0");
@@ -458,10 +458,10 @@ public class frmPrincipal extends javax.swing.JFrame {
                         .addComponent(lblInfo1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblObjSelLista, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(lblInfo2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblObjSelWind, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblObjSelPontos, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(lblInfo3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -477,7 +477,7 @@ public class frmPrincipal extends javax.swing.JFrame {
                     .addComponent(lblInfo2)
                     .addComponent(lblInfo3)
                     .addComponent(lblObjSelLista)
-                    .addComponent(lblObjSelWind)
+                    .addComponent(lblObjSelPontos)
                     .addComponent(lblTotalObj))
                 .addGap(3, 3, 3)
                 .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 9, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -505,7 +505,7 @@ public class frmPrincipal extends javax.swing.JFrame {
                         .addGroup(painelFundoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(painelInfos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(spViewport, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addContainerGap(112, Short.MAX_VALUE))
+                        .addContainerGap(124, Short.MAX_VALUE))
                     .addGroup(painelFundoLayout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -600,7 +600,8 @@ public class frmPrincipal extends javax.swing.JFrame {
 
     private void btnLimparViewPortActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparViewPortActionPerformed
         // TODO add your handling code her
-
+        countCartesianos =0;
+        countRetas =0;
         painelWindow.removeAll();
         desenhaPlanoCartesiano();
         listaModel.removeAllElements();
@@ -685,13 +686,21 @@ public class frmPrincipal extends javax.swing.JFrame {
     }
 
     public void atualizaLabelsInfo() {
+        DrawFactory tipObj = (DrawFactory) painelWindow.getComponent(getObjSelecionadoNaListaDoPainelWindow());
+        
         lblObjSelLista.setText(String.valueOf((listaObjetos.getSelectedIndex() + 1)));
-        //lblObjSelWind.setText();
+        lblObjSelPontos.setText(String.valueOf(tipObj.getNumeroDePontos()));
         lblTotalObj.setText(String.valueOf(getTotalObjetosDesenhadosWindow()));
-        DrawFactory tipObj = (DrawFactory)painelWindow.getComponent(getObjSelecionadoNaListaDoPainelWindow());
+        
         switch (tipObj.getTipoObj()) {
             case RETA:
                 lblObjSelTipo.setText("Reta");
+                break;
+            case POLILINHA:
+                lblObjSelTipo.setText("Polilinha");
+                break;
+            case POLIGONO:
+                lblObjSelTipo.setText("Poligono");
                 break;
             default:
                 lblObjSelTipo.setText("Tipo não reconhecido!");
@@ -746,7 +755,7 @@ public class frmPrincipal extends javax.swing.JFrame {
         Points p2 = new Points();
         ArrayList<Points> p1Array = new ArrayList<Points>();
         ArrayList<Points> p2Array = new ArrayList<Points>();
-        
+
         p1.setXi(0);
         p1.setYi(Math.round(painelWindow.getHeight() / 2));
         p1.setXf(Math.round(painelWindow.getWidth()));
@@ -758,10 +767,10 @@ public class frmPrincipal extends javax.swing.JFrame {
         p2.setXf(Math.round(painelWindow.getWidth() / 2));
         p2.setYf(Math.round(painelWindow.getHeight()));
         p2Array.add(p2);
-        
-        desenhaObjeto(p1Array,Color.BLACK, true, "Plano Cartesiano", RETA);
+
+        desenhaObjeto(p1Array, Color.BLACK, true, "Plano Cartesiano", RETA);
         countCartesianos++;
-        desenhaObjeto(p2Array,Color.BLACK, true, "Plano Cartesiano", RETA);
+        desenhaObjeto(p2Array, Color.BLACK, true, "Plano Cartesiano", RETA);
         countCartesianos++;
         painelWindow.repaint();
     }
@@ -893,8 +902,8 @@ public class frmPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel lblInfo5;
     private javax.swing.JLabel lblObjInfo;
     private javax.swing.JLabel lblObjSelLista;
+    private javax.swing.JLabel lblObjSelPontos;
     private javax.swing.JLabel lblObjSelTipo;
-    private javax.swing.JLabel lblObjSelWind;
     private javax.swing.JLabel lblPasso;
     private javax.swing.JLabel lblTotalObj;
     private javax.swing.JList<String> listaObjetos;

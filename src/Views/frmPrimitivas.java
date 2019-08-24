@@ -20,7 +20,7 @@ public class frmPrimitivas extends javax.swing.JFrame {
     private frmPrincipal framePrincipal;
     private Color cor;
     //constantes
-    protected final int PONTO = 0, RETA = 1, POLILINHA = 3, POLIGONO = 4;
+    protected final int PONTO = 0, RETA = 1, POLILINHA = 2, POLIGONO = 3;
     ArrayList<Points> listaAddPontos;
     protected DefaultListModel listaModel;
 
@@ -395,7 +395,13 @@ public class frmPrimitivas extends javax.swing.JFrame {
                     // os pontos para polilinha e poligono são pegos diretamente através do form frmAdicionaPontos
                     // precisam ser ajustados a origem do plano cartesiano
                     ajustaOrigemPolilinhaPoligono();
-                    framePrincipal.desenhaObjeto(listaAddPontos, this.cor, false, nomeObjeto.getText(), POLILINHA);
+                    if ((rbPolilinha.isSelected()) && (!rbPoligono.isSelected())) {
+                        framePrincipal.desenhaObjeto(listaAddPontos, this.cor, false, nomeObjeto.getText(), POLILINHA);
+                    }
+                    if ((rbPoligono.isSelected()) && (!rbPolilinha.isSelected())) {
+                        framePrincipal.desenhaObjeto(listaAddPontos, this.cor, false, nomeObjeto.getText(), POLIGONO);
+                    }
+
                     break;
             }
             dispose();

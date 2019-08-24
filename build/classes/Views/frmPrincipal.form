@@ -64,7 +64,7 @@
                               <Component id="painelInfos" max="32767" attributes="0"/>
                               <Component id="spViewport" max="32767" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="112" max="32767" attributes="0"/>
+                          <EmptySpace pref="124" max="32767" attributes="0"/>
                       </Group>
                       <Group type="102" attributes="0">
                           <EmptySpace max="32767" attributes="0"/>
@@ -622,10 +622,10 @@
                               <Component id="lblInfo1" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="lblObjSelLista" min="-2" pref="29" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
                               <Component id="lblInfo2" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="lblObjSelWind" min="-2" pref="27" max="-2" attributes="0"/>
+                              <Component id="lblObjSelPontos" min="-2" pref="27" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                               <Component id="lblInfo3" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
@@ -645,7 +645,7 @@
                           <Component id="lblInfo2" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="lblInfo3" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="lblObjSelLista" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="lblObjSelWind" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblObjSelPontos" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="lblTotalObj" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
@@ -673,7 +673,7 @@
             </Component>
             <Component class="javax.swing.JLabel" name="lblInfo2">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Objeto selecionado index window: "/>
+                <Property name="text" type="java.lang.String" value="N&#xfa;mero de pontos do objeto"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="lblInfo3">
@@ -702,7 +702,7 @@
                 <Property name="text" type="java.lang.String" value="0"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="lblObjSelWind">
+            <Component class="javax.swing.JLabel" name="lblObjSelPontos">
               <Properties>
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="a0" green="0" red="0" type="rgb"/>

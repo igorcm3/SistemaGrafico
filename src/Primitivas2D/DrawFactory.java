@@ -18,12 +18,14 @@ import javax.swing.JPanel;
  * @author coron
  */
 public class DrawFactory extends JPanel {
+
     protected Color cor;
     protected int posicaoPainelWondow;
     protected ArrayList<Points> points;
     protected int tipoObj;
-    protected final int PONTO=0, RETA=1, POLILINHA =3, POLIGONO =4;
-;
+    protected final int PONTO = 0, RETA = 1, POLILINHA = 2, POLIGONO = 3;
+
+    ;
     // Construtor que recebe um array de pontos para desenho.
     public DrawFactory(ArrayList<Points> points) {
         this.points = points;
@@ -36,7 +38,7 @@ public class DrawFactory extends JPanel {
     public void paintComponent(Graphics g) {
 
         Graphics2D g2d = (Graphics2D) g;
-        g2d.setColor(cor); 
+        g2d.setColor(cor);
         g2d.setStroke(new BasicStroke(1.0f)); // tamanho da espessura.
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
@@ -48,17 +50,32 @@ public class DrawFactory extends JPanel {
                 }
                 break;
             case POLILINHA:
-                 // percorre o arraylist por indices para controlar o desenho
+                // percorre o arraylist por indices para controlar o desenho
                 // ja que tem que pegar como inicio o fim do elemento anterior para desenahr a partir dele.
-                for (int i =0; i<points.size(); i++) {
+                for (int i = 0; i < points.size(); i++) {
                     if (i == 0) {
                         //primeiro elemento desenha normal para o proximo ter uam referencia
-                        g2d.drawLine(points.get(i).getXi(), points.get(i).getYi(), points.get(i).getXf(), points.get(i).getYf());    
-                    } else{
-                        g2d.drawLine(points.get(i-1).getXf(), points.get(i-1).getYf(), points.get(i).getXf(), points.get(i).getYf());    
+                        g2d.drawLine(points.get(i).getXi(), points.get(i).getYi(), points.get(i).getXf(), points.get(i).getYf());
+                    } else {
+                        g2d.drawLine(points.get(i - 1).getXf(), points.get(i - 1).getYf(), points.get(i).getXf(), points.get(i).getYf());
                     }
-                    
+
                 }
+                break;
+            case POLIGONO:
+                // percorre o arraylist por indices para controlar o desenho
+                // ja que tem que pegar como inicio o fim do elemento anterior para desenahr a partir dele.
+                for (int i = 0; i < points.size(); i++) {
+                    if (i == 0) {
+                        //primeiro elemento desenha normal para o proximo ter uam referencia
+                        g2d.drawLine(points.get(i).getXi(), points.get(i).getYi(), points.get(i).getXf(), points.get(i).getYf());
+                    } else {
+                        g2d.drawLine(points.get(i - 1).getXf(), points.get(i - 1).getYf(), points.get(i).getXf(), points.get(i).getYf());
+                    }
+
+                }
+                // DESENHA ULTIMO PONTO CONECTANDO COM PRIMEIRO
+                g2d.drawLine(points.get(points.size() - 1).getXf(), points.get(points.size() - 1).getYf(), points.get(0).getXf(), points.get(0).getYf());
                 break;
         }
         g2d.dispose();
@@ -66,21 +83,46 @@ public class DrawFactory extends JPanel {
 
     @Override
     public String toString() {
-        switch(tipoObj){
-            case RETA: return this.getName() + " [Reta]";
-            //case Circulo: return this.getName() + " [Circulo]";
-            case PONTO: return this.getName() + " [Ponto]";               
+        switch (tipoObj) {
+            case RETA:
+                return this.getName() + " [Reta]";
+            case POLILINHA:
+                return this.getName() + " [Polilinha] - "+points.size()+" pontos";
+            case POLIGONO:
+                switch (points.size()) {
+                    case 1:
+                        return this.getName() + " [Ponto]";
+                    case 2:
+                        return this.getName() + " [Reta]";
+                    case 3:
+                        return this.getName() + " [Triângulo]";
+                    case 4:
+                        return this.getName() + " [Quadrângulo]";
+                    case 5:
+                        return this.getName() + " [Pentágono]";
+                    case 6:
+                        return this.getName() + " [Hexágono]";
+                    case 7:
+                        return this.getName() + " [Heptágono]";
+                    case 8:
+                        return this.getName() + " [Octógono]";
+                    case 9:
+                        return this.getName() + " [Enealátero]";
+                    case 10:
+                        return this.getName() + " [Decalátero]";
+                }
         }
-        return "Tipo não identificado!";
+        return "[Objeto]!";
     }
-    
-    public int getNumeroDePontos(){
+
+    public int getNumeroDePontos() {
         return points.size();
     }
 
     public ArrayList<Points> getPoints() {
         return points;
     }
+
     public void setPosicaoPainelWondow(int posicaoPainelWondow) {
         this.posicaoPainelWondow = posicaoPainelWondow;
     }
@@ -104,6 +146,5 @@ public class DrawFactory extends JPanel {
     public int getTipoObj() {
         return tipoObj;
     }
-
 
 }
