@@ -120,8 +120,14 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtX">
+          <Events>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtXKeyTyped"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="txtY">
+          <Events>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtYKeyTyped"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnConfirmar">
           <Properties>

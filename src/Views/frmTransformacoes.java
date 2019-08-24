@@ -24,6 +24,15 @@ public class frmTransformacoes extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }
 
+    
+    // CHAMAR ESSA FUNÇÃO NO EVENTO KEYTYPED DE TODOS OS TEXTFELD PARA N DEIXAR IR LETRAS.
+    public void permitirSomenteNumeros(java.awt.event.KeyEvent evt) {
+        String caracteres = "0987654321";
+        if (!caracteres.contains(evt.getKeyChar() + "")) {
+            evt.consume();
+        }
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -61,6 +70,17 @@ public class frmTransformacoes extends javax.swing.JFrame {
         tx.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txActionPerformed(evt);
+            }
+        });
+        tx.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txKeyTyped(evt);
+            }
+        });
+
+        ty.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                tyKeyTyped(evt);
             }
         });
 
@@ -197,6 +217,16 @@ public class frmTransformacoes extends javax.swing.JFrame {
     private void btcancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btcancelarActionPerformed
         dispose();
     }//GEN-LAST:event_btcancelarActionPerformed
+
+    private void txKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txKeyTyped
+        // TODO add your handling code here:
+        permitirSomenteNumeros(evt);
+    }//GEN-LAST:event_txKeyTyped
+
+    private void tyKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tyKeyTyped
+        // TODO add your handling code here:
+        permitirSomenteNumeros(evt);
+    }//GEN-LAST:event_tyKeyTyped
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btcancelar;

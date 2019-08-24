@@ -152,9 +152,13 @@
                 <Component class="javax.swing.JTextField" name="tx">
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txActionPerformed"/>
+                    <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txKeyTyped"/>
                   </Events>
                 </Component>
                 <Component class="javax.swing.JTextField" name="ty">
+                  <Events>
+                    <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="tyKeyTyped"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>

@@ -101,6 +101,29 @@ public class frmPrimitivas extends javax.swing.JFrame {
                 txtXinicioActionPerformed(evt);
             }
         });
+        txtXinicio.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtXinicioKeyTyped(evt);
+            }
+        });
+
+        txtYinicio.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtYinicioKeyTyped(evt);
+            }
+        });
+
+        txtXfim.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtXfimKeyTyped(evt);
+            }
+        });
+
+        txtYfim.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtYfimKeyTyped(evt);
+            }
+        });
 
         jLabel11.setText("Ponto 1");
 
@@ -488,9 +511,36 @@ public class frmPrimitivas extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_rbPolilinhaActionPerformed
 
+    private void txtXinicioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtXinicioKeyTyped
+        // TODO add your handling code here:
+        permitirSomenteNumeros(evt);
+
+    }//GEN-LAST:event_txtXinicioKeyTyped
+
+    private void txtYinicioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtYinicioKeyTyped
+        permitirSomenteNumeros(evt);   
+    }//GEN-LAST:event_txtYinicioKeyTyped
+
+    private void txtXfimKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtXfimKeyTyped
+        // TODO add your handling code here:
+        permitirSomenteNumeros(evt);
+    }//GEN-LAST:event_txtXfimKeyTyped
+
+    private void txtYfimKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtYfimKeyTyped
+        // TODO add your handling code here:
+        permitirSomenteNumeros(evt);
+    }//GEN-LAST:event_txtYfimKeyTyped
+
     public void mudaCorPainelCores(Color corParam) {
         this.cor = corParam;
         painelCor.setBackground(cor);
+    }
+    
+    public void permitirSomenteNumeros(java.awt.event.KeyEvent evt){
+            String caracteres = "0987654321";
+        if (!caracteres.contains(evt.getKeyChar() + "")) {
+            evt.consume();
+    }
     }
 
 

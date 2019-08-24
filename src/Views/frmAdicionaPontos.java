@@ -25,6 +25,13 @@ public class frmAdicionaPontos extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }
 
+    public void permitirSomenteNumeros(java.awt.event.KeyEvent evt) {
+        String caracteres = "0987654321";
+        if (!caracteres.contains(evt.getKeyChar() + "")) {
+            evt.consume();
+        }
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -54,6 +61,18 @@ public class frmAdicionaPontos extends javax.swing.JFrame {
         jLabel2.setText("X");
 
         jLabel3.setText("Y");
+
+        txtX.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtXKeyTyped(evt);
+            }
+        });
+
+        txtY.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtYKeyTyped(evt);
+            }
+        });
 
         btnConfirmar.setText("Confirmar");
         btnConfirmar.addActionListener(new java.awt.event.ActionListener() {
@@ -146,6 +165,17 @@ public class frmAdicionaPontos extends javax.swing.JFrame {
         // TODO add your handling code here:
         dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void txtXKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtXKeyTyped
+
+        // TODO add your handling code here:
+        permitirSomenteNumeros(evt);
+    }//GEN-LAST:event_txtXKeyTyped
+
+    private void txtYKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtYKeyTyped
+        // TODO add your handling code here:
+        permitirSomenteNumeros(evt);
+    }//GEN-LAST:event_txtYKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
