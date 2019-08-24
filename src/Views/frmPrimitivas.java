@@ -203,6 +203,11 @@ public class frmPrimitivas extends javax.swing.JFrame {
         );
 
         rbPolilinha.setText("Polilinha");
+        rbPolilinha.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbPolilinhaActionPerformed(evt);
+            }
+        });
 
         rbPoligono.setText("Poligono");
         rbPoligono.addActionListener(new java.awt.event.ActionListener() {
@@ -374,38 +379,45 @@ public class frmPrimitivas extends javax.swing.JFrame {
     private void btnDesenhaPrimitivaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDesenhaPrimitivaActionPerformed
 
         // NOME OBRIGATORIO DO OBJETO
-        if ((nomeObjeto.getText().equals("")) || (listaPontos.getModel().getSize() <= 1)) {
-            if (nomeObjeto.getText().equals("")) {
-                System.out.println("Sem nome, não desenhar!");
-                JOptionPane.showMessageDialog(null, "Informe o nome do objeto!", "Nome do objeto", 1);
-            } else {
-                System.out.println("insira ao menos dois pontos para polilinha/poligono");
-                JOptionPane.showMessageDialog(null, "Insira ao menos dois pontos para polilinha/poligono!", "Desenhar Polilinha", 1);
-            }
-
-        } else {
-            // CONSIDERAA O MEIO DO PAINELMUNDO COMO SENDO O INICIO (PONTO 0,0) DEVIDO A VARIAVEL X0 e Y0 serem metade desse painel.
-            switch (painelGuias.getSelectedIndex()) {
-                // desenha uma reta com os pontos informados
-                case 0:
-                    inserePontosParaReta();
-                    framePrincipal.desenhaObjeto(listaAddPontos, this.cor, false, nomeObjeto.getText(), RETA);
-                    break;
-                case 1:
-                    // os pontos para polilinha e poligono são pegos diretamente através do form frmAdicionaPontos
-                    // precisam ser ajustados a origem do plano cartesiano
-                    ajustaOrigemPolilinhaPoligono();
-                    if ((rbPolilinha.isSelected()) && (!rbPoligono.isSelected())) {
-                        framePrincipal.desenhaObjeto(listaAddPontos, this.cor, false, nomeObjeto.getText(), POLILINHA);
-                    }
-                    if ((rbPoligono.isSelected()) && (!rbPolilinha.isSelected())) {
-                        framePrincipal.desenhaObjeto(listaAddPontos, this.cor, false, nomeObjeto.getText(), POLIGONO);
-                    }
-
-                    break;
-            }
-            dispose();
+        //if ((nomeObjeto.getText().equals("")) || (listaPontos.getModel().getSize() <= 1)) {
+        if (nomeObjeto.getText().equals("")) {
+            System.out.println("Sem nome, não desenhar!");
+            JOptionPane.showMessageDialog(null, "Informe o nome do objeto!", "Nome do objeto", 1);
+            return;
         }
+        if ((listaPontos.getModel().getSize() <= 1) && (rbPolilinha.isSelected())) {
+            System.out.println("insira ao menos dois pontos para polilinha");
+            JOptionPane.showMessageDialog(null, "Insira ao menos dois pontos para polilinha!", "Desenhar Polilinha", 1);
+            return;
+        }
+        if ((listaPontos.getModel().getSize() <= 2) && (rbPoligono.isSelected())) {
+            System.out.println("insira ao menos três pontos para poligono");
+            JOptionPane.showMessageDialog(null, "Insira ao menos três pontos para poligono!", "Desenhar Poligono", 1);
+            return;
+        }
+
+        // CONSIDERAA O MEIO DO PAINELMUNDO COMO SENDO O INICIO (PONTO 0,0) DEVIDO A VARIAVEL X0 e Y0 serem metade desse painel.
+        switch (painelGuias.getSelectedIndex()) {
+            // desenha uma reta com os pontos informados
+            case 0:
+                inserePontosParaReta();
+                framePrincipal.desenhaObjeto(listaAddPontos, this.cor, false, nomeObjeto.getText(), RETA);
+                break;
+            case 1:
+                // os pontos para polilinha e poligono são pegos diretamente através do form frmAdicionaPontos
+                // precisam ser ajustados a origem do plano cartesiano
+                ajustaOrigemPolilinhaPoligono();
+                if ((rbPolilinha.isSelected()) && (!rbPoligono.isSelected())) {
+                    framePrincipal.desenhaObjeto(listaAddPontos, this.cor, false, nomeObjeto.getText(), POLILINHA);
+                }
+                if ((rbPoligono.isSelected()) && (!rbPolilinha.isSelected())) {
+                    framePrincipal.desenhaObjeto(listaAddPontos, this.cor, false, nomeObjeto.getText(), POLIGONO);
+                }
+
+                break;
+        }
+        dispose();
+
     }//GEN-LAST:event_btnDesenhaPrimitivaActionPerformed
     private void inserePontosParaReta() {
         // quando for a primeira aba = retas
@@ -465,6 +477,16 @@ public class frmPrimitivas extends javax.swing.JFrame {
         frmAdicionaPontos telaPontos = new frmAdicionaPontos(this);
         telaPontos.setVisible(true);
     }//GEN-LAST:event_btnNovoPontoActionPerformed
+
+    private void rbPolilinhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbPolilinhaActionPerformed
+        // TODO add your handling code here:
+        if (rbPoligono.isSelected()) {
+            rbPoligono.setSelected(false);
+        }
+        if (!rbPolilinha.isSelected()) {
+            rbPolilinha.setSelected(true);
+        }
+    }//GEN-LAST:event_rbPolilinhaActionPerformed
 
     public void mudaCorPainelCores(Color corParam) {
         this.cor = corParam;

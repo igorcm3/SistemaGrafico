@@ -339,6 +339,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Polilinha"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="rbPolilinhaActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JRadioButton" name="rbPoligono">
               <Properties>
