@@ -12,12 +12,14 @@ import javax.swing.JOptionPane;
  * @author coron
  */
 public class frmTransformacoes extends javax.swing.JFrame {
+
     private frmPrincipal framePrincipal;
+
     /**
      * Creates new form frmTransformacoes
      */
     public frmTransformacoes(frmPrincipal framePrincipal) {
-        this.framePrincipal=framePrincipal;
+        this.framePrincipal = framePrincipal;
         initComponents();
         setLocationRelativeTo(null);
     }
@@ -31,10 +33,8 @@ public class frmTransformacoes extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        guia1 = new javax.swing.JTabbedPane();
+        painelGuias = new javax.swing.JTabbedPane();
         painelTranslatar = new javax.swing.JPanel();
-        btconfirmatranslação = new javax.swing.JButton();
-        btcancelar = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
@@ -42,27 +42,15 @@ public class frmTransformacoes extends javax.swing.JFrame {
         ty = new javax.swing.JTextField();
         painelEscalonar = new javax.swing.JPanel();
         painelRotacionar = new javax.swing.JPanel();
+        btconfirmatranslação = new javax.swing.JButton();
+        btcancelar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Transformações");
         setPreferredSize(new java.awt.Dimension(550, 300));
         setResizable(false);
 
-        guia1.setName("Translatar"); // NOI18N
-
-        btconfirmatranslação.setText("Confirmar");
-        btconfirmatranslação.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btconfirmatranslaçãoActionPerformed(evt);
-            }
-        });
-
-        btcancelar.setText("Cancelar");
-        btcancelar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btcancelarActionPerformed(evt);
-            }
-        });
+        painelGuias.setName("Translatar"); // NOI18N
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Coordenadas"));
 
@@ -89,12 +77,12 @@ public class frmTransformacoes extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(ty, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tx, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(66, Short.MAX_VALUE))
+                .addContainerGap(76, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap(44, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(tx, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -110,69 +98,84 @@ public class frmTransformacoes extends javax.swing.JFrame {
         painelTranslatarLayout.setHorizontalGroup(
             painelTranslatarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelTranslatarLayout.createSequentialGroup()
-                .addComponent(btconfirmatranslação)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 385, Short.MAX_VALUE)
-                .addComponent(btcancelar))
-            .addGroup(painelTranslatarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(painelTranslatarLayout.createSequentialGroup()
-                    .addGap(151, 151, 151)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(182, Short.MAX_VALUE)))
+                .addGap(23, 23, 23)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(48, Short.MAX_VALUE))
         );
         painelTranslatarLayout.setVerticalGroup(
             painelTranslatarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelTranslatarLayout.createSequentialGroup()
-                .addGap(0, 249, Short.MAX_VALUE)
-                .addGroup(painelTranslatarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btconfirmatranslação)
-                    .addComponent(btcancelar)))
-            .addGroup(painelTranslatarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(painelTranslatarLayout.createSequentialGroup()
-                    .addGap(51, 51, 51)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGap(51, 51, 51)))
+            .addGroup(painelTranslatarLayout.createSequentialGroup()
+                .addGap(57, 57, 57)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(64, Short.MAX_VALUE))
         );
 
-        guia1.addTab("Translatar", painelTranslatar);
+        painelGuias.addTab("Translatar", painelTranslatar);
 
         javax.swing.GroupLayout painelEscalonarLayout = new javax.swing.GroupLayout(painelEscalonar);
         painelEscalonar.setLayout(painelEscalonarLayout);
         painelEscalonarLayout.setHorizontalGroup(
             painelEscalonarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 549, Short.MAX_VALUE)
+            .addGap(0, 301, Short.MAX_VALUE)
         );
         painelEscalonarLayout.setVerticalGroup(
             painelEscalonarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 272, Short.MAX_VALUE)
+            .addGap(0, 214, Short.MAX_VALUE)
         );
 
-        guia1.addTab("Escalonar", painelEscalonar);
+        painelGuias.addTab("Escalonar", painelEscalonar);
 
         javax.swing.GroupLayout painelRotacionarLayout = new javax.swing.GroupLayout(painelRotacionar);
         painelRotacionar.setLayout(painelRotacionarLayout);
         painelRotacionarLayout.setHorizontalGroup(
             painelRotacionarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 549, Short.MAX_VALUE)
+            .addGap(0, 301, Short.MAX_VALUE)
         );
         painelRotacionarLayout.setVerticalGroup(
             painelRotacionarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 272, Short.MAX_VALUE)
+            .addGap(0, 214, Short.MAX_VALUE)
         );
 
-        guia1.addTab("Rotacionar", painelRotacionar);
+        painelGuias.addTab("Rotacionar", painelRotacionar);
+
+        btconfirmatranslação.setText("Confirmar");
+        btconfirmatranslação.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btconfirmatranslaçãoActionPerformed(evt);
+            }
+        });
+
+        btcancelar.setText("Cancelar");
+        btcancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btcancelarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(guia1)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btconfirmatranslação)
+                .addGap(132, 132, 132)
+                .addComponent(btcancelar)
+                .addContainerGap())
+            .addComponent(painelGuias, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(guia1)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(painelGuias, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btconfirmatranslação)
+                    .addComponent(btcancelar))
+                .addGap(0, 23, Short.MAX_VALUE))
         );
 
-        guia1.getAccessibleContext().setAccessibleName("Translatar");
+        painelGuias.getAccessibleContext().setAccessibleName("Translatar");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -182,57 +185,27 @@ public class frmTransformacoes extends javax.swing.JFrame {
     }//GEN-LAST:event_txActionPerformed
 
     private void btconfirmatranslaçãoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btconfirmatranslaçãoActionPerformed
-       framePrincipal.translada(Integer.parseInt(tx.getText()),Integer.parseInt(ty.getText()));
-       dispose();
+        switch (painelGuias.getSelectedIndex()) {
+            // index 0 primeiro painel = translação.
+            case 0:
+                framePrincipal.translada(Integer.parseInt(tx.getText()), Integer.parseInt(ty.getText()));
+                break;
+        }
+        dispose();
     }//GEN-LAST:event_btconfirmatranslaçãoActionPerformed
 
     private void btcancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btcancelarActionPerformed
         dispose();
     }//GEN-LAST:event_btcancelarActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(frmTransformacoes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(frmTransformacoes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(frmTransformacoes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(frmTransformacoes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-               // new frmTransformacoes().setVisible(true);
-            }
-        });
-    }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btcancelar;
     private javax.swing.JButton btconfirmatranslação;
-    private javax.swing.JTabbedPane guia1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel painelEscalonar;
+    private javax.swing.JTabbedPane painelGuias;
     private javax.swing.JPanel painelRotacionar;
     private javax.swing.JPanel painelTranslatar;
     private javax.swing.JTextField tx;

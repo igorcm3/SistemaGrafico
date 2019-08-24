@@ -37,7 +37,7 @@ public class TransladaReta {
 
     
     
-    public int[] translada(Reta reta,int tx,int ty){
+    public int[] translada(DrawFactory reta,int tx,int ty){
         int pf[]=new int[4];
         p1[0][0]=reta.getxI();
         p1[0][1]=reta.getyI();

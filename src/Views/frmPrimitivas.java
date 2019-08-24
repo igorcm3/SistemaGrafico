@@ -5,7 +5,11 @@
  */
 package Views;
 
+import Primitivas2D.Points;
 import java.awt.Color;
+import java.util.ArrayList;
+import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -15,6 +19,10 @@ public class frmPrimitivas extends javax.swing.JFrame {
 
     private frmPrincipal framePrincipal;
     private Color cor;
+    //constantes
+    protected final int PONTO = 0, RETA = 1, POLILINHA = 3, POLIGONO = 4;
+    ArrayList<Points> listaAddPontos;
+    protected DefaultListModel listaModel;
 
     // essa variavel frmPrincipal é o frame principal passado por parametro, ai consegue acessar
     // os metodos dele e desenhar nele, esssa tela serve somente para passar as informações para la...
@@ -24,6 +32,9 @@ public class frmPrimitivas extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         cor = Color.black; // inicia com cor preta, fica a criterio de quem faz o desenho mudar.
+        rbPolilinha.setSelected(true);
+        listaAddPontos = new ArrayList<Points>();
+        listaModel = new DefaultListModel();
     }
 
     /**
@@ -48,23 +59,23 @@ public class frmPrimitivas extends javax.swing.JFrame {
         txtYinicio = new javax.swing.JTextField();
         txtXfim = new javax.swing.JTextField();
         txtYfim = new javax.swing.JTextField();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jSeparator1 = new javax.swing.JSeparator();
         painelRetangulo = new javax.swing.JPanel();
-        jPanel4 = new javax.swing.JPanel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
-        txtXinicioRec = new javax.swing.JTextField();
-        txtYinicioRec = new javax.swing.JTextField();
-        txtXfimRec = new javax.swing.JTextField();
-        txtYfimRec = new javax.swing.JTextField();
-        painelCirculo = new javax.swing.JPanel();
+        Polilinha = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        listaPontos = new javax.swing.JList<>();
+        rbPolilinha = new javax.swing.JRadioButton();
+        rbPoligono = new javax.swing.JRadioButton();
+        btnNovoPonto = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         painelCor = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
         nomeObjeto = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
         btnDesenhaPrimitiva = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
 
@@ -77,19 +88,23 @@ public class frmPrimitivas extends javax.swing.JFrame {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Coordenadas"));
 
-        jLabel4.setText("Y final");
+        jLabel4.setText("Y");
 
-        jLabel3.setText("X final");
+        jLabel3.setText("X ");
 
-        jLabel2.setText("Y inicial");
+        jLabel2.setText("Y");
 
-        jLabel1.setText("X inicial");
+        jLabel1.setText("X ");
 
         txtXinicio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtXinicioActionPerformed(evt);
             }
         });
+
+        jLabel11.setText("Ponto 1");
+
+        jLabel12.setText("Ponto 2");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -98,22 +113,33 @@ public class frmPrimitivas extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(53, 53, 53)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel1))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtYinicio, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtXinicio, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtXfim, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtYfim, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(66, Short.MAX_VALUE))
+                    .addComponent(jLabel11)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtXinicio, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtYinicio, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jLabel12)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtXfim, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtYfim, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(102, Short.MAX_VALUE))
+            .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel11)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(txtXinicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -121,6 +147,10 @@ public class frmPrimitivas extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(txtYinicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 7, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel12)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
@@ -129,7 +159,7 @@ public class frmPrimitivas extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(txtYfim, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout painelRetaLayout = new javax.swing.GroupLayout(painelReta);
@@ -137,76 +167,56 @@ public class frmPrimitivas extends javax.swing.JFrame {
         painelRetaLayout.setHorizontalGroup(
             painelRetaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelRetaLayout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(24, 24, 24)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(59, Short.MAX_VALUE))
+                .addContainerGap(56, Short.MAX_VALUE))
         );
         painelRetaLayout.setVerticalGroup(
             painelRetaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelRetaLayout.createSequentialGroup()
-                .addGap(40, 40, 40)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(30, Short.MAX_VALUE))
+            .addGroup(painelRetaLayout.createSequentialGroup()
+                .addGap(33, 33, 33)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 194, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         painelGuias.addTab("Reta", painelReta);
 
-        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Coordenadas"));
+        Polilinha.setBorder(javax.swing.BorderFactory.createTitledBorder("Pontos para a polilinha"));
 
-        jLabel5.setText("Y final");
+        jScrollPane1.setViewportView(listaPontos);
 
-        jLabel7.setText("X final");
+        javax.swing.GroupLayout PolilinhaLayout = new javax.swing.GroupLayout(Polilinha);
+        Polilinha.setLayout(PolilinhaLayout);
+        PolilinhaLayout.setHorizontalGroup(
+            PolilinhaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PolilinhaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        PolilinhaLayout.setVerticalGroup(
+            PolilinhaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PolilinhaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 153, Short.MAX_VALUE)
+                .addContainerGap())
+        );
 
-        jLabel9.setText("Y inicial");
+        rbPolilinha.setText("Polilinha");
 
-        jLabel10.setText("X inicial");
-
-        txtXinicioRec.addActionListener(new java.awt.event.ActionListener() {
+        rbPoligono.setText("Poligono");
+        rbPoligono.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtXinicioRecActionPerformed(evt);
+                rbPoligonoActionPerformed(evt);
             }
         });
 
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(53, 53, 53)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel5)
-                    .addComponent(jLabel7)
-                    .addComponent(jLabel9)
-                    .addComponent(jLabel10))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtYinicioRec, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtXinicioRec, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtXfimRec, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtYfimRec, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(66, Short.MAX_VALUE))
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel10)
-                    .addComponent(txtXinicioRec, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel9)
-                    .addComponent(txtYinicioRec, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
-                    .addComponent(txtXfimRec, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(txtYfimRec, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(27, Short.MAX_VALUE))
-        );
+        btnNovoPonto.setText("Adicionar ponto");
+        btnNovoPonto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNovoPontoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout painelRetanguloLayout = new javax.swing.GroupLayout(painelRetangulo);
         painelRetangulo.setLayout(painelRetanguloLayout);
@@ -214,31 +224,31 @@ public class frmPrimitivas extends javax.swing.JFrame {
             painelRetanguloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelRetanguloLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(59, Short.MAX_VALUE))
+                .addComponent(Polilinha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(painelRetanguloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(rbPolilinha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(rbPoligono, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnNovoPonto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(39, Short.MAX_VALUE))
         );
         painelRetanguloLayout.setVerticalGroup(
             painelRetanguloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(painelRetanguloLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(Polilinha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(29, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelRetanguloLayout.createSequentialGroup()
-                .addContainerGap(39, Short.MAX_VALUE)
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(rbPolilinha)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(rbPoligono)
+                .addGap(18, 18, 18)
+                .addComponent(btnNovoPonto)
+                .addGap(32, 32, 32))
         );
 
-        painelGuias.addTab("Retangulo", painelRetangulo);
-
-        javax.swing.GroupLayout painelCirculoLayout = new javax.swing.GroupLayout(painelCirculo);
-        painelCirculo.setLayout(painelCirculoLayout);
-        painelCirculoLayout.setHorizontalGroup(
-            painelCirculoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 311, Short.MAX_VALUE)
-        );
-        painelCirculoLayout.setVerticalGroup(
-            painelCirculoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 238, Short.MAX_VALUE)
-        );
-
-        painelGuias.addTab("Circulo", painelCirculo);
+        painelGuias.addTab("Polilinha / Poligono", painelRetangulo);
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Opções"));
 
@@ -267,6 +277,9 @@ public class frmPrimitivas extends javax.swing.JFrame {
 
         jLabel8.setText("Nome objeto:");
 
+        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
+        jLabel5.setText("*Nome do objeto é obrigatório.");
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -275,16 +288,21 @@ public class frmPrimitivas extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel8)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(nomeObjeto))
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(jLabel8)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(nomeObjeto))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(17, 17, 17)
+                                .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(painelCor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(42, 42, 42))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(17, 17, 17)
-                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(painelCor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(42, 42, 42))
+                        .addComponent(jLabel5)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -293,7 +311,9 @@ public class frmPrimitivas extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
                     .addComponent(nomeObjeto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(32, 32, 32)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel5)
+                .addGap(12, 12, 12)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel6)
@@ -320,27 +340,29 @@ public class frmPrimitivas extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(btnDesenhaPrimitiva)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnCancelar))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(painelGuias, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(painelGuias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(btnDesenhaPrimitiva)
+                        .addGap(427, 427, 427)
+                        .addComponent(btnCancelar)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(painelGuias, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(painelGuias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(13, 13, 13)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnDesenhaPrimitiva)
                     .addComponent(btnCancelar))
                 .addContainerGap(21, Short.MAX_VALUE))
@@ -350,18 +372,63 @@ public class frmPrimitivas extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnDesenhaPrimitivaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDesenhaPrimitivaActionPerformed
-        
 
-        // CONSIDERAA O MEIO DO PAINELMUNDO COMO SENDO O INICIO (PONTO 0,0) DEVIDO A VARIAVEL X0 e Y0 serem metade desse painel.
-        switch (painelGuias.getSelectedIndex()){ 
-            // desenha uma reta com os pontos informados
-            case 0:framePrincipal.desenhaReta((framePrincipal.X0 + (Integer.parseInt(txtXinicio.getText()))), (framePrincipal.Y0 - (Integer.parseInt(txtYinicio.getText()))), (framePrincipal.X0 + (Integer.parseInt(txtXfim.getText()))), (framePrincipal.Y0 - (Integer.parseInt(txtYfim.getText()))), 1.0f, this.cor, false, nomeObjeto.getText());
-            
-        
-        }   
-        dispose();
+        // NOME OBRIGATORIO DO OBJETO
+        if ((nomeObjeto.getText().equals("")) || (listaPontos.getModel().getSize() <= 1)) {
+            if (nomeObjeto.getText().equals("")) {
+                System.out.println("Sem nome, não desenhar!");
+                JOptionPane.showMessageDialog(null, "Informe o nome do objeto!", "Nome do objeto", 1);
+            } else {
+                System.out.println("insira ao menos dois pontos para polilinha/poligono");
+                JOptionPane.showMessageDialog(null, "Insira ao menos dois pontos para polilinha/poligono!", "Desenhar Polilinha", 1);
+            }
+
+        } else {
+            // CONSIDERAA O MEIO DO PAINELMUNDO COMO SENDO O INICIO (PONTO 0,0) DEVIDO A VARIAVEL X0 e Y0 serem metade desse painel.
+            switch (painelGuias.getSelectedIndex()) {
+                // desenha uma reta com os pontos informados
+                case 0:
+                    inserePontosParaReta();
+                    framePrincipal.desenhaObjeto(listaAddPontos, this.cor, false, nomeObjeto.getText(), RETA);
+                    break;
+                case 1:
+                    // os pontos para polilinha e poligono são pegos diretamente através do form frmAdicionaPontos
+                    // precisam ser ajustados a origem do plano cartesiano
+                    ajustaOrigemPolilinhaPoligono();
+                    framePrincipal.desenhaObjeto(listaAddPontos, this.cor, false, nomeObjeto.getText(), POLILINHA);
+                    break;
+            }
+            dispose();
+        }
     }//GEN-LAST:event_btnDesenhaPrimitivaActionPerformed
+    private void inserePontosParaReta() {
+        // quando for a primeira aba = retas
+        // pega dos edits e faz diretamente com esses pontos.
+        Points pontos = new Points();
+        pontos.setXi((framePrincipal.X0 + (Integer.parseInt(txtXinicio.getText()))));
+        pontos.setYi((framePrincipal.Y0 - (Integer.parseInt(txtYinicio.getText()))));
+        pontos.setXf((framePrincipal.X0 + (Integer.parseInt(txtXfim.getText()))));
+        pontos.setYf((framePrincipal.Y0 - (Integer.parseInt(txtYfim.getText()))));
+        listaAddPontos.add(pontos);
+    }
 
+    private void ajustaOrigemPolilinhaPoligono() {
+        // função para ajustar os pontos do desenho para fazer a partir do centro do
+        // plano cartesiano
+
+        for (Points pontos : listaAddPontos) {
+            pontos.setXi((framePrincipal.X0 + (pontos.getXi())));
+            pontos.setYi((framePrincipal.Y0 - (pontos.getYi())));
+            pontos.setXf((framePrincipal.X0 + (pontos.getXf())));
+            pontos.setYf((framePrincipal.Y0 - (pontos.getYf())));
+        }
+
+    }
+
+    public void inserePontosNaJList(Points p) {
+        listaModel.addElement(p);
+        listaPontos.setModel(listaModel);
+    }
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         // TODO add your handling code here:
         dispose();
@@ -377,48 +444,61 @@ public class frmPrimitivas extends javax.swing.JFrame {
         c.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void txtXinicioRecActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtXinicioRecActionPerformed
+    private void rbPoligonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbPoligonoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtXinicioRecActionPerformed
+        if (rbPolilinha.isSelected()) {
+            rbPolilinha.setSelected(false);
+        }
+        if (!rbPoligono.isSelected()) {
+            rbPoligono.setSelected(true);
+        }
+    }//GEN-LAST:event_rbPoligonoActionPerformed
+
+    private void btnNovoPontoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoPontoActionPerformed
+        // TODO add your handling code here:
+        frmAdicionaPontos telaPontos = new frmAdicionaPontos(this);
+        telaPontos.setVisible(true);
+    }//GEN-LAST:event_btnNovoPontoActionPerformed
 
     public void mudaCorPainelCores(Color corParam) {
         this.cor = corParam;
         painelCor.setBackground(cor);
     }
-    
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel Polilinha;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnDesenhaPrimitiva;
+    private javax.swing.JButton btnNovoPonto;
     private javax.swing.JButton jButton1;
     private javax.swing.JColorChooser jColorChooser1;
     private javax.swing.JFileChooser jFileChooser1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JList<String> listaPontos;
     private javax.swing.JTextField nomeObjeto;
-    private javax.swing.JPanel painelCirculo;
     private javax.swing.JPanel painelCor;
     private javax.swing.JTabbedPane painelGuias;
     private javax.swing.JPanel painelReta;
     private javax.swing.JPanel painelRetangulo;
+    private javax.swing.JRadioButton rbPoligono;
+    private javax.swing.JRadioButton rbPolilinha;
     private javax.swing.JTextField txtXfim;
-    private javax.swing.JTextField txtXfimRec;
     private javax.swing.JTextField txtXinicio;
-    private javax.swing.JTextField txtXinicioRec;
     private javax.swing.JTextField txtYfim;
-    private javax.swing.JTextField txtYfimRec;
     private javax.swing.JTextField txtYinicio;
-    private javax.swing.JTextField txtYinicioRec;
     // End of variables declaration//GEN-END:variables
+
 }

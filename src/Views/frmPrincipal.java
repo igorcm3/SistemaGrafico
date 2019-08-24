@@ -5,18 +5,16 @@
  */
 package Views;
 
-import Primitivas2D.Reta;
-
+import Primitivas2D.DrawFactory;
+import Primitivas2D.Points;
 import Primitivas2D.TransladaReta;
-
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Image;
 import java.awt.Point;
 import java.awt.Toolkit;
-import java.awt.event.KeyEvent;
 import java.net.URL;
-import javax.swing.BorderFactory;
+import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
@@ -35,6 +33,8 @@ public class frmPrincipal extends javax.swing.JFrame {
     public int countCartesianos, countRetas;   // usado apra saber qtos planos cartesianos desenhou para descontar do total de objetos e sincronziar com a Jlist.
     public TransladaReta treta = new TransladaReta();
     public int pontosTransladados[] = new int[4];
+    //constantes 
+    protected final int PONTO=0, RETA=1;
 
     //  Construtor, iniciar as variaveis que náo sáo atualziadas em tempo de execu;áo aqui.
     public frmPrincipal() {
@@ -570,14 +570,12 @@ public class frmPrincipal extends javax.swing.JFrame {
 
         moveDireita();
         alteraLabelPasso();
-
     }//GEN-LAST:event_btnSetaDireitaActionPerformed
 
     private void moveDireita() {
         spViewport.getHorizontalScrollBar().setValue(spViewport.getHorizontalScrollBar().getValue() + sldPasso.getValue());
         painelWindow.repaint();
         spViewport.repaint();
-
     }
 
     private void btnSetaBaixoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSetaBaixoActionPerformed
@@ -616,7 +614,6 @@ public class frmPrincipal extends javax.swing.JFrame {
         frmPrimitivas reta = new frmPrimitivas(this);
         setFrame(reta);
         reta.setVisible(true);
-
     }//GEN-LAST:event_btnPrimitivasActionPerformed
 
     private void btnTransformacoesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTransformacoesActionPerformed
@@ -625,7 +622,7 @@ public class frmPrincipal extends javax.swing.JFrame {
             frmTransformacoes frmT = new frmTransformacoes(this);
             frmT.setVisible(true); // abre a tela de transformações    
         } else {
-            JOptionPane.showMessageDialog(null,"Selecione um objeto na lista para fazer a transformação!", "Transformação de objetos", 0);
+            JOptionPane.showMessageDialog(null, "Selecione um objeto na lista para fazer a transformação!", "Transformação de objetos", 1);
         }
     }//GEN-LAST:event_btnTransformacoesActionPerformed
 
@@ -691,9 +688,9 @@ public class frmPrincipal extends javax.swing.JFrame {
         lblObjSelLista.setText(String.valueOf((listaObjetos.getSelectedIndex() + 1)));
         //lblObjSelWind.setText();
         lblTotalObj.setText(String.valueOf(getTotalObjetosDesenhadosWindow()));
-        String tipObj = painelWindow.getComponent(getObjSelecionadoNaListaDoPainelWindow()).getName().substring(0, 1);
-        switch (tipObj) {
-            case "R":
+        DrawFactory tipObj = (DrawFactory)painelWindow.getComponent(getObjSelecionadoNaListaDoPainelWindow());
+        switch (tipObj.getTipoObj()) {
+            case RETA:
                 lblObjSelTipo.setText("Reta");
                 break;
             default:
@@ -721,37 +718,50 @@ public class frmPrincipal extends javax.swing.JFrame {
         return 0;
     }
 
-    public void desenhaReta(int xi, int yi, int xf, int yf, float espessura, Color cor, boolean ehPlanoCartesiano, String nomeObjeto) {
-        Reta lp = new Reta(cor, espessura);
+    //public void desenhaObjeto(int xi, int yi, int xf, int yf, float espessura, Color cor, boolean ehPlanoCartesiano, String nomeObjeto) {
+    public void desenhaObjeto(ArrayList<Points> pointsParam, Color cor, boolean ehPlanoCartesiano, String nomeObjeto, int tipo) {
+        DrawFactory objeto2D = new DrawFactory();
         // Coloca o nome padrão de objetos de reta com R+numero da reda + nome do objeto por param.
         if (!ehPlanoCartesiano) {
             countRetas++;
-            lp.setName("R" + String.valueOf(countRetas) + " - " + nomeObjeto);
-        } else {
-            // caso seja plano cartesiano ele deixa o nome padrao "PC", 
-            // é usado para comparações e para identificar os objetos plotados no painelWindow que n sao planos cartesianos.
-            lp.setName(nomeObjeto);
         }
-        lp.setBounds(1, 1, painelWindow.getWidth(), painelWindow.getHeight());
-        //lp.setEspessura(espessura);
-        lp.setxI(xi);
-        lp.setyI(yi);
-        lp.setxF(xf);
-        lp.setyF(yf);
-        painelWindow.add(lp);
-        painelWindow.setComponentZOrder(lp, 0);
+        objeto2D.setName(nomeObjeto);
+        objeto2D.setBounds(1, 1, painelWindow.getWidth(), painelWindow.getHeight());
+        objeto2D.setCor(cor);
+        objeto2D.setPoints(pointsParam);
+        objeto2D.setTipoObj(tipo);
+        painelWindow.add(objeto2D);
+        painelWindow.setComponentZOrder(objeto2D, 0);
         if (!ehPlanoCartesiano) {
             adicionaDesenhoALista(painelWindow.getComponent(0));
         }
         repaint();
-        System.out.println("desenhou reta");
+        System.out.println("desenhou objeto:");
     }
 
     public void desenhaPlanoCartesiano() {
-        // desenha duas retas que se cruzam para o plano cartesiano.  
-        desenhaReta(0, Math.round(painelWindow.getHeight() / 2), Math.round(painelWindow.getWidth()), Math.round(painelWindow.getHeight() / 2), 1.0f, Color.BLACK, true, "PC");
+        // desenha duas retas que se cruzam para o plano cartesiano. 
+        //xi yi xf yf, um array para cada desenho, nesse caso um desenho para plano X e um plano Y
+        Points p1 = new Points();
+        Points p2 = new Points();
+        ArrayList<Points> p1Array = new ArrayList<Points>();
+        ArrayList<Points> p2Array = new ArrayList<Points>();
+        
+        p1.setXi(0);
+        p1.setYi(Math.round(painelWindow.getHeight() / 2));
+        p1.setXf(Math.round(painelWindow.getWidth()));
+        p1.setYf(Math.round(painelWindow.getHeight() / 2));
+        p1Array.add(p1);
+
+        p2.setXi(Math.round(painelWindow.getWidth() / 2));
+        p2.setYi(0);
+        p2.setXf(Math.round(painelWindow.getWidth() / 2));
+        p2.setYf(Math.round(painelWindow.getHeight()));
+        p2Array.add(p2);
+        
+        desenhaObjeto(p1Array,Color.BLACK, true, "Plano Cartesiano", RETA);
         countCartesianos++;
-        desenhaReta(Math.round(painelWindow.getWidth() / 2), 0, Math.round(painelWindow.getWidth() / 2), Math.round(painelWindow.getHeight()), 1.0f, Color.BLACK, true, "PC");
+        desenhaObjeto(p2Array,Color.BLACK, true, "Plano Cartesiano", RETA);
         countCartesianos++;
         painelWindow.repaint();
     }
@@ -795,19 +805,26 @@ public class frmPrincipal extends javax.swing.JFrame {
     }
 
     public void translada(int tx, int ty) {
-
+        Points p = new Points();
+        ArrayList<Points> pLista = new ArrayList<Points>();
         if (listaObjetos.getSelectedIndex() > -1) {
-            Reta retaTranslada = (Reta) listaModel.getElementAt(listaObjetos.getSelectedIndex());
+            DrawFactory retaTranslada = (DrawFactory) listaModel.getElementAt(listaObjetos.getSelectedIndex());
             painelWindow.remove(painelWindow.getComponent(getObjSelecionadoNaListaDoPainelWindow()));
-            pontosTransladados = treta.translada((Reta) listaModel.getElementAt(listaObjetos.getSelectedIndex()), tx, ty);
+            pontosTransladados = treta.translada((DrawFactory) listaModel.getElementAt(listaObjetos.getSelectedIndex()), tx, ty);
             listaModel.remove(listaObjetos.getSelectedIndex());
             painelWindow.repaint();
             spViewport.repaint();
-            desenhaReta(pontosTransladados[0], pontosTransladados[1],
-                    pontosTransladados[2], pontosTransladados[3],
-                    retaTranslada.getEspessura(), retaTranslada.getCor(), false, "teste");
 
-            System.out.println(pontosTransladados[0]);
+            p.setXi(pontosTransladados[0]);
+            p.setYi(pontosTransladados[1]);
+            p.setXf(pontosTransladados[2]);
+            p.setYf(pontosTransladados[3]);
+            pLista.add(p);
+            //desenhaObjeto(pontosTransladados[0], pontosTransladados[1],
+            //        pontosTransladados[2], pontosTransladados[3],
+            //        retaTranslada.getEspessura(), retaTranslada.getCor(), false, "teste");
+
+            desenhaObjeto(pLista, retaTranslada.getCor(), false, retaTranslada.getName(), retaTranslada.getTipoObj());
             System.out.println(pontosTransladados[1]);
             System.out.println(pontosTransladados[2]);
             System.out.println(pontosTransladados[3]);
