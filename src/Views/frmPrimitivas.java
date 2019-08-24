@@ -401,24 +401,34 @@ public class frmPrimitivas extends javax.swing.JFrame {
 
     private void btnDesenhaPrimitivaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDesenhaPrimitivaActionPerformed
 
-        // NOME OBRIGATORIO DO OBJETO
-        //if ((nomeObjeto.getText().equals("")) || (listaPontos.getModel().getSize() <= 1)) {
-        if (nomeObjeto.getText().equals("")) {
-            System.out.println("Sem nome, não desenhar!");
-            JOptionPane.showMessageDialog(null, "Informe o nome do objeto!", "Nome do objeto", 1);
-            return;
+        // Validações reta
+        if (painelGuias.getSelectedIndex() == 0) {
+            if (txtXinicio.getText().equals("") || txtYinicio.getText().equals("")
+                    || txtXfim.getText().equals("") || txtYfim.getText().equals("")) {
+                System.out.println("Pontos n preenchids, não desenhar!");
+                JOptionPane.showMessageDialog(null, "Informe os dois pontos para desenhar a reta!", "Pontos do objeto", 1);
+                return;
+            }
         }
-        if ((listaPontos.getModel().getSize() <= 1) && (rbPolilinha.isSelected())) {
-            System.out.println("insira ao menos dois pontos para polilinha");
-            JOptionPane.showMessageDialog(null, "Insira ao menos dois pontos para polilinha!", "Desenhar Polilinha", 1);
-            return;
+        
+        // validações polilinha e poligono
+        if (painelGuias.getSelectedIndex() == 1) {
+            if (nomeObjeto.getText().equals("")) {
+                System.out.println("Sem nome, não desenhar!");
+                JOptionPane.showMessageDialog(null, "Informe o nome do objeto!", "Nome do objeto", 1);
+                return;
+            }
+            if ((listaPontos.getModel().getSize() <= 1) && (rbPolilinha.isSelected())) {
+                System.out.println("insira ao menos dois pontos para polilinha");
+                JOptionPane.showMessageDialog(null, "Insira ao menos dois pontos para polilinha!", "Desenhar Polilinha", 1);
+                return;
+            }
+            if ((listaPontos.getModel().getSize() <= 2) && (rbPoligono.isSelected())) {
+                System.out.println("insira ao menos três pontos para poligono");
+                JOptionPane.showMessageDialog(null, "Insira ao menos três pontos para poligono!", "Desenhar Poligono", 1);
+                return;
+            }
         }
-        if ((listaPontos.getModel().getSize() <= 2) && (rbPoligono.isSelected())) {
-            System.out.println("insira ao menos três pontos para poligono");
-            JOptionPane.showMessageDialog(null, "Insira ao menos três pontos para poligono!", "Desenhar Poligono", 1);
-            return;
-        }
-
         // CONSIDERAA O MEIO DO PAINELMUNDO COMO SENDO O INICIO (PONTO 0,0) DEVIDO A VARIAVEL X0 e Y0 serem metade desse painel.
         switch (painelGuias.getSelectedIndex()) {
             // desenha uma reta com os pontos informados
@@ -518,7 +528,7 @@ public class frmPrimitivas extends javax.swing.JFrame {
     }//GEN-LAST:event_txtXinicioKeyTyped
 
     private void txtYinicioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtYinicioKeyTyped
-        permitirSomenteNumeros(evt);   
+        permitirSomenteNumeros(evt);
     }//GEN-LAST:event_txtYinicioKeyTyped
 
     private void txtXfimKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtXfimKeyTyped
@@ -535,12 +545,12 @@ public class frmPrimitivas extends javax.swing.JFrame {
         this.cor = corParam;
         painelCor.setBackground(cor);
     }
-    
-    public void permitirSomenteNumeros(java.awt.event.KeyEvent evt){
-            String caracteres = "0987654321";
+
+    public void permitirSomenteNumeros(java.awt.event.KeyEvent evt) {
+        String caracteres = "0987654321";
         if (!caracteres.contains(evt.getKeyChar() + "")) {
             evt.consume();
-    }
+        }
     }
 
 
