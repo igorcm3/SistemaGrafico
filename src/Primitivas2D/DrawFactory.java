@@ -63,6 +63,7 @@ public class DrawFactory extends JPanel {
                 }
                 break;
             case POLIGONO:
+                
                 // percorre o arraylist por indices para controlar o desenho
                 // ja que tem que pegar como inicio o fim do elemento anterior para desenahr a partir dele.
                 for (int i = 0; i < points.size(); i++) {

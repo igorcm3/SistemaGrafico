@@ -5,6 +5,9 @@
  */
 package Primitivas2D;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 /**
  *
  * @author wilsi
@@ -13,9 +16,9 @@ public class TransladaReta {
     protected final int PONTO = 0, RETA = 1, POLILINHA = 2, POLIGONO = 3;
     private int mt[][]=new int[3][3];
     private int p1[][]=new int[1][3];
-    private int p2[][]=new int[1][3];
-    private int pf1[][]=new int[1][3];
-    private int pf2[][]=new int[1][3];
+    
+    private int pf1[][]=new int[1][4];
+    
     
     public TransladaReta() {
         mt[0][0]=1;
@@ -30,33 +33,40 @@ public class TransladaReta {
         p1[0][0]=0;
         p1[0][1]=0;
         p1[0][2]=1;
-        p2[0][0]=0;
-        p2[0][1]=0;
-        p2[0][2]=1;
+        
     }
 
     
     
-    public int[] translada(DrawFactory reta,int tx,int ty){
-        int pf[]=new int[4];
-        p1[0][0]=reta.getxI();
-        p1[0][1]=reta.getyI();
-        p2[0][0]=reta.getxF();
-        p2[0][1]=reta.getyF();
+    public ArrayList<Points> translada(DrawFactory obj,int tx,int ty){
         mt[2][0]=tx;
         mt[2][1]=ty;
         
-        pf1[0][0]=p1[0][0]*mt[0][0]+p1[0][1]*mt[1][0]+p1[0][2]*mt[2][0];
-        pf1[0][1]=p1[0][0]*mt[0][1]+p1[0][1]*mt[1][1]+p1[0][2]*mt[2][1];
+        ArrayList<Points> ponto= obj.getPoints();
+        ArrayList<Points> pf = new ArrayList<>();
+        for(Points p:ponto){
+            Points pontoresult=new Points();
+            
+            p1[0][0]=p.getXi()-500;
+            p1[0][1]=-(p.getYi()-500);
+           
+            pf1[0][0]=p1[0][0]*mt[0][0]+p1[0][1]*mt[1][0]+p1[0][2]*mt[2][0];
+            pf1[0][1]=p1[0][0]*mt[0][1]+p1[0][1]*mt[1][1]+p1[0][2]*mt[2][1];
+            
+            p1[0][0]=p.getXf()-500;
+            p1[0][1]=-(p.getYf()-500);
+          
+            pf1[0][2]=p1[0][0]*mt[0][0]+p1[0][1]*mt[1][0]+p1[0][2]*mt[2][0];
+            pf1[0][3]=p1[0][0]*mt[0][1]+p1[0][1]*mt[1][1]+p1[0][2]*mt[2][1];
+            
+            pontoresult.setXi(pf1[0][0]+500);
+            pontoresult.setYi(-pf1[0][1]+500);
+            pontoresult.setXf(pf1[0][2]+500);
+            pontoresult.setYf(-pf1[0][3]+500);
+            
+            pf.add(pontoresult);
+        }
         
-        pf2[0][0]=p2[0][0]*mt[0][0]+p2[0][1]*mt[1][0]+p2[0][2]*mt[2][0];
-        pf2[0][1]=p2[0][0]*mt[0][1]+p2[0][1]*mt[1][1]+p2[0][2]*mt[2][1];
-        
-        pf[0]=pf1[0][0];
-        pf[1]=pf1[0][1];
-        pf[2]=pf2[0][0];
-        pf[3]=pf2[0][1];
-        //System.out.println(pf[0]+" "+pf[1]+" "+pf[2]+" "+pf[3]);
         return pf;
     }
 

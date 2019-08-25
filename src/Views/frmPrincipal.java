@@ -32,7 +32,7 @@ public class frmPrincipal extends javax.swing.JFrame {
     public DefaultListModel listaModel;   // model para adicionar a Jlist
     public int countCartesianos, countRetas;   // usado apra saber qtos planos cartesianos desenhou para descontar do total de objetos e sincronziar com a Jlist.
     public TransladaReta treta = new TransladaReta();
-    public int pontosTransladados[] = new int[4];
+    public ArrayList<Points> pontosTransladados = new ArrayList<>();
     //constantes 
     protected final int PONTO = 0, RETA = 1, POLILINHA = 2, POLIGONO = 3;
 
@@ -819,24 +819,19 @@ public class frmPrincipal extends javax.swing.JFrame {
         if (listaObjetos.getSelectedIndex() > -1) {
             DrawFactory retaTranslada = (DrawFactory) listaModel.getElementAt(listaObjetos.getSelectedIndex());
             painelWindow.remove(painelWindow.getComponent(getObjSelecionadoNaListaDoPainelWindow()));
-            pontosTransladados = treta.translada((DrawFactory) listaModel.getElementAt(listaObjetos.getSelectedIndex()), tx, ty);
+            pontosTransladados = treta.translada(retaTranslada, tx, ty);
             listaModel.remove(listaObjetos.getSelectedIndex());
             painelWindow.repaint();
             spViewport.repaint();
-
-            p.setXi(pontosTransladados[0]);
-            p.setYi(pontosTransladados[1]);
-            p.setXf(pontosTransladados[2]);
-            p.setYf(pontosTransladados[3]);
-            pLista.add(p);
-            //desenhaObjeto(pontosTransladados[0], pontosTransladados[1],
-            //        pontosTransladados[2], pontosTransladados[3],
-            //        retaTranslada.getEspessura(), retaTranslada.getCor(), false, "teste");
-
-            desenhaObjeto(pLista, retaTranslada.getCor(), false, retaTranslada.getName(), retaTranslada.getTipoObj());
-            System.out.println(pontosTransladados[1]);
-            System.out.println(pontosTransladados[2]);
-            System.out.println(pontosTransladados[3]);
+            
+            
+            
+            
+            
+            
+            
+            desenhaObjeto(pontosTransladados, retaTranslada.getCor(), false, retaTranslada.getName(), retaTranslada.getTipoObj());
+            
         }
 
     }
