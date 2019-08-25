@@ -11,57 +11,39 @@ package Primitivas2D;
  */
 public class Points {
 
-    public int xi;
-    public int yi;
-    public int xf;
-    public int yf;
+    public int x;
+    public int y;
+
 
     // CLASSE BASE PARA  INFORMAR OS PONTOS DOS OBJTS.
     // N FOI UTILZIADA A CLASSE POINT DO JAVA POR SO CONTER UM PONTO, AQUI PRECISAMOS DE DOIS
-    public Points(int xi, int yi, int xf, int yf) {
-        this.xi = xi;
-        this.yi = yi;
-        this.xf = xf;
-        this.yf = yf;
+    public Points(int x, int y) {
+        this.x = x;
+        this.y = y;
     }
 
     public Points() {
     }
 
     public String toString() {
-        return "Ponto x:"+xi+" y:"+yi+"";
+        return "Ponto x:"+x+" y:"+y+"";
     }
 
-    public int getXi() {
-        return xi;
+    public int getX() {
+        return x;
     }
 
-    public void setXi(int xi) {
-        this.xi = xi;
+    public void setX(int x) {
+        this.x = x;
     }
 
-    public int getYi() {
-        return yi;
+    public int getY() {
+        return y;
     }
 
-    public void setYi(int yi) {
-        this.yi = yi;
+    public void setY(int y) {
+        this.y = y;
     }
 
-    public int getXf() {
-        return xf;
-    }
-
-    public void setXf(int xf) {
-        this.xf = xf;
-    }
-
-    public int getYf() {
-        return yf;
-    }
-
-    public void setYf(int yf) {
-        this.yf = yf;
-    }
 
 }

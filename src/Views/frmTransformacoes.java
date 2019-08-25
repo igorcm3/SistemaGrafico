@@ -27,7 +27,7 @@ public class frmTransformacoes extends javax.swing.JFrame {
     
     // CHAMAR ESSA FUNÇÃO NO EVENTO KEYTYPED DE TODOS OS TEXTFELD PARA N DEIXAR IR LETRAS.
     public void permitirSomenteNumeros(java.awt.event.KeyEvent evt) {
-        String caracteres = "0987654321";
+        String caracteres = "0987654321-";
         if (!caracteres.contains(evt.getKeyChar() + "")) {
             evt.consume();
         }

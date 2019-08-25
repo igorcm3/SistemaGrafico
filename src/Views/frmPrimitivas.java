@@ -411,13 +411,16 @@ public class frmPrimitivas extends javax.swing.JFrame {
             }
         }
         
+        // validação de nome
+        if (nomeObjeto.getText().equals("")) {
+            System.out.println("Sem nome, não desenhar!");
+            JOptionPane.showMessageDialog(null, "Informe o nome do objeto!", "Nome do objeto", 1);
+            return;
+        }
+        
         // validações polilinha e poligono
         if (painelGuias.getSelectedIndex() == 1) {
-            if (nomeObjeto.getText().equals("")) {
-                System.out.println("Sem nome, não desenhar!");
-                JOptionPane.showMessageDialog(null, "Informe o nome do objeto!", "Nome do objeto", 1);
-                return;
-            }
+
             if ((listaPontos.getModel().getSize() <= 1) && (rbPolilinha.isSelected())) {
                 System.out.println("insira ao menos dois pontos para polilinha");
                 JOptionPane.showMessageDialog(null, "Insira ao menos dois pontos para polilinha!", "Desenhar Polilinha", 1);
@@ -455,12 +458,14 @@ public class frmPrimitivas extends javax.swing.JFrame {
     private void inserePontosParaReta() {
         // quando for a primeira aba = retas
         // pega dos edits e faz diretamente com esses pontos.
-        Points pontos = new Points();
-        pontos.setXi((framePrincipal.X0 + (Integer.parseInt(txtXinicio.getText()))));
-        pontos.setYi((framePrincipal.Y0 - (Integer.parseInt(txtYinicio.getText()))));
-        pontos.setXf((framePrincipal.X0 + (Integer.parseInt(txtXfim.getText()))));
-        pontos.setYf((framePrincipal.Y0 - (Integer.parseInt(txtYfim.getText()))));
-        listaAddPontos.add(pontos);
+        Points p1 = new Points();
+        p1.setX((framePrincipal.X0 + (Integer.parseInt(txtXinicio.getText()))));
+        p1.setY((framePrincipal.Y0 - (Integer.parseInt(txtYinicio.getText()))));
+        Points p2 = new Points();
+        p2.setX((framePrincipal.X0 + (Integer.parseInt(txtXfim.getText()))));
+        p2.setY((framePrincipal.Y0 - (Integer.parseInt(txtYfim.getText()))));
+        listaAddPontos.add(p1);
+        listaAddPontos.add(p2);
     }
 
     private void ajustaOrigemPolilinhaPoligono() {
@@ -468,10 +473,8 @@ public class frmPrimitivas extends javax.swing.JFrame {
         // plano cartesiano
 
         for (Points pontos : listaAddPontos) {
-            pontos.setXi((framePrincipal.X0 + (pontos.getXi())));
-            pontos.setYi((framePrincipal.Y0 - (pontos.getYi())));
-            pontos.setXf((framePrincipal.X0 + (pontos.getXf())));
-            pontos.setYf((framePrincipal.Y0 - (pontos.getYf())));
+            pontos.setX((framePrincipal.X0 + (pontos.getX())));
+            pontos.setY((framePrincipal.Y0 - (pontos.getY())));
         }
 
     }
@@ -547,7 +550,7 @@ public class frmPrimitivas extends javax.swing.JFrame {
     }
 
     public void permitirSomenteNumeros(java.awt.event.KeyEvent evt) {
-        String caracteres = "0987654321";
+        String caracteres = "0987654321-";
         if (!caracteres.contains(evt.getKeyChar() + "")) {
             evt.consume();
         }

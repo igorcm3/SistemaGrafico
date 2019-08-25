@@ -45,8 +45,13 @@ public class DrawFactory extends JPanel {
         // aqui ele verifica que tipo será desenhado o objeto
         switch (tipoObj) {
             case RETA:
-                for (Points p : points) {
-                    g2d.drawLine(p.getXi(), p.getYi(), p.getXf(), p.getYf());
+                for (int i = 0; i < points.size(); i++) {
+                    if (i == 0) {
+                        //primeiro elemento desenha normal para o proximo ter uam referencia
+                        g2d.drawLine(points.get(i).getX(), points.get(i).getY(), points.get(i).getX(), points.get(i).getY());
+                    } else {
+                        g2d.drawLine(points.get(i - 1).getX(), points.get(i - 1).getY(), points.get(i).getX(), points.get(i).getY());
+                    }
                 }
                 break;
             case POLILINHA:
@@ -55,28 +60,27 @@ public class DrawFactory extends JPanel {
                 for (int i = 0; i < points.size(); i++) {
                     if (i == 0) {
                         //primeiro elemento desenha normal para o proximo ter uam referencia
-                        g2d.drawLine(points.get(i).getXi(), points.get(i).getYi(), points.get(i).getXf(), points.get(i).getYf());
+                        g2d.drawLine(points.get(i).getX(), points.get(i).getY(), points.get(i).getX(), points.get(i).getY());
                     } else {
-                        g2d.drawLine(points.get(i - 1).getXf(), points.get(i - 1).getYf(), points.get(i).getXf(), points.get(i).getYf());
+                        g2d.drawLine(points.get(i - 1).getX(), points.get(i - 1).getY(), points.get(i).getX(), points.get(i).getY());
                     }
-
                 }
                 break;
             case POLIGONO:
-                
+
                 // percorre o arraylist por indices para controlar o desenho
                 // ja que tem que pegar como inicio o fim do elemento anterior para desenahr a partir dele.
                 for (int i = 0; i < points.size(); i++) {
                     if (i == 0) {
                         //primeiro elemento desenha normal para o proximo ter uam referencia
-                        g2d.drawLine(points.get(i).getXi(), points.get(i).getYi(), points.get(i).getXf(), points.get(i).getYf());
+                        g2d.drawLine(points.get(i).getX(), points.get(i).getY(), points.get(i).getX(), points.get(i).getY());
                     } else {
-                        g2d.drawLine(points.get(i - 1).getXf(), points.get(i - 1).getYf(), points.get(i).getXf(), points.get(i).getYf());
+                        g2d.drawLine(points.get(i - 1).getX(), points.get(i - 1).getY(), points.get(i).getX(), points.get(i).getY());
                     }
 
                 }
                 // DESENHA ULTIMO PONTO CONECTANDO COM PRIMEIRO
-                g2d.drawLine(points.get(points.size() - 1).getXf(), points.get(points.size() - 1).getYf(), points.get(0).getXf(), points.get(0).getYf());
+                g2d.drawLine(points.get(points.size() - 1).getX(), points.get(points.size() - 1).getY(), points.get(0).getX(), points.get(0).getY());
                 break;
         }
         g2d.dispose();
@@ -88,7 +92,7 @@ public class DrawFactory extends JPanel {
             case RETA:
                 return this.getName() + " [Reta]";
             case POLILINHA:
-                return this.getName() + " [Polilinha] - "+points.size()+" pontos";
+                return this.getName() + " [Polilinha] - " + points.size() + " pontos";
             case POLIGONO:
                 switch (points.size()) {
                     case 1:

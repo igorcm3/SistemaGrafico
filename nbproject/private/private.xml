@@ -5,22 +5,30 @@
             <url>src/Views/frmPrincipal.java</url>
             <bookmark id="3">
                 <name/>
-                <line>832</line>
+                <line>841</line>
                 <key/>
             </bookmark>
             <bookmark id="2">
                 <name/>
-                <line>912</line>
+                <line>919</line>
                 <key/>
             </bookmark>
             <bookmark id="1">
                 <name/>
-                <line>912</line>
+                <line>919</line>
                 <key/>
             </bookmark>
         </file>
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/C:/Users/coron/Documents/NetBeansProjects/SistemaGrafico/src/Views/frmTransformacoes.java</file>
+            <file>file:/C:/Users/coron/Documents/NetBeansProjects/SistemaGrafico/src/Views/frmPrincipal.java</file>
+            <file>file:/C:/Users/coron/Documents/NetBeansProjects/SistemaGrafico/src/Primitivas2D/Points.java</file>
+            <file>file:/C:/Users/coron/Documents/NetBeansProjects/SistemaGrafico/src/Primitivas2D/TransladaReta.java</file>
+            <file>file:/C:/Users/coron/Documents/NetBeansProjects/SistemaGrafico/src/Views/frmPrimitivas.java</file>
+            <file>file:/C:/Users/coron/Documents/NetBeansProjects/SistemaGrafico/src/Views/frmAdicionaPontos.java</file>
+            <file>file:/C:/Users/coron/Documents/NetBeansProjects/SistemaGrafico/src/Primitivas2D/DrawFactory.java</file>
+        </group>
     </open-files>
 </project-private>

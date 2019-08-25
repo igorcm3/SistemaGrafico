@@ -26,7 +26,7 @@ public class frmAdicionaPontos extends javax.swing.JFrame {
     }
 
     public void permitirSomenteNumeros(java.awt.event.KeyEvent evt) {
-        String caracteres = "0987654321";
+        String caracteres = "0987654321-";
         if (!caracteres.contains(evt.getKeyChar() + "")) {
             evt.consume();
         }
@@ -151,10 +151,8 @@ public class frmAdicionaPontos extends javax.swing.JFrame {
     private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
         // TODO add your handling code here:
         Points p = new Points();
-        p.setXi(Integer.parseInt(txtX.getText()));
-        p.setYi(Integer.parseInt(txtY.getText()));
-        p.setXf(p.getXi());
-        p.setYf(p.getYi());
+        p.setX(Integer.parseInt(txtX.getText()));
+        p.setY(Integer.parseInt(txtY.getText()));
         framePrimitivas.listaAddPontos.add(p);
         // adiciona a lista para vizualização
         framePrimitivas.inserePontosNaJList(p);

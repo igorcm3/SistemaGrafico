@@ -753,24 +753,28 @@ public class frmPrincipal extends javax.swing.JFrame {
         //xi yi xf yf, um array para cada desenho, nesse caso um desenho para plano X e um plano Y
         Points p1 = new Points();
         Points p2 = new Points();
-        ArrayList<Points> p1Array = new ArrayList<Points>();
-        ArrayList<Points> p2Array = new ArrayList<Points>();
+        Points p3 = new Points();
+        Points p4 = new Points();
+        ArrayList<Points> listaPontos1 = new ArrayList<Points>();
+        ArrayList<Points> listaPontos2 = new ArrayList<Points>();
 
-        p1.setXi(0);
-        p1.setYi(Math.round(painelWindow.getHeight() / 2));
-        p1.setXf(Math.round(painelWindow.getWidth()));
-        p1.setYf(Math.round(painelWindow.getHeight() / 2));
-        p1Array.add(p1);
+        p1.setX(0);
+        p1.setY(Math.round(painelWindow.getHeight() / 2));
+        p2.setX(Math.round(painelWindow.getWidth()));
+        p2.setY(Math.round(painelWindow.getHeight() / 2));
+        listaPontos1.add(p1);
+        listaPontos1.add(p2);
 
-        p2.setXi(Math.round(painelWindow.getWidth() / 2));
-        p2.setYi(0);
-        p2.setXf(Math.round(painelWindow.getWidth() / 2));
-        p2.setYf(Math.round(painelWindow.getHeight()));
-        p2Array.add(p2);
+        p3.setX(Math.round(painelWindow.getWidth() / 2));
+        p3.setY(0);
+        p4.setX(Math.round(painelWindow.getWidth() / 2));
+        p4.setY(Math.round(painelWindow.getHeight()));
+        listaPontos2.add(p3);
+        listaPontos2.add(p4);
 
-        desenhaObjeto(p1Array, Color.BLACK, true, "Plano Cartesiano", RETA);
+        desenhaObjeto(listaPontos1, Color.BLACK, true, "Plano Cartesiano", RETA);
         countCartesianos++;
-        desenhaObjeto(p2Array, Color.BLACK, true, "Plano Cartesiano", RETA);
+        desenhaObjeto(listaPontos2, Color.BLACK, true, "Plano Cartesiano", RETA);
         countCartesianos++;
         painelWindow.repaint();
     }
