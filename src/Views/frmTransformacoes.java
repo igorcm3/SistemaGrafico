@@ -42,6 +42,14 @@ public class frmTransformacoes extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
+        buttonGroup2 = new javax.swing.ButtonGroup();
+        buttonGroup3 = new javax.swing.ButtonGroup();
+        buttonGroup4 = new javax.swing.ButtonGroup();
+        buttonGroup5 = new javax.swing.ButtonGroup();
+        buttonGroup6 = new javax.swing.ButtonGroup();
+        buttonGroup7 = new javax.swing.ButtonGroup();
+        buttonGroup8 = new javax.swing.ButtonGroup();
         painelGuias = new javax.swing.JTabbedPane();
         painelTranslatar = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
@@ -50,7 +58,20 @@ public class frmTransformacoes extends javax.swing.JFrame {
         tx = new javax.swing.JTextField();
         ty = new javax.swing.JTextField();
         painelEscalonar = new javax.swing.JPanel();
+        jPanel3 = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        sx = new javax.swing.JTextField();
+        sy = new javax.swing.JTextField();
+        jRadioButton4 = new javax.swing.JRadioButton();
+        jRadioButton5 = new javax.swing.JRadioButton();
+        jRadioButton6 = new javax.swing.JRadioButton();
         painelRotacionar = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
+        angulo = new javax.swing.JTextField();
+        jRadioButton1 = new javax.swing.JRadioButton();
+        jRadioButton2 = new javax.swing.JRadioButton();
+        jRadioButton3 = new javax.swing.JRadioButton();
         btconfirmatranslação = new javax.swing.JButton();
         btcancelar = new javax.swing.JButton();
 
@@ -118,42 +139,169 @@ public class frmTransformacoes extends javax.swing.JFrame {
         painelTranslatarLayout.setHorizontalGroup(
             painelTranslatarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelTranslatarLayout.createSequentialGroup()
-                .addGap(23, 23, 23)
+                .addGap(30, 30, 30)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(48, Short.MAX_VALUE))
+                .addContainerGap(44, Short.MAX_VALUE))
         );
         painelTranslatarLayout.setVerticalGroup(
             painelTranslatarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelTranslatarLayout.createSequentialGroup()
-                .addGap(57, 57, 57)
+                .addGap(48, 48, 48)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(64, Short.MAX_VALUE))
+                .addContainerGap(75, Short.MAX_VALUE))
         );
 
         painelGuias.addTab("Translatar", painelTranslatar);
+
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Coordenadas"));
+
+        jLabel3.setText("Sy");
+
+        jLabel4.setText("Sx");
+
+        sx.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sxActionPerformed(evt);
+            }
+        });
+        sx.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                sxKeyTyped(evt);
+            }
+        });
+
+        sy.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                syKeyTyped(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(53, 53, 53)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel4))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(sy, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(sx, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(76, Short.MAX_VALUE))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(sx, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(sy, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(58, 58, 58))
+        );
+
+        buttonGroup1.add(jRadioButton4);
+        jRadioButton4.setText("Escalonamento em relação a origem");
+        jRadioButton4.setActionCommand("r1");
+
+        buttonGroup1.add(jRadioButton5);
+        jRadioButton5.setText("Escalonamento apartir de um ponto");
+        jRadioButton5.setActionCommand("r2");
+
+        buttonGroup1.add(jRadioButton6);
+        jRadioButton6.setText("Escalonamento natural ");
+        jRadioButton6.setActionCommand("r3");
 
         javax.swing.GroupLayout painelEscalonarLayout = new javax.swing.GroupLayout(painelEscalonar);
         painelEscalonar.setLayout(painelEscalonarLayout);
         painelEscalonarLayout.setHorizontalGroup(
             painelEscalonarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 301, Short.MAX_VALUE)
+            .addGroup(painelEscalonarLayout.createSequentialGroup()
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(painelEscalonarLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(painelEscalonarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jRadioButton4)
+                    .addComponent(jRadioButton5)
+                    .addComponent(jRadioButton6))
+                .addContainerGap(58, Short.MAX_VALUE))
         );
         painelEscalonarLayout.setVerticalGroup(
             painelEscalonarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 214, Short.MAX_VALUE)
+            .addGroup(painelEscalonarLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jRadioButton4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jRadioButton5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jRadioButton6)
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         painelGuias.addTab("Escalonar", painelEscalonar);
+
+        jLabel5.setText("Angulo");
+
+        angulo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                anguloActionPerformed(evt);
+            }
+        });
+
+        buttonGroup2.add(jRadioButton1);
+        jRadioButton1.setText("Rotação em relação a origem");
+        jRadioButton1.setActionCommand("r1");
+        jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton1ActionPerformed(evt);
+            }
+        });
+
+        buttonGroup2.add(jRadioButton2);
+        jRadioButton2.setText("Rotação em relação a um ponto");
+        jRadioButton2.setActionCommand("r2");
+
+        buttonGroup2.add(jRadioButton3);
+        jRadioButton3.setText("Rotação natural");
+        jRadioButton3.setActionCommand("r3");
 
         javax.swing.GroupLayout painelRotacionarLayout = new javax.swing.GroupLayout(painelRotacionar);
         painelRotacionar.setLayout(painelRotacionarLayout);
         painelRotacionarLayout.setHorizontalGroup(
             painelRotacionarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 301, Short.MAX_VALUE)
+            .addGroup(painelRotacionarLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(painelRotacionarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(painelRotacionarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(angulo))
+                    .addComponent(jRadioButton1)
+                    .addComponent(jRadioButton2)
+                    .addComponent(jRadioButton3))
+                .addContainerGap(86, Short.MAX_VALUE))
         );
         painelRotacionarLayout.setVerticalGroup(
             painelRotacionarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 214, Short.MAX_VALUE)
+            .addGroup(painelRotacionarLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(angulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(32, 32, 32)
+                .addComponent(jRadioButton1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jRadioButton2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jRadioButton3)
+                .addContainerGap(36, Short.MAX_VALUE))
         );
 
         painelGuias.addTab("Rotacionar", painelRotacionar);
@@ -208,9 +356,39 @@ public class frmTransformacoes extends javax.swing.JFrame {
         switch (painelGuias.getSelectedIndex()) {
             // index 0 primeiro painel = translação.
             case 0:
-                framePrincipal.translada(Integer.parseInt(tx.getText()), Integer.parseInt(ty.getText()));
+                framePrincipal.transformacoes(Integer.parseInt(tx.getText()), Integer.parseInt(ty.getText()),0);
                 break;
-        }
+            case 1:
+                switch(buttonGroup1.getSelection().getActionCommand()){
+                    case "r1":
+                        framePrincipal.transformacoes(Integer.parseInt(sx.getText()), Integer.parseInt(sy.getText()),1);
+                        
+                        break;
+                    case "r2":
+                        framePrincipal.transformacoes(Integer.parseInt(sx.getText()), Integer.parseInt(sy.getText()),2);
+                        break;
+                    case "r3":
+                        framePrincipal.transformacoes(Integer.parseInt(sx.getText()), Integer.parseInt(sy.getText()),3);
+                        break;
+                }
+                
+                break;
+            case 2:
+                switch(buttonGroup2.getSelection().getActionCommand()){
+                    case "r1":
+                        framePrincipal.transformacoes(Integer.parseInt(angulo.getText()),0,4);
+                        
+                        break;
+                    case "r2":
+                        framePrincipal.transformacoes(Integer.parseInt(angulo.getText()),0,5);
+                        break;
+                    case "r3":
+                        framePrincipal.transformacoes(Integer.parseInt(angulo.getText()),0,6);
+                        break;
+                }
+                
+                break;
+            }
         dispose();
     }//GEN-LAST:event_btconfirmatranslaçãoActionPerformed
 
@@ -228,16 +406,57 @@ public class frmTransformacoes extends javax.swing.JFrame {
         permitirSomenteNumeros(evt);
     }//GEN-LAST:event_tyKeyTyped
 
+    private void sxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_sxActionPerformed
+
+    private void sxKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_sxKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_sxKeyTyped
+
+    private void syKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_syKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_syKeyTyped
+
+    private void anguloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_anguloActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_anguloActionPerformed
+
+    private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jRadioButton1ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField angulo;
     private javax.swing.JButton btcancelar;
     private javax.swing.JButton btconfirmatranslação;
+    private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.ButtonGroup buttonGroup2;
+    private javax.swing.ButtonGroup buttonGroup3;
+    private javax.swing.ButtonGroup buttonGroup4;
+    private javax.swing.ButtonGroup buttonGroup5;
+    private javax.swing.ButtonGroup buttonGroup6;
+    private javax.swing.ButtonGroup buttonGroup7;
+    private javax.swing.ButtonGroup buttonGroup8;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JRadioButton jRadioButton1;
+    private javax.swing.JRadioButton jRadioButton2;
+    private javax.swing.JRadioButton jRadioButton3;
+    private javax.swing.JRadioButton jRadioButton4;
+    private javax.swing.JRadioButton jRadioButton5;
+    private javax.swing.JRadioButton jRadioButton6;
     private javax.swing.JPanel painelEscalonar;
     private javax.swing.JTabbedPane painelGuias;
     private javax.swing.JPanel painelRotacionar;
     private javax.swing.JPanel painelTranslatar;
+    private javax.swing.JTextField sx;
+    private javax.swing.JTextField sy;
     private javax.swing.JTextField tx;
     private javax.swing.JTextField ty;
     // End of variables declaration//GEN-END:variables

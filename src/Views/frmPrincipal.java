@@ -7,7 +7,7 @@ package Views;
 
 import Primitivas2D.DrawFactory;
 import Primitivas2D.Points;
-import Primitivas2D.TransladaReta;
+import Primitivas2D.Transforma;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Image;
@@ -31,8 +31,8 @@ public class frmPrincipal extends javax.swing.JFrame {
     public int Y0;
     public DefaultListModel listaModel;   // model para adicionar a Jlist
     public int countCartesianos, countRetas;   // usado apra saber qtos planos cartesianos desenhou para descontar do total de objetos e sincronziar com a Jlist.
-    public TransladaReta treta = new TransladaReta();
-    public ArrayList<Points> pontosTransladados = new ArrayList<>();
+    
+    public ArrayList<Points> pontosTransformados = new ArrayList<>();
     //constantes 
     protected final int PONTO = 0, RETA = 1, POLILINHA = 2, POLIGONO = 3;
 
@@ -817,24 +817,41 @@ public class frmPrincipal extends javax.swing.JFrame {
 
     }
 
-    public void translada(int tx, int ty) {
+    public void transformacoes(int x, int y,int i) {
+        Transforma tr = new Transforma();
         Points p = new Points();
         ArrayList<Points> pLista = new ArrayList<Points>();
         if (listaObjetos.getSelectedIndex() > -1) {
-            DrawFactory retaTranslada = (DrawFactory) listaModel.getElementAt(listaObjetos.getSelectedIndex());
+            DrawFactory trans = (DrawFactory) listaModel.getElementAt(listaObjetos.getSelectedIndex());
             painelWindow.remove(painelWindow.getComponent(getObjSelecionadoNaListaDoPainelWindow()));
-            pontosTransladados = treta.translada(retaTranslada, tx, ty);
+            switch(i){
+                case 0:
+                    pontosTransformados = tr.translada(trans, x, y);
+                    break;
+                case 1:
+                    pontosTransformados= tr.escalona(trans, x, y, 0);
+                    break;
+                case 2:
+                    pontosTransformados= tr.escalona(trans, x, y, 1);
+                    break;
+                case 3:
+                    pontosTransformados= tr.escalona(trans, x, y, 2);
+                    break;
+                case 4:
+                    pontosTransformados= tr.rotaciona(trans, x, y, 0);
+                    break;
+                case 5:
+                    pontosTransformados= tr.rotaciona(trans, x, y, 1);
+                    break;
+                case 6:
+                    pontosTransformados= tr.rotaciona(trans, x, y, 2);
+                    break;
+            }
+           
             listaModel.remove(listaObjetos.getSelectedIndex());
             painelWindow.repaint();
             spViewport.repaint();
-            
-            
-            
-            
-            
-            
-            
-            desenhaObjeto(pontosTransladados, retaTranslada.getCor(), false, retaTranslada.getName(), retaTranslada.getTipoObj());
+            desenhaObjeto(pontosTransformados, trans.getCor(), false, trans.getName(), trans.getTipoObj());
             
         }
 

@@ -52,6 +52,7 @@ public class DrawFactory extends JPanel {
                     } else {
                         g2d.drawLine(points.get(i - 1).getX(), points.get(i - 1).getY(), points.get(i).getX(), points.get(i).getY());
                     }
+                    
                 }
                 break;
             case POLILINHA:
