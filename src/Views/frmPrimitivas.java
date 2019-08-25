@@ -69,6 +69,13 @@ public class frmPrimitivas extends javax.swing.JFrame {
         rbPolilinha = new javax.swing.JRadioButton();
         rbPoligono = new javax.swing.JRadioButton();
         btnNovoPonto = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
+        jPanel4 = new javax.swing.JPanel();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        txtXPonto = new javax.swing.JTextField();
+        txtYPonto = new javax.swing.JTextField();
+        jLabel14 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         painelCor = new javax.swing.JPanel();
@@ -278,6 +285,84 @@ public class frmPrimitivas extends javax.swing.JFrame {
 
         painelGuias.addTab("Polilinha / Poligono", painelRetangulo);
 
+        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Coordenadas"));
+
+        jLabel10.setText("Y");
+
+        jLabel13.setText("X ");
+
+        txtXPonto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtXPontoActionPerformed(evt);
+            }
+        });
+        txtXPonto.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtXPontoKeyTyped(evt);
+            }
+        });
+
+        txtYPonto.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtYPontoKeyTyped(evt);
+            }
+        });
+
+        jLabel14.setText("Ponto");
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(53, 53, 53)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel13)
+                            .addComponent(jLabel10))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtXPonto, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtYPonto, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(50, Short.MAX_VALUE))
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel14)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel13)
+                    .addComponent(txtXPonto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel10)
+                    .addComponent(txtYPonto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(89, 89, 89))
+        );
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(58, 58, 58)
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(74, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(59, Short.MAX_VALUE)
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(56, 56, 56))
+        );
+
+        painelGuias.addTab("Ponto", jPanel1);
+
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Opções"));
 
         jLabel6.setText("Cor:");
@@ -305,7 +390,7 @@ public class frmPrimitivas extends javax.swing.JFrame {
 
         jLabel8.setText("Nome objeto:");
 
-        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 8)); // NOI18N
         jLabel5.setText("*Nome do objeto é obrigatório.");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -316,7 +401,10 @@ public class frmPrimitivas extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel5)
+                        .addGap(137, 137, 137))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addComponent(jLabel8)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -327,21 +415,18 @@ public class frmPrimitivas extends javax.swing.JFrame {
                                 .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(painelCor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(42, 42, 42))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGap(42, 42, 42))))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(77, Short.MAX_VALUE)
+                .addContainerGap(62, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
                     .addComponent(nomeObjeto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel5)
-                .addGap(12, 12, 12)
+                .addGap(31, 31, 31)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel6)
@@ -370,16 +455,17 @@ public class frmPrimitivas extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(painelGuias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(painelGuias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(27, 27, 27)
                         .addComponent(btnDesenhaPrimitiva)
-                        .addGap(427, 427, 427)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnCancelar)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -410,14 +496,14 @@ public class frmPrimitivas extends javax.swing.JFrame {
                 return;
             }
         }
-        
+
         // validação de nome
         if (nomeObjeto.getText().equals("")) {
             System.out.println("Sem nome, não desenhar!");
             JOptionPane.showMessageDialog(null, "Informe o nome do objeto!", "Nome do objeto", 1);
             return;
         }
-        
+
         // validações polilinha e poligono
         if (painelGuias.getSelectedIndex() == 1) {
 
@@ -429,6 +515,15 @@ public class frmPrimitivas extends javax.swing.JFrame {
             if ((listaPontos.getModel().getSize() <= 2) && (rbPoligono.isSelected())) {
                 System.out.println("insira ao menos três pontos para poligono");
                 JOptionPane.showMessageDialog(null, "Insira ao menos três pontos para poligono!", "Desenhar Poligono", 1);
+                return;
+            }
+        }
+
+        // Validações reta
+        if (painelGuias.getSelectedIndex() == 2) {
+            if (txtXPonto.getText().equals("") || txtYPonto.getText().equals("")) {
+                System.out.println("Ponto n preenchido, não desenhar!");
+                JOptionPane.showMessageDialog(null, "Informe as coordenadas de X e Y para desenhar o ponto!", "Ponto", 1);
                 return;
             }
         }
@@ -451,6 +546,11 @@ public class frmPrimitivas extends javax.swing.JFrame {
                 }
 
                 break;
+            case 2:
+                ajsutarPontoParaDesenhar();
+                framePrincipal.desenhaObjeto(listaAddPontos, this.cor, false, nomeObjeto.getText(), PONTO);
+                break;
+
         }
         dispose();
 
@@ -466,6 +566,13 @@ public class frmPrimitivas extends javax.swing.JFrame {
         p2.setY((framePrincipal.Y0 - (Integer.parseInt(txtYfim.getText()))));
         listaAddPontos.add(p1);
         listaAddPontos.add(p2);
+    }
+
+    public void ajsutarPontoParaDesenhar() {
+        Points p1 = new Points();
+        p1.setX((framePrincipal.X0 + (Integer.parseInt(txtXPonto.getText()))));
+        p1.setY((framePrincipal.Y0 - (Integer.parseInt(txtYPonto.getText()))));
+        listaAddPontos.add(p1);
     }
 
     private void ajustaOrigemPolilinhaPoligono() {
@@ -544,6 +651,20 @@ public class frmPrimitivas extends javax.swing.JFrame {
         permitirSomenteNumeros(evt);
     }//GEN-LAST:event_txtYfimKeyTyped
 
+    private void txtXPontoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtXPontoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtXPontoActionPerformed
+
+    private void txtXPontoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtXPontoKeyTyped
+        // TODO add your handling code here:
+        permitirSomenteNumeros(evt);
+    }//GEN-LAST:event_txtXPontoKeyTyped
+
+    private void txtYPontoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtYPontoKeyTyped
+        // TODO add your handling code here:
+        permitirSomenteNumeros(evt);
+    }//GEN-LAST:event_txtYPontoKeyTyped
+
     public void mudaCorPainelCores(Color corParam) {
         this.cor = corParam;
         painelCor.setBackground(cor);
@@ -566,16 +687,21 @@ public class frmPrimitivas extends javax.swing.JFrame {
     private javax.swing.JColorChooser jColorChooser1;
     private javax.swing.JFileChooser jFileChooser1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JList<String> listaPontos;
@@ -586,8 +712,10 @@ public class frmPrimitivas extends javax.swing.JFrame {
     private javax.swing.JPanel painelRetangulo;
     private javax.swing.JRadioButton rbPoligono;
     private javax.swing.JRadioButton rbPolilinha;
+    private javax.swing.JTextField txtXPonto;
     private javax.swing.JTextField txtXfim;
     private javax.swing.JTextField txtXinicio;
+    private javax.swing.JTextField txtYPonto;
     private javax.swing.JTextField txtYfim;
     private javax.swing.JTextField txtYinicio;
     // End of variables declaration//GEN-END:variables

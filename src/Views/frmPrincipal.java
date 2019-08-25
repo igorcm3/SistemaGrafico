@@ -31,7 +31,7 @@ public class frmPrincipal extends javax.swing.JFrame {
     public int Y0;
     public DefaultListModel listaModel;   // model para adicionar a Jlist
     public int countCartesianos, countRetas;   // usado apra saber qtos planos cartesianos desenhou para descontar do total de objetos e sincronziar com a Jlist.
-    
+
     public ArrayList<Points> pontosTransformados = new ArrayList<>();
     //constantes 
     protected final int PONTO = 0, RETA = 1, POLILINHA = 2, POLIGONO = 3;
@@ -600,8 +600,8 @@ public class frmPrincipal extends javax.swing.JFrame {
 
     private void btnLimparViewPortActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparViewPortActionPerformed
         // TODO add your handling code her
-        countCartesianos =0;
-        countRetas =0;
+        countCartesianos = 0;
+        countRetas = 0;
         painelWindow.removeAll();
         desenhaPlanoCartesiano();
         listaModel.removeAllElements();
@@ -687,11 +687,11 @@ public class frmPrincipal extends javax.swing.JFrame {
 
     public void atualizaLabelsInfo() {
         DrawFactory tipObj = (DrawFactory) painelWindow.getComponent(getObjSelecionadoNaListaDoPainelWindow());
-        
+
         lblObjSelLista.setText(String.valueOf((listaObjetos.getSelectedIndex() + 1)));
         lblObjSelPontos.setText(String.valueOf(tipObj.getNumeroDePontos()));
         lblTotalObj.setText(String.valueOf(getTotalObjetosDesenhadosWindow()));
-        
+
         switch (tipObj.getTipoObj()) {
             case RETA:
                 lblObjSelTipo.setText("Reta");
@@ -701,6 +701,9 @@ public class frmPrincipal extends javax.swing.JFrame {
                 break;
             case POLIGONO:
                 lblObjSelTipo.setText("Poligono");
+                break;
+            case PONTO:
+                lblObjSelTipo.setText("Ponto");
                 break;
             default:
                 lblObjSelTipo.setText("Tipo não reconhecido!");
@@ -716,7 +719,7 @@ public class frmPrincipal extends javax.swing.JFrame {
         indexDoComponent = 0;
         for (Component c : painelWindow.getComponents()) {
             indexDoComponent++;
-            if (!c.getName().equals("PC")) {
+            if (!c.getName().equals("Plano Cartesiano")) {
                 countObjsValidos++;
                 if (countObjsValidos == (listaObjetos.getModel().getSize() - (listaObjetos.getSelectedIndex() + 1))) {
                     return indexDoComponent;
@@ -745,7 +748,18 @@ public class frmPrincipal extends javax.swing.JFrame {
             adicionaDesenhoALista(painelWindow.getComponent(0));
         }
         repaint();
-        System.out.println("desenhou objeto:");
+
+        // informativo, apenas mostra que obj printou
+        switch (tipo) {
+            case RETA:
+                System.out.println("desenhou objeto: [Reta]");
+            case POLILINHA:
+                System.out.println("desenhou objeto: [Polilinha]");
+            case POLIGONO:
+                System.out.println("desenhou objeto: [Poligono]");
+            case PONTO:
+                System.out.println("desenhou objeto: [Ponto]");
+        }
     }
 
     public void desenhaPlanoCartesiano() {
@@ -817,42 +831,42 @@ public class frmPrincipal extends javax.swing.JFrame {
 
     }
 
-    public void transformacoes(int x, int y,int i) {
+    public void transformacoes(int x, int y, int i) {
         Transforma tr = new Transforma();
         Points p = new Points();
         ArrayList<Points> pLista = new ArrayList<Points>();
         if (listaObjetos.getSelectedIndex() > -1) {
             DrawFactory trans = (DrawFactory) listaModel.getElementAt(listaObjetos.getSelectedIndex());
             painelWindow.remove(painelWindow.getComponent(getObjSelecionadoNaListaDoPainelWindow()));
-            switch(i){
+            switch (i) {
                 case 0:
                     pontosTransformados = tr.translada(trans, x, y);
                     break;
                 case 1:
-                    pontosTransformados= tr.escalona(trans, x, y, 0);
+                    pontosTransformados = tr.escalona(trans, x, y, 0);
                     break;
                 case 2:
-                    pontosTransformados= tr.escalona(trans, x, y, 1);
+                    pontosTransformados = tr.escalona(trans, x, y, 1);
                     break;
                 case 3:
-                    pontosTransformados= tr.escalona(trans, x, y, 2);
+                    pontosTransformados = tr.escalona(trans, x, y, 2);
                     break;
                 case 4:
-                    pontosTransformados= tr.rotaciona(trans, x, y, 0);
+                    pontosTransformados = tr.rotaciona(trans, x, y, 0);
                     break;
                 case 5:
-                    pontosTransformados= tr.rotaciona(trans, x, y, 1);
+                    pontosTransformados = tr.rotaciona(trans, x, y, 1);
                     break;
                 case 6:
-                    pontosTransformados= tr.rotaciona(trans, x, y, 2);
+                    pontosTransformados = tr.rotaciona(trans, x, y, 2);
                     break;
             }
-           
+
             listaModel.remove(listaObjetos.getSelectedIndex());
             painelWindow.repaint();
             spViewport.repaint();
             desenhaObjeto(pontosTransformados, trans.getCor(), false, trans.getName(), trans.getTipoObj());
-            
+
         }
 
     }

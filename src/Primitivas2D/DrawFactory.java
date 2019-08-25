@@ -10,6 +10,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import java.awt.geom.Ellipse2D;
 import java.util.ArrayList;
 import javax.swing.JPanel;
 
@@ -52,7 +53,7 @@ public class DrawFactory extends JPanel {
                     } else {
                         g2d.drawLine(points.get(i - 1).getX(), points.get(i - 1).getY(), points.get(i).getX(), points.get(i).getY());
                     }
-                    
+
                 }
                 break;
             case POLILINHA:
@@ -82,6 +83,11 @@ public class DrawFactory extends JPanel {
                 }
                 // DESENHA ULTIMO PONTO CONECTANDO COM PRIMEIRO
                 g2d.drawLine(points.get(points.size() - 1).getX(), points.get(points.size() - 1).getY(), points.get(0).getX(), points.get(0).getY());
+                break;
+            case PONTO:
+                for (int i = 0; i < points.size(); i++) {
+                    g2d.fillOval(points.get(i).getX(), points.get(i).getY(), 7, 7);
+                }
                 break;
         }
         g2d.dispose();
@@ -117,6 +123,8 @@ public class DrawFactory extends JPanel {
                     case 10:
                         return this.getName() + " [Decalátero]";
                 }
+            case PONTO:return this.getName() + " [Ponto]";
+
         }
         return "[Objeto]!";
     }
