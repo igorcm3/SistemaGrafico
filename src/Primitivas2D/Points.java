@@ -13,6 +13,8 @@ public class Points {
 
     public int x;
     public int y;
+    public Double xd;
+    public Double yd;
 
 
     // CLASSE BASE PARA  INFORMAR OS PONTOS DOS OBJTS.
@@ -24,6 +26,24 @@ public class Points {
 
     public Points() {
     }
+
+    public Double getXd() {
+        return xd;
+    }
+
+    public void setXd(Double xd) {
+        this.xd = xd;
+    }
+
+    public Double getYd() {
+        return yd;
+    }
+
+    public void setYd(Double yd) {
+        this.yd = yd;
+    }
+    
+    
 
     public String toString() {
         return "Ponto x:"+x+" y:"+y+"";

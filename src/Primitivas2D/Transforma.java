@@ -17,32 +17,32 @@ import java.util.ArrayList;
  */
 public class Transforma {
     protected final int PONTO = 0, RETA = 1, POLILINHA = 2, POLIGONO = 3;
-    private int mt[][]=new int[3][3];
+    private Double mt[][]=new Double[3][3];
     
-    private int p1[][]=new int[1][3];
+    private Double p1[][]=new Double[1][3];
     
-    private int pf1[][]=new int[1][3];
+    private Double pf1[][]=new Double[1][3];
     
     
     public Transforma() {
-        mt[0][0]=1;
-        mt[0][1]=0;
-        mt[0][2]=0;
-        mt[1][0]=0;
-        mt[1][1]=1;
-        mt[1][2]=0;
-        mt[2][0]=0;
-        mt[2][1]=0;
-        mt[2][2]=1;
-        p1[0][0]=0;
-        p1[0][1]=0;
-        p1[0][2]=1;
+        mt[0][0]=1.0;
+        mt[0][1]=0.0;
+        mt[0][2]=0.0;
+        mt[1][0]=0.0;
+        mt[1][1]=1.0;
+        mt[1][2]=0.0;
+        mt[2][0]=0.0;
+        mt[2][1]=0.0;
+        mt[2][2]=1.0;
+        p1[0][0]=0.0;
+        p1[0][1]=0.0;
+        p1[0][2]=1.0;
         
     }
 
     
     
-    public ArrayList<Points> translada(DrawFactory obj,int x,int y){
+    public ArrayList<Points> translada(DrawFactory obj,double x,double y){
         mt[2][0]=x;
         mt[2][1]=y;
           
@@ -51,8 +51,8 @@ public class Transforma {
         for(Points p:ponto){
             Points pontoresult=new Points();
             
-            p1[0][0]=p.getX()-500;
-            p1[0][1]=-(p.getY()-500);
+            p1[0][0]=p.getX()-500.0;
+            p1[0][1]=-(p.getY()-500.0);
            
             pf1[0][0]=p1[0][0]*mt[0][0]+p1[0][1]*mt[1][0]+p1[0][2]*mt[2][0];
             pf1[0][1]=p1[0][0]*mt[0][1]+p1[0][1]*mt[1][1]+p1[0][2]*mt[2][1];
@@ -60,8 +60,8 @@ public class Transforma {
             
            
             
-            pontoresult.setX(pf1[0][0]+500);
-            pontoresult.setY(-pf1[0][1]+500);
+            pontoresult.setX((int) (pf1[0][0]+500));
+            pontoresult.setY((int) (-pf1[0][1]+500));
            
             
             pf.add(pontoresult);
@@ -71,7 +71,7 @@ public class Transforma {
     }
 
     
-    public ArrayList<Points> escalona(DrawFactory obj,int x,int y,int op){
+    public ArrayList<Points> escalona(DrawFactory obj,double x,double y,int op){
         
         
         ArrayList<Points> ponto= obj.getPoints();
@@ -82,21 +82,21 @@ public class Transforma {
             Points pontoresult=new Points();
             mt[0][0]=x;
             mt[1][1]=y;
-            p1[0][0]=p.getX()-500;
-            p1[0][1]=-(p.getY()-500);
+            p1[0][0]=p.getX()-500.0;
+            p1[0][1]=-(p.getY()-500.0);
            
             pf1[0][0]=p1[0][0]*mt[0][0]+p1[0][1]*mt[1][0]+p1[0][2]*mt[2][0];
             pf1[0][1]=p1[0][0]*mt[0][1]+p1[0][1]*mt[1][1]+p1[0][2]*mt[2][1];
             
-            pontoresult.setX(pf1[0][0]+500);
-            pontoresult.setY(-pf1[0][1]+500);
+            pontoresult.setX((int) (pf1[0][0]+500));
+            pontoresult.setY((int) (-pf1[0][1]+500));
             pf.add(pontoresult);
         }
         }
         
         if(op==1){
-            int tx=(ponto.get(0).getX()-500);
-            int ty=-(ponto.get(0).getY()-500);
+            Double tx=(ponto.get(0).getX()-500.0);
+            Double ty=-(ponto.get(0).getY()-500.0);
             
             for(Points p:ponto){
                 Points pontoresult=new Points();
@@ -104,14 +104,14 @@ public class Transforma {
                 
                 mt[2][0]=-tx;
                 mt[2][1]=-ty;
-                p1[0][0]=p.getX()-500;
-                p1[0][1]=-(p.getY()-500);
+                p1[0][0]=p.getX()-500.0;
+                p1[0][1]=-(p.getY()-500.0);
                 pf1[0][0]=p1[0][0]*mt[0][0]+p1[0][1]*mt[1][0]+p1[0][2]*mt[2][0];
                 pf1[0][1]=p1[0][0]*mt[0][1]+p1[0][1]*mt[1][1]+p1[0][2]*mt[2][1];
                 
                 //matriz para fazer escalonamento
-                mt[2][0]=0;
-                mt[2][1]=0;
+                mt[2][0]=0.0;
+                mt[2][1]=0.0;
                 mt[0][0]=x;
                 mt[1][1]=y;
                 p1[0][0]=pf1[0][0];
@@ -120,11 +120,10 @@ public class Transforma {
                 pf1[0][1]=p1[0][0]*mt[0][1]+p1[0][1]*mt[1][1]+p1[0][2]*mt[2][1];
                 
                 
-                System.out.println("pontos:");
-                System.out.println(pf1[0][0]+" "+pf1[0][1]);
+                
                 //matriz para transladar para ponto original do objeto
-                mt[0][0]=1;
-                mt[1][1]=1;
+                mt[0][0]=1.0;
+                mt[1][1]=1.0;
                 mt[2][0]=tx;
                 mt[2][1]=ty;
                 p1[0][0]=pf1[0][0];
@@ -133,8 +132,8 @@ public class Transforma {
                 pf1[0][1]=p1[0][0]*mt[0][1]+p1[0][1]*mt[1][1]+p1[0][2]*mt[2][1];
                 
                 
-                pontoresult.setX(pf1[0][0]+500);
-                pontoresult.setY(-pf1[0][1]+500);
+                pontoresult.setX((int) (pf1[0][0]+500));
+                pontoresult.setY((int) (-pf1[0][1]+500));
                 pf.add(pontoresult);
             }
         
@@ -149,16 +148,16 @@ public class Transforma {
             for(Points p:ponto){
                 Points pontoresult=new Points();
                 //matriz para transladar meio do objeto para origem
-                mt[2][0]=-pt.getX();
-                mt[2][1]=-pt.getY();
-                p1[0][0]=p.getX()-500;
-                p1[0][1]=-(p.getY()-500);
+                mt[2][0]=-pt.getXd();
+                mt[2][1]=-pt.getYd();
+                p1[0][0]=p.getX()-500.0;
+                p1[0][1]=-(p.getY()-500.0);
                 pf1[0][0]=p1[0][0]*mt[0][0]+p1[0][1]*mt[1][0]+p1[0][2]*mt[2][0];
                 pf1[0][1]=p1[0][0]*mt[0][1]+p1[0][1]*mt[1][1]+p1[0][2]*mt[2][1];
                 
                 //matriz para fazer escalonamento
-                mt[2][0]=0;
-                mt[2][1]=0;
+                mt[2][0]=0.0;
+                mt[2][1]=0.0;
                 mt[0][0]=x;
                 mt[1][1]=y;
                 p1[0][0]=pf1[0][0];
@@ -167,17 +166,17 @@ public class Transforma {
                 pf1[0][1]=p1[0][0]*mt[0][1]+p1[0][1]*mt[1][1]+p1[0][2]*mt[2][1];
                 
                 //matriz para transladar para ponto original do objeto
-                mt[0][0]=1;
-                mt[1][1]=1;
-                mt[2][0]=pt.getX();
-                mt[2][1]=pt.getY();
+                mt[0][0]=1.0;
+                mt[1][1]=1.0;
+                mt[2][0]=pt.getXd();
+                mt[2][1]=pt.getYd();
                 p1[0][0]=pf1[0][0];
                 p1[0][1]=pf1[0][1];
                 pf1[0][0]=p1[0][0]*mt[0][0]+p1[0][1]*mt[1][0]+p1[0][2]*mt[2][0];
                 pf1[0][1]=p1[0][0]*mt[0][1]+p1[0][1]*mt[1][1]+p1[0][2]*mt[2][1];
                 
-                pontoresult.setX(pf1[0][0]+500);
-                pontoresult.setY(-pf1[0][1]+500);
+                pontoresult.setX((int) (pf1[0][0]+500));
+                pontoresult.setY((int) (-pf1[0][1]+500));
                 pf.add(pontoresult);
             }
             
@@ -186,13 +185,12 @@ public class Transforma {
         return pf;
     }
     
-    public ArrayList<Points> rotaciona(DrawFactory obj,int x,int y,int op){
+    public ArrayList<Points> rotaciona(DrawFactory obj,double x,double y,int op){
         double ang=Math.toRadians(x);
         ArrayList<Points> ponto= obj.getPoints();
         ArrayList<Points> pf = new ArrayList<>();
         double mr[][]= new double[3][3];
-        double p1d[][]= new double[1][3];
-        double pf1d[][]= new double[1][3];
+        
         
         mr[0][0]=cos(ang);
         mr[0][1]=sin(ang);
@@ -211,17 +209,17 @@ public class Transforma {
             for(Points p:ponto){
             Points pontoresult=new Points();
             
-            p1d[0][0]=p.getX()-500;
-            p1d[0][1]=-(p.getY()-500);
-            p1d[0][2]=1;
+            p1[0][0]=p.getX()-500.0;
+            p1[0][1]=-(p.getY()-500.0);
+            p1[0][2]=1.0;
             
             
-            pf1d[0][0]=p1d[0][0]*mr[0][0]+p1d[0][1]*mr[1][0]+p1d[0][2]*mr[2][0];
-            pf1d[0][1]=p1d[0][0]*mr[0][1]+p1d[0][1]*mr[1][1]+p1d[0][2]*mr[2][1];
+            pf1[0][0]=p1[0][0]*mr[0][0]+p1[0][1]*mr[1][0]+p1[0][2]*mr[2][0];
+            pf1[0][1]=p1[0][0]*mr[0][1]+p1[0][1]*mr[1][1]+p1[0][2]*mr[2][1];
                 
             
-            pontoresult.setX((int) (pf1d[0][0]+500));
-            pontoresult.setY((int) (-pf1d[0][1]+500));
+            pontoresult.setX((int) (pf1[0][0]+500));
+            pontoresult.setY((int) (-pf1[0][1]+500));
                 
             pf.add(pontoresult);
         }
@@ -229,9 +227,9 @@ public class Transforma {
         
         if(op==1){
             
-            int tx=(ponto.get(0).getX()-500);
-            int ty=-(ponto.get(0).getY()-500);
-            System.out.println("pontos: "+tx+" "+ty);
+            Double tx=(ponto.get(0).getX()-500.0);
+            Double ty=-(ponto.get(0).getY()-500.0);
+            
             
             for(Points p:ponto){
                 Points pontoresult=new Points();
@@ -239,35 +237,33 @@ public class Transforma {
                 
                 mt[2][0]=-tx;
                 mt[2][1]=-ty;
-                p1d[0][0]=p.getX()-500;
-                p1d[0][1]=-(p.getY()-500);
-                p1d[0][2]=1;
+                p1[0][0]=p.getX()-500.0;
+                p1[0][1]=-(p.getY()-500.0);
+                p1[0][2]=1.0;
                 
-                pf1d[0][0]=p1d[0][0]*mt[0][0]+p1d[0][1]*mt[1][0]+p1d[0][2]*mt[2][0];
-                pf1d[0][1]=p1d[0][0]*mt[0][1]+p1d[0][1]*mt[1][1]+p1d[0][2]*mt[2][1];
-                System.out.println("pontos na origem: "+pf1d[0][0]+" "+pf1d[0][1]);
-                //matriz para fazer rotação
-                
-                p1d[0][0]=pf1d[0][0];
-                p1d[0][1]=pf1d[0][1];
-                pf1d[0][0]=p1d[0][0]*mr[0][0]+p1d[0][1]*mr[1][0]+p1d[0][2]*mr[2][0];
-                pf1d[0][1]=p1d[0][0]*mr[0][1]+p1d[0][1]*mr[1][1]+p1d[0][2]*mr[2][1];
+                pf1[0][0]=p1[0][0]*mt[0][0]+p1[0][1]*mt[1][0]+p1[0][2]*mt[2][0];
+                pf1[0][1]=p1[0][0]*mt[0][1]+p1[0][1]*mt[1][1]+p1[0][2]*mt[2][1];
                 
                 
-                System.out.println("pontos:");
-                System.out.println(pf1[0][0]+" "+pf1[0][1]);
+                p1[0][0]=pf1[0][0];
+                p1[0][1]=pf1[0][1];
+                pf1[0][0]=p1[0][0]*mr[0][0]+p1[0][1]*mr[1][0]+p1[0][2]*mr[2][0];
+                pf1[0][1]=p1[0][0]*mr[0][1]+p1[0][1]*mr[1][1]+p1[0][2]*mr[2][1];
+                
+                
+               
                 //matriz para transladar para ponto original do objeto
                 
                 mt[2][0]=tx;
                 mt[2][1]=ty;
-                p1d[0][0]=pf1d[0][0];
-                p1d[0][1]=pf1d[0][1];
-                pf1d[0][0]=p1d[0][0]*mt[0][0]+p1d[0][1]*mt[1][0]+p1d[0][2]*mt[2][0];
-                pf1d[0][1]=p1d[0][0]*mt[0][1]+p1d[0][1]*mt[1][1]+p1d[0][2]*mt[2][1];
+                p1[0][0]=pf1[0][0];
+                p1[0][1]=pf1[0][1];
+                pf1[0][0]=p1[0][0]*mt[0][0]+p1[0][1]*mt[1][0]+p1[0][2]*mt[2][0];
+                pf1[0][1]=p1[0][0]*mt[0][1]+p1[0][1]*mt[1][1]+p1[0][2]*mt[2][1];
                 
                 
-                pontoresult.setX((int) (pf1d[0][0]+500));
-                pontoresult.setY((int) (-pf1d[0][1]+500));
+                pontoresult.setX((int) (pf1[0][0]+500));
+                pontoresult.setY((int) (-pf1[0][1]+500));
                 pf.add(pontoresult);
             }
         
@@ -282,32 +278,32 @@ public class Transforma {
             for(Points p:ponto){
                 Points pontoresult=new Points();
                 //matriz para transladar meio do objeto para origem
-                mt[2][0]=-pt.getX();
-                mt[2][1]=-pt.getY();
-                p1d[0][0]=p.getX()-500;
-                p1d[0][1]=-(p.getY()-500);
-                p1d[0][2]=1;
-                pf1d[0][0]=p1d[0][0]*mt[0][0]+p1d[0][1]*mt[1][0]+p1d[0][2]*mt[2][0];
-                pf1d[0][1]=p1d[0][0]*mt[0][1]+p1d[0][1]*mt[1][1]+p1d[0][2]*mt[2][1];
+                mt[2][0]=-pt.getXd();
+                mt[2][1]=-pt.getYd();
+                p1[0][0]=p.getX()-500.0;
+                p1[0][1]=-(p.getY()-500.0);
+                p1[0][2]=1.0;
+                pf1[0][0]=p1[0][0]*mt[0][0]+p1[0][1]*mt[1][0]+p1[0][2]*mt[2][0];
+                pf1[0][1]=p1[0][0]*mt[0][1]+p1[0][1]*mt[1][1]+p1[0][2]*mt[2][1];
                 
                 //matriz para fazer rotação
                 
-                p1d[0][0]=pf1d[0][0];
-                p1d[0][1]=pf1d[0][1];
-                pf1d[0][0]=p1d[0][0]*mr[0][0]+p1d[0][1]*mr[1][0]+p1d[0][2]*mr[2][0];
-                pf1d[0][1]=p1d[0][0]*mr[0][1]+p1d[0][1]*mr[1][1]+p1d[0][2]*mr[2][1];
+                p1[0][0]=pf1[0][0];
+                p1[0][1]=pf1[0][1];
+                pf1[0][0]=p1[0][0]*mr[0][0]+p1[0][1]*mr[1][0]+p1[0][2]*mr[2][0];
+                pf1[0][1]=p1[0][0]*mr[0][1]+p1[0][1]*mr[1][1]+p1[0][2]*mr[2][1];
                 
                 //matriz para transladar para ponto original do objeto
                 
-                mt[2][0]=pt.getX();
-                mt[2][1]=pt.getY();
-                p1d[0][0]=pf1d[0][0];
-                p1d[0][1]=pf1d[0][1];
-                pf1d[0][0]=p1d[0][0]*mt[0][0]+p1d[0][1]*mt[1][0]+p1d[0][2]*mt[2][0];
-                pf1d[0][1]=p1d[0][0]*mt[0][1]+p1d[0][1]*mt[1][1]+p1d[0][2]*mt[2][1];
+                mt[2][0]=pt.getXd();
+                mt[2][1]=pt.getYd();
+                p1[0][0]=pf1[0][0];
+                p1[0][1]=pf1[0][1];
+                pf1[0][0]=p1[0][0]*mt[0][0]+p1[0][1]*mt[1][0]+p1[0][2]*mt[2][0];
+                pf1[0][1]=p1[0][0]*mt[0][1]+p1[0][1]*mt[1][1]+p1[0][2]*mt[2][1];
                 
-                pontoresult.setX((int) (pf1d[0][0]+500));
-                pontoresult.setY((int) (-pf1d[0][1]+500));
+                pontoresult.setX((int)(pf1[0][0]+500));
+                pontoresult.setY((int) (-pf1[0][1]+500));
                 pf.add(pontoresult);
             }
         
@@ -318,19 +314,21 @@ public class Transforma {
     
     public Points acharMeio(ArrayList<Points> pontos){
         Points pf =new Points();
-        int xm=0,ym=0,cont=0;
+        Double xm=0.0;
+        Double ym=0.0;
+        Double cont=0.0;
         
         for(Points p:pontos){
-            xm=xm+(p.getX()-500);
-            ym=ym-(p.getY()-500);
+            xm=xm+(p.getX()-500.0);
+            ym=ym-(p.getY()-500.0);
             cont++;
         }
         
-        xm=round(xm/cont);
-        ym=round(ym/cont);
-        pf.setX(xm);
-        pf.setY(ym);
-        System.out.println("meiooo: "+xm+" "+ym);
+        xm=xm/cont;
+        ym=ym/cont;
+        pf.setXd(xm);
+        pf.setYd(ym);
+        
         return pf;
     }
     

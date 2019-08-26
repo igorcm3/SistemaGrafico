@@ -27,7 +27,7 @@ public class frmTransformacoes extends javax.swing.JFrame {
     
     // CHAMAR ESSA FUNÇÃO NO EVENTO KEYTYPED DE TODOS OS TEXTFELD PARA N DEIXAR IR LETRAS.
     public void permitirSomenteNumeros(java.awt.event.KeyEvent evt) {
-        String caracteres = "0987654321-";
+        String caracteres = "0987654321-.";
         if (!caracteres.contains(evt.getKeyChar() + "")) {
             evt.consume();
         }
@@ -366,19 +366,19 @@ public class frmTransformacoes extends javax.swing.JFrame {
         switch (painelGuias.getSelectedIndex()) {
             // index 0 primeiro painel = translação.
             case 0:
-                framePrincipal.transformacoes(Integer.parseInt(tx.getText()), Integer.parseInt(ty.getText()),0);
+                framePrincipal.transformacoes(Double.parseDouble(tx.getText()), Double.parseDouble(ty.getText()),0);
                 break;
             case 1:
                 switch(buttonGroup1.getSelection().getActionCommand()){
                     case "r1":
-                        framePrincipal.transformacoes(Integer.parseInt(sx.getText()), Integer.parseInt(sy.getText()),1);
+                        framePrincipal.transformacoes(Double.parseDouble(sx.getText()), Double.parseDouble(sy.getText()),1);
                         
                         break;
                     case "r2":
-                        framePrincipal.transformacoes(Integer.parseInt(sx.getText()), Integer.parseInt(sy.getText()),2);
+                        framePrincipal.transformacoes(Double.parseDouble(sx.getText()), Double.parseDouble(sy.getText()),2);
                         break;
                     case "r3":
-                        framePrincipal.transformacoes(Integer.parseInt(sx.getText()), Integer.parseInt(sy.getText()),3);
+                        framePrincipal.transformacoes(Double.parseDouble(sx.getText()), Double.parseDouble(sy.getText()),3);
                         break;
                 }
                 
@@ -386,14 +386,14 @@ public class frmTransformacoes extends javax.swing.JFrame {
             case 2:
                 switch(buttonGroup2.getSelection().getActionCommand()){
                     case "r1":
-                        framePrincipal.transformacoes(Integer.parseInt(angulo.getText()),0,4);
+                        framePrincipal.transformacoes(Double.parseDouble(angulo.getText()),0,4);
                         
                         break;
                     case "r2":
-                        framePrincipal.transformacoes(Integer.parseInt(angulo.getText()),0,5);
+                        framePrincipal.transformacoes(Double.parseDouble(angulo.getText()),0,5);
                         break;
                     case "r3":
-                        framePrincipal.transformacoes(Integer.parseInt(angulo.getText()),0,6);
+                        framePrincipal.transformacoes(Double.parseDouble(angulo.getText()),0,6);
                         break;
                 }
                 

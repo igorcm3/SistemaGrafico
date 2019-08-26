@@ -831,7 +831,7 @@ public class frmPrincipal extends javax.swing.JFrame {
 
     }
 
-    public void transformacoes(int x, int y, int i) {
+    public void transformacoes(double x, double y, int i) {
         Transforma tr = new Transforma();
         Points p = new Points();
         ArrayList<Points> pLista = new ArrayList<Points>();
